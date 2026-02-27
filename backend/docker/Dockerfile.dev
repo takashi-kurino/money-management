@@ -1,0 +1,11 @@
+FROM python:3.13-slim
+WORKDIR /app
+
+# requirements コピー
+COPY requirements/local.txt requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+
+# ソースコードをコピー（後で volume が上書きしても OK）
+COPY . .
+
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
