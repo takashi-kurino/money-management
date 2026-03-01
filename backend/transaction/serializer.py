@@ -41,8 +41,13 @@ class TransactionSerializer(serializers.ModelSerializer):
 
 
 class TransactionListSerializer(serializers.ModelSerializer):
-    # items omitted for list endpoint
 
     class Meta:
         model = Transaction
         fields = ['uuid', 'type', 'store', 'total_price', 'created_at', 'updated_at']
+
+class WeeklyTransactionSerializer(serializers.ModelSerializer):
+   week_start = serializers.DateField()
+   week_end = serializers.DateField()
+   total = serializers.IntegerField()
+   transactions = TransactionListSerializer(many=True)

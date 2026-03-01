@@ -27,7 +27,6 @@ export default function RootLayout({
     <html lang="ja">
 
       <body className="dark min-h-screen bg-background text-foreground antialiased">
-        <Header />
         <main className="">
           {children}  {/*  app content */}
         </main>

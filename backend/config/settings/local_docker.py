@@ -16,6 +16,12 @@ CSRF_COOKIE_SECURE = False  # HTTP を使用
 CSRF_COOKIE_HTTPONLY = False  # 開発時は柔軟に
 CSRF_COOKIE_SAMESITE = "Lax"
 
+CORS_ALLOWED_ORIGINS = ["http://localhost:3000"]
+CORS_ALLOW_CREDENTIALS = True  # Cookieを許可
+
+SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SAMESITE = "Lax"
+
 REST_AUTH = {
     'USE_JWT': True,
     'JWT_AUTH_COOKIE': 'access',

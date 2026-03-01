@@ -1,8 +1,12 @@
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from .models import Transaction, Category, Item
-from .serializer import TransactionSerializer, CategorySerializer, ItemSerializer
+from .serializer import TransactionSerializer, CategorySerializer, ItemSerializer, TransactionListSerializer, WeeklyTransactionSerializer
 from django.db.models import Q
+from django.db.models import Sum
+from datetime import date
+from rest_framework.response import Response
+from rest_framework import status
 
 class TransactionViewSet(viewsets.ModelViewSet):
     
@@ -54,3 +58,29 @@ class ItemViewSet(viewsets.ModelViewSet):
         total = sum(item.price * item.amount for item in transaction.items.all())
         transaction.total_price = total
         transaction.save()
+
+class WeeklyTransactionViewSet(viewsets.ViewSet):
+    def get(self, request):
+        try:
+            year = int(request.query_params.get('year'))
+            week = int(request.query_params.get('week'))
+            print(f"Received request for year={year}, week={week}")    
+        except (TypeError, ValueError):
+            return Response({"error": "year and week are required"}, status=status.HTTP_400_BAD_REQUEST)
+
+        monday = date.fromisocalendar(year, week, 1)
+        sunday = date.fromisocalendar(year, week, 7)
+        print(f"Calculating transactions from {monday} to {sunday}")  
+
+        transactions = Transaction.objects.filter(date__range=[monday, sunday])
+        total = transactions.aggregate(Sum('amount'))['amount__sum'] or 0
+
+        data = {
+            "week_start": monday,
+            "week_end": sunday,
+            "total": total,
+            "transactions": transactions,
+        }
+
+        serializer = WeeklyTransactionSerializer(data)
+        return Response(serializer.data)
