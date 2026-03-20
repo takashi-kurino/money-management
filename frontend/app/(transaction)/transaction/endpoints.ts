@@ -16,11 +16,17 @@ export async function TransactionDetail(uuid: string) {
     return await fetchWithAuth(endpoints.transactions.instance(uuid));
 }
 
-export async function AddTransaction(name: string) {
-    return await fetchWithAuth(endpoints.transactions.list(), {
+export async function AddTransaction(formData: FormData) {
+    const type = formData.get("type") as string;
+    const store = formData.get("store") as string;
+    const total_price = parseFloat(formData.get("total_price") as string);
+    
+    await fetchWithAuth(endpoints.transactions.list(), {
         method: "POST",
-        body: JSON.stringify({ name }),
+        body: JSON.stringify({ type, store, total_price }),
     });
+    
+    revalidatePath("/transaction");
 }
 
 export async function EditTransaction(uuid: string, name: string) {

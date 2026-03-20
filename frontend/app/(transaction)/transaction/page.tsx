@@ -1,5 +1,6 @@
 
 import {TransactionList} from "./endpoints";
+import AddTransactionForm from "./components/addtransaction";
 import Link from 'next/link';
 
 interface transaction {
@@ -15,10 +16,7 @@ export default async function Page() {
   return (
     <div className="p-4">
       <h1 className="text-2xl font-bold mb-4">Transaction Page</h1>
-      {/* <div className="bg-gray-200 p-4 rounded-lg">
-
-        <pre>{JSON.stringify(transactions, null, 2)}</pre>
-      </div> */}
+      <AddTransactionForm />
       <ul>
       {transactions.map((transaction: transaction) => (
         <li key={transaction.uuid}>
