@@ -92,7 +92,7 @@ function CardHome({title,description}:CardHomeProps) {
             <div className="p-8">
             <div className="text-xl font-semibold tracking-wide text-blue-500 uppercase">{title}</div>
             
-            <p className="mt-2 text-gray-100 text-2xl">
+            <p className="mt-2 text-2xl">
                 {description}
             </p>
             </div>

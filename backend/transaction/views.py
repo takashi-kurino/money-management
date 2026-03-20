@@ -7,6 +7,7 @@ from django.db.models import Sum
 from datetime import date
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.views import APIView
 
 class TransactionViewSet(viewsets.ModelViewSet):
     
@@ -59,26 +60,34 @@ class ItemViewSet(viewsets.ModelViewSet):
         transaction.total_price = total
         transaction.save()
 
-class WeeklyTransactionViewSet(viewsets.ViewSet):
+class WeeklyTransactionView(APIView):
+    permission_classes = [IsAuthenticated]
+
     def get(self, request):
         try:
             year = int(request.query_params.get('year'))
             week = int(request.query_params.get('week'))
-            print(f"Received request for year={year}, week={week}")    
         except (TypeError, ValueError):
             return Response({"error": "year and week are required"}, status=status.HTTP_400_BAD_REQUEST)
 
         monday = date.fromisocalendar(year, week, 1)
         sunday = date.fromisocalendar(year, week, 7)
-        print(f"Calculating transactions from {monday} to {sunday}")  
 
-        transactions = Transaction.objects.filter(date__range=[monday, sunday])
-        total = transactions.aggregate(Sum('amount'))['amount__sum'] or 0
+        transactions = Transaction.objects.filter(
+            user=request.user,
+            created_at__date__range=[monday, sunday]
+        ).prefetch_related('items__category')  # N+1対策
+
+        total_income = transactions.filter(type='収入').aggregate(
+            Sum('total_price'))['total_price__sum'] or 0
+        total_expense = transactions.filter(type='支出').aggregate(
+            Sum('total_price'))['total_price__sum'] or 0
 
         data = {
             "week_start": monday,
             "week_end": sunday,
-            "total": total,
+            "total_income": total_income,
+            "total_expense": total_expense,
             "transactions": transactions,
         }
 

@@ -46,8 +46,9 @@ class TransactionListSerializer(serializers.ModelSerializer):
         model = Transaction
         fields = ['uuid', 'type', 'store', 'total_price', 'created_at', 'updated_at']
 
-class WeeklyTransactionSerializer(serializers.ModelSerializer):
-   week_start = serializers.DateField()
-   week_end = serializers.DateField()
-   total = serializers.IntegerField()
-   transactions = TransactionListSerializer(many=True)
+class WeeklyTransactionSerializer(serializers.Serializer):
+    week_start = serializers.DateField()
+    week_end = serializers.DateField()
+    total_income = serializers.DecimalField(max_digits=10, decimal_places=2)
+    total_expense = serializers.DecimalField(max_digits=10, decimal_places=2)
+    transactions = TransactionListSerializer(many=True)

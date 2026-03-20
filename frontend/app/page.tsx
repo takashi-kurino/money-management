@@ -2,11 +2,10 @@
 
 import {CardHome} from "../components/ui/card";
 
-
 export default function Home() {
   return (
     <> 
-      <div className="h-screen w-full flex justify-center items-center row-start-2 flex-col items-center gap-6 " >
+      <div className="w-full flex justify-center items-center flex-col gap-6">
         <h1 className="text-4xl font-bold text-center">
           Welcome to Takashi Kurino's Portfolio.
         </h1>
