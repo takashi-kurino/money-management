@@ -1,12 +1,7 @@
 
 import {TransactionDetail} from "../endpoints";
-
-interface items {
-  uuid: string;
-  type: string;
-  store: string;
-  total_price: number;
-}
+import Deletetransaction  from "../components/deletetransaction";
+import AddTransaction  from "../conponents/addtransaction";
 
 export default async function Page({ params }: { params: Promise<{ uuid: string }> }) {
 
@@ -20,6 +15,7 @@ export default async function Page({ params }: { params: Promise<{ uuid: string 
 
         <pre>{JSON.stringify(transactions, null, 2)}</pre>
       </div>
+      <Deletetransaction uuid={uuid} />
     </div>
   );
 }

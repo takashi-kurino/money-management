@@ -2,7 +2,7 @@
 import endpoints from '@/lib/apiEndpoints';
 
 
-import { fetchWithAuth } from "@/lib/api";
+import { fetchWithAuth } from "@/lib/api.server";
 
 export async function CategoryList() {
     return await fetchWithAuth(endpoints.categories.list());

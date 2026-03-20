@@ -23,6 +23,7 @@ export default async function Page() {
       {transactions.map((transaction: transaction) => (
         <li key={transaction.uuid}>
           <Link href={`/transaction/${transaction.uuid}`}>{transaction.type}-{transaction.store}-{transaction.total_price}</Link>
+
         </li>
       ))}
     </ul>

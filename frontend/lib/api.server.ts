@@ -1,4 +1,5 @@
-// lib/api.ts
+// lib/api.server.ts
+
 import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
 
@@ -21,7 +22,9 @@ export async function fetchWithAuth(path: string, init?: RequestInit) {
     redirect("/login")
   }
   
-  if (!res.ok) throw new Error(`API error: ${res.status}`)
+  // if (!res.ok) throw new Error(`API error: ${res.status}`)
+
+  if (res.status === 204) return "no content" // データがない場合は特別に扱う;
 
   return res.json()
 }
