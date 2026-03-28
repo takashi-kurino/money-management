@@ -27,6 +27,7 @@ export const user = {
 
 export const transactions = {
   list: () => "transactions/",
+  bulk: () => "transactions/",
   instance: (id: string) => `transactions/${id}/`,
 }
 export const items = {

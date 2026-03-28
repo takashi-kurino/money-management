@@ -1,5 +1,5 @@
 
-// endpoints/todo.ts
+// transaction/endpoints.ts
 "use server";
 import endpoints from '@/lib/apiEndpoints';
 import { fetchWithAuth } from "@/lib/api.server";
@@ -20,20 +20,40 @@ export async function AddTransaction(formData: FormData) {
     const type = formData.get("type") as string;
     const store = formData.get("store") as string;
     const total_price = parseFloat(formData.get("total_price") as string);
+    console.log("Adding transaction:", { type, store, total_price }); // デバッグ用ログ
     
     await fetchWithAuth(endpoints.transactions.list(), {
         method: "POST",
         body: JSON.stringify({ type, store, total_price }),
     });
-    
+
     revalidatePath("/transaction");
 }
 
-export async function EditTransaction(uuid: string, name: string) {
-    return await fetchWithAuth(endpoints.transactions.instance(uuid), {
+export async function EditTransaction(uuid: string, formData: FormData) {
+    const type = formData.get("type") as string;
+    const store = formData.get("store") as string;
+    const total_price = parseFloat(formData.get("total_price") as string);
+    console.log("Editing transaction:", { type, store, total_price }); // デバッグ用ログ
+    
+    const res = await fetchWithAuth(endpoints.transactions.instance(uuid), {
         method: "PUT",
-        body: JSON.stringify({ name }),
+        body: JSON.stringify({ type, store, total_price }),
     });
+    revalidatePath("/transaction");
+}
+
+export async function AddBlukTransaction(formData: FormData) {
+    const file = formData.get("file") as File;
+    const form = new FormData();
+    form.append("file", file);
+    
+    await fetchWithAuth(endpoints.transactions.list(), {
+        method: "POST",
+        body: form,
+    });
+
+    revalidatePath("/transaction");
 }
 
 export async function DeleteTransaction(uuid: string) {

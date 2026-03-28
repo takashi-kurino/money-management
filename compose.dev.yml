@@ -26,7 +26,7 @@ services:
       - /app/node_modules                # ← node_modules はコンテナ内のみ
     environment:
       NODE_ENV: development
-    command: pnpm dev --turbo                     # ← Turbopack 対応なら: pnpm dev --turbo
+    command: pnpm dev                     # ← Turbopack エラー修正のため --turbo フラグ削除
     ports:
       - "3000:3000"
     stdin_open: true

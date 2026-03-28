@@ -24,20 +24,27 @@ class TransactionSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         items_data = validated_data.pop('items', [])
         transaction = Transaction.objects.create(**validated_data)
-        
+        print("items_data:", items_data,flush=True)  # デバッグ用ログ   
+        print("Transaction created:", transaction,flush=True)  # デバッグ用ログ
+        if(not items_data):
+            print("No items data provided.")  # デバッグ用ログ
+            return transaction
+        else:
+            print(f"{len(items_data)} items data provided.")  # デバッグ用ログ
         # Items をまとめて作成
-        for item_data in items_data:
-            Item.objects.create(transaction=transaction, **item_data)
-        
-        # total_price を計算
-        total = sum(
-            item.price * item.amount 
-            for item in transaction.items.all()
-        )
-        transaction.total_price = total
-        transaction.save()
-        
-        return transaction
+            for item_data in items_data:
+                Item.objects.create(transaction=transaction, **item_data)
+            
+            # total_price を計算
+            total = sum(
+                item.price * item.amount 
+                for item in transaction.items.all()
+            )
+            
+            transaction.total_price = total
+            transaction.save()
+            
+            return transaction
 
 
 class TransactionListSerializer(serializers.ModelSerializer):

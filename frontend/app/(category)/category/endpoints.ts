@@ -1,7 +1,7 @@
 // endpoints/todo.ts
+"use server"
+
 import endpoints from '@/lib/apiEndpoints';
-
-
 import { fetchWithAuth } from "@/lib/api.server";
 
 export async function CategoryList() {

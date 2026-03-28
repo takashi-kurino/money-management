@@ -5,7 +5,6 @@ import { DeleteTransaction } from "../endpoints";
 
 export default function Deletetransaction({ uuid }: { uuid: string }) {
   const handleDelete = async () => {
-    if (!confirm("削除しますか？")) return;
     await DeleteTransaction(uuid);
   };
 
