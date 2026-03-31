@@ -20,33 +20,43 @@ class TransactionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Transaction
         fields = ['uuid', 'type', 'store', 'total_price', 'created_at', 'updated_at', 'items']
-    
+
+    def _save_items(self, transaction, items_data):
+        """Items の保存と total_price の再計算（create/update 共通）"""
+        if not items_data:
+            return
+        for item_data in items_data:
+            Item.objects.create(transaction=transaction, **item_data)
+
+        total = sum(item.price * item.amount for item in transaction.items.all())
+        transaction.total_price = total
+        print("Total price calculated:", total, flush=True)  # デバッグ用ログ
+        transaction.save()
+
     def create(self, validated_data):
+        print("Creating Transaction with data:", validated_data, flush=True)  # デバッグ用ログ
         items_data = validated_data.pop('items', [])
         transaction = Transaction.objects.create(**validated_data)
-        print("items_data:", items_data,flush=True)  # デバッグ用ログ   
-        print("Transaction created:", transaction,flush=True)  # デバッグ用ログ
-        if(not items_data):
-            print("No items data provided.")  # デバッグ用ログ
-            return transaction
-        else:
-            print(f"{len(items_data)} items data provided.")  # デバッグ用ログ
-        # Items をまとめて作成
-            for item_data in items_data:
-                Item.objects.create(transaction=transaction, **item_data)
-            
-            # total_price を計算
-            total = sum(
-                item.price * item.amount 
-                for item in transaction.items.all()
-            )
-            
-            transaction.total_price = total
-            transaction.save()
-            
-            return transaction
+        self._save_items(transaction, items_data)
+        print("Transaction created:", transaction, flush=True)  # デバッグ用ログ
+        return transaction
 
+    def update(self, instance, validated_data):
+        print("Updating Transaction with data:", validated_data, flush=True)  # デバッグ用ログ
+        items_data = validated_data.pop('items', None)
 
+        # Transaction フィールドの更新
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+        instance.save()
+
+        # Items が送られてきた場合のみ再構築
+        if items_data is not None:
+            instance.items.all().delete()  # 既存を全削除
+            self._save_items(instance, items_data)
+
+        return instance
+    
 class TransactionListSerializer(serializers.ModelSerializer):
 
     class Meta:

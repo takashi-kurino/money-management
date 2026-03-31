@@ -1,5 +1,4 @@
-// endpoints/todo.ts
-"use server"
+// category endpoints
 
 import endpoints from '@/lib/apiEndpoints';
 import { fetchWithAuth } from "@/lib/api.server";

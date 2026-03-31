@@ -16,11 +16,6 @@ export const auth = {
   passwordChange: () => "auth/password/change/",
 };
 
-// export const todos = {
-//   list: () => "todos/",
-//   detail: (id: string) => `todos/${id}/`,
-// };
-
 export const user = {
   deleteAccount: () => "users/delete/",
 };
