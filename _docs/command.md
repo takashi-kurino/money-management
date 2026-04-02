@@ -1,3 +1,12 @@
+# Docker ボリュームをクリア
+docker-compose -f compose.yml -f compose.dev.yml down -v
+
+# キャッシュをクリア
+docker system prune -a
+
+# 再ビルド
+docker-compose -f compose.yml -f compose.dev.yml up --build
+
 # docker command
 
 ```起動コマンド

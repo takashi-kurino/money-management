@@ -22,11 +22,11 @@ services:
       context: ./frontend
       dockerfile: docker/Dockerfile.dev
     volumes:
-      - ./frontend:/app:cached           # ← ホスト側のコードマウント、高速化
       - /app/node_modules                # ← node_modules はコンテナ内のみ
     environment:
       NODE_ENV: development
-    command: pnpm dev                     # ← Turbopack エラー修正のため --turbo フラグ削除
+      WATCHPACKER_POLLING: 'true'          # ← ファイル変更の検知をポーリングに切り替え
+    command: pnpm dev
     ports:
       - "3000:3000"
     stdin_open: true
