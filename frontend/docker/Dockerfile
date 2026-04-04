@@ -1,6 +1,6 @@
 
 # frontend/Dockerfile
-FROM node:24.0.1-alpine
+FROM node:24.0.1-slim
 
 # pnpm をインストール
 RUN npm install -g pnpm
