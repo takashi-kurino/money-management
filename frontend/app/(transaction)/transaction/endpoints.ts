@@ -30,6 +30,22 @@ export async function AddTransaction(formData: FormData) {
     revalidatePath("/transaction");
 }
 
+// items を含めた取引を追加する関数
+export async function AddTransactionWithItems(data: {
+    type: string;
+    store: string;
+    items: Array<{ name: string; price: number; amount: number }>;
+}) {
+    console.log("Adding transaction with items:", data); // デバッグ用ログ
+    
+    await fetchWithAuth(endpoints.transactions.list(), {
+        method: "POST",
+        body: JSON.stringify(data),
+    });
+
+    revalidatePath("/transaction");
+}
+
 export async function EditTransaction(uuid: string, formData: FormData) {
     const type = formData.get("type") as string;
     const store = formData.get("store") as string;

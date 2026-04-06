@@ -19,6 +19,7 @@ export default async function Page({ params }: { params: Promise<{ uuid: string 
 
       <EditTransactionForm uuid={uuid} transaction={transaction} />
       <DeleteTransaction uuid={uuid} />
+
     </div>
   );
 }
