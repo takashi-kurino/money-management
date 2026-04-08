@@ -13,9 +13,10 @@ interface Transaction {
 interface EditTransactionFormProps {
     uuid: string;
     transaction: Transaction;
+    item_length: number;
 }
 
-export default function EditTransactionForm({ uuid, transaction }: EditTransactionFormProps) {
+export default function EditTransactionForm({ uuid, transaction,item_length }: EditTransactionFormProps) {
     const handleSubmit = async (formData: FormData) => {
         await EditTransaction(uuid, formData);
     };
@@ -47,6 +48,7 @@ export default function EditTransactionForm({ uuid, transaction }: EditTransacti
             </div>
             <div>
             <label className="block text-sm font-medium mb-1">金額</label>
+            {item_length === 0 && (
             <input
                 type="number"
                 name="total_price"
@@ -55,6 +57,18 @@ export default function EditTransactionForm({ uuid, transaction }: EditTransacti
                 defaultValue={transaction.total_price}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md"
             />
+            )}
+            {item_length > 0 && (
+            <input
+                type="number"
+                name="total_price"
+                required
+                step="1"
+                defaultValue={transaction.total_price}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-100 cursor-not-allowed"
+                disabled
+            />
+            )}
             </div>
             <button
             type="submit"
@@ -66,3 +80,8 @@ export default function EditTransactionForm({ uuid, transaction }: EditTransacti
         </form>
     );
 }
+
+// itemが存在する場合、total_priceの入力を無効化するコードを追加
+// item_lengthが0の場合は通常の入力フィールド、1以上の場合は入力不可のフィールドを表示するように条件分岐しています。
+// これにより、itemが存在する場合はtotal_priceを直接編集できなくなります。
+// もしitemが存在する場合、total_priceを編集したい場合は、itemを先に削除する必要があることをユーザーに伝えるためのUI/UXの工夫も検討すると良いでしょう。
