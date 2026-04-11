@@ -281,7 +281,7 @@ export default function AddTransactionForm() {
       {/* 送信ボタン */}
       <button
         type="submit"
-        className="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+        className="w-full bg-blue-500 text-white px-4 py-2 my-4 rounded hover:bg-blue-600"
       >
         取引を追加
       </button>

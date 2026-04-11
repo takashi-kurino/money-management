@@ -17,6 +17,7 @@ export default async function Header() {
                 <li><Link href="/">Home</Link></li>
                 <li><Link href="/transaction">Transaction</Link></li>
                 <li><Link href="/admin">Django admin</Link></li>
+                <li><Link href="/api">Django api</Link></li>
                 <li><UserName /></li>
               </ul>
             </nav>

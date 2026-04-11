@@ -1,6 +1,6 @@
 # prod.py
-DEBUG = False
 from .base import *
+DEBUG = False
 from datetime import timedelta
 
 SECURE_SSL_REDIRECT = True

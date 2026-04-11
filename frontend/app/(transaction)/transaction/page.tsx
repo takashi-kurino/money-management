@@ -18,15 +18,24 @@ export default async function Page() {
   return (
     <div className="p-4">
       <h1 className="text-2xl font-bold mb-4">Transaction Page</h1>
-      <AddTransactionForm />
-      <ul>
-      {transactions.map((transaction: transaction) => (
-        <li key={transaction.uuid}>
-          <Link href={`/transaction/${transaction.uuid}`}>{transaction.created_at}-{transaction.type}-{transaction.store}-{transaction.total_price}</Link>
 
-        </li>
-      ))}
-    </ul>
-    </div>
+
+          <div className="flex justify-center ">
+            <div className="min-w-3/4 max-w-3/4">
+
+              <AddTransactionForm />  
+            </div>
+
+          </div>
+          <ul>
+          {transactions.map((transaction: transaction) => (
+            <li key={transaction.uuid}>
+              <Link href={`/transaction/${transaction.uuid}`}>{transaction.created_at}-{transaction.type}-{transaction.store}-{transaction.total_price}</Link>
+
+            </li>
+          ))}
+          </ul>
+        </div>
+        
   );
 }
