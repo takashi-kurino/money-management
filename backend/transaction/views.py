@@ -42,6 +42,16 @@ class ItemViewSet(viewsets.ModelViewSet):
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
 
+    def destroy(self, request, *args, **kwargs):
+        item = self.get_object()
+        transaction = item.transaction  # 削除前に親を取得しておく
+        item.delete()  # itemを削除
+        # 残ったitemで再計算
+        serializer = TransactionSerializer()
+        serializer._recalculate_total(transaction)
+        
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
     def get_queryset(self):
         qs = super().get_queryset()
         transaction_pk = self.kwargs.get('transaction_pk')

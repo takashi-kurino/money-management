@@ -21,6 +21,12 @@ class TransactionSerializer(serializers.ModelSerializer):
         model = Transaction
         fields = ['uuid', 'type', 'store', 'total_price', 'created_at', 'updated_at', 'items']
 
+    def _recalculate_total(self, transaction):
+        """削除された後の残ったitemで合計を再計算する"""
+        total = sum(item.price * item.amount for item in transaction.items.all())
+        transaction.total_price = total
+        transaction.save()
+
     def _save_items(self, transaction, items_data):
         """Items の保存と total_price の再計算（create/update 共通）"""
         if not items_data:

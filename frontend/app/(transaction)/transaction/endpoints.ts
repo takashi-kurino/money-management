@@ -59,19 +59,6 @@ export async function EditTransaction(uuid: string, formData: FormData) {
     revalidatePath("/transaction");
 }
 
-export async function AddBlukTransaction(formData: FormData) {
-    const file = formData.get("file") as File;
-    const form = new FormData();
-    form.append("file", file);
-    
-    await fetchWithAuth(endpoints.transactions.list(), {
-        method: "POST",
-        body: form,
-    });
-
-    revalidatePath("/transaction");
-}
-
 export async function DeleteTransaction(uuid: string) {
     const res = await fetchWithAuth(endpoints.transactions.instance(uuid), {
         method: "DELETE",
@@ -83,4 +70,30 @@ export async function DeleteTransaction(uuid: string) {
     
 }
 
-// export default { TransactionList, TransactionDetail, AddTransaction, EditTransaction, DeleteTransaction };
+export async function ItemDetail(transactionId: string,itemId: string) {
+    return await fetchWithAuth(endpoints.items.instance(transactionId,itemId));
+}
+
+export async function EditItem(transactionId: string,itemId: string, formData: FormData) {
+    const name = formData.get("name") as string;
+    const amount = parseInt(formData.get("amount") as string);
+    const price = parseFloat(formData.get("price") as string);
+    console.log("Editing item:", { name, amount, price }); // デバッグ用ログ
+    
+    const res = await fetchWithAuth(endpoints.items.instance(transactionId,itemId), {
+        method: "PUT",
+        body: JSON.stringify({ name, amount, price }),
+    });
+    revalidatePath("/transaction");
+}
+
+export async function DeleteItem(transactionId: string,itemId: string) {
+    const res = await fetchWithAuth(endpoints.items.instance(transactionId,itemId), {
+        method: "DELETE",
+    }); 
+    console.log("Delete item response:", res); // デバッグ用ログ
+
+    revalidatePath(`/transaction/${transactionId}`); // 一覧ページのキャッシュを破棄
+    redirect(`/transaction/${transactionId}`);       // 一覧へ移動
+    
+}
