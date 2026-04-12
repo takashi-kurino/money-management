@@ -177,12 +177,6 @@ export default function AddTransactionForm() {
           </div>
         )}
 
-        {/* {type === '収入' && (
-          <div className="text-sm text-gray-600 p-2 bg-blue-50 rounded">
-            合計金額で登録します
-          </div>
-        )} */}
-
       </div>
 
       {/* 合計金額のみ */}

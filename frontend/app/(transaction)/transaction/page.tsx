@@ -1,6 +1,6 @@
 
 import {TransactionList} from "./endpoints";
-import AddTransactionForm from "./components/AddTransaction";
+import AddTransactionForm from "./components/AddTransactionForm";
 import Link from 'next/link';
 
 interface transaction {

@@ -1,5 +1,6 @@
 
 import {TransactionDetail} from "../endpoints";
+import AddItemForm from "../components/AddItemForm";
 import DeleteTransaction from "../components/DeleteTransaction";
 import EditTransactionForm from "../components/EditTransaction";
 import Link from "next/link";
@@ -12,7 +13,7 @@ type Item = {
   price: number;
 };
 
-export default async function Page({ params }: { params: Promise<{ uuid: string }> }) {
+export default async function TransactionEditPage({ params }: { params: Promise<{ uuid: string }> }) {
 
   const { uuid } = await params;
   const transaction = await TransactionDetail(uuid);
@@ -27,6 +28,7 @@ export default async function Page({ params }: { params: Promise<{ uuid: string 
         <div className="min-w-3/4 max-w-3/4">
 
           <EditTransactionForm uuid={uuid} transaction={transaction} item_length={item.length}/>
+          <AddItemForm uuid={uuid} />
         
         </div>
         

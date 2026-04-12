@@ -3,7 +3,6 @@
 "use server";
 import endpoints from '@/lib/apiEndpoints';
 import { fetchWithAuth } from "@/lib/api.server";
-
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 
@@ -74,6 +73,20 @@ export async function ItemDetail(transactionId: string,itemId: string) {
     return await fetchWithAuth(endpoints.items.instance(transactionId,itemId));
 }
 
+export async function AddItem(transactionId: string, formData: FormData){
+    const name = formData.get("name") as string;
+    const amount = parseInt(formData.get("amount") as string);
+    const price = parseFloat(formData.get("price") as string);
+    console.log("Adding item:", { name, amount, price }); // デバッグ用ログ
+    
+    await fetchWithAuth(endpoints.items.list(transactionId), {
+        method: "POST",
+        body: JSON.stringify({ name, amount, price }),
+    });
+
+    revalidatePath(`/transaction/${transactionId}`);
+}
+
 export async function EditItem(transactionId: string,itemId: string, formData: FormData) {
     const name = formData.get("name") as string;
     const amount = parseInt(formData.get("amount") as string);
@@ -93,7 +106,7 @@ export async function DeleteItem(transactionId: string,itemId: string) {
     }); 
     console.log("Delete item response:", res); // デバッグ用ログ
 
-    revalidatePath(`/transaction/${transactionId}`); // 一覧ページのキャッシュを破棄
+    revalidatePath(`/transaction/${transactionId}/item/${itemId}`); // 一覧ページのキャッシュを破棄
     redirect(`/transaction/${transactionId}`);       // 一覧へ移動
     
 }

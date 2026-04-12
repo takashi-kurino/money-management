@@ -6,7 +6,7 @@ interface Transaction {
     uuid: string;
     type: string;
     store: string;
-    total_price: number;
+    total_price: string;
     created_at: string;
 }
 
@@ -24,6 +24,7 @@ export default function EditTransactionForm({ uuid, transaction ,item_length }: 
         }
         console.log("Form data before submission:", {formData: Object.fromEntries(formData.entries())}); // デバッグ用ログ
         await EditTransaction(uuid, formData);
+        alert("取引が編集されました");
     };
     return (
         <form action={handleSubmit} className="mb-6 p-4 bg-blue-50 rounded-lg">
