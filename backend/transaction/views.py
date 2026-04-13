@@ -51,6 +51,14 @@ class ItemViewSet(viewsets.ModelViewSet):
         serializer._recalculate_total(transaction)
         
         return Response(status=status.HTTP_204_NO_CONTENT)
+    
+    def update(self, request, *args, **kwargs):
+        item = self.get_object()
+        item.save()
+        serializer = TransactionSerializer()
+        transaction = item.transaction  
+        serializer._recalculate_total(transaction)
+        return super().update(request, *args, **kwargs)
 
     def get_queryset(self):
         qs = super().get_queryset()
