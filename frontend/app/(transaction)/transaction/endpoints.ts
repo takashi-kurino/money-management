@@ -9,11 +9,16 @@ import { revalidatePath } from "next/cache";
 // 取引関連のエンドポイント
 
 export async function TransactionList() {
-    return await fetchWithAuth(endpoints.transactions.list());
+    const res = await fetchWithAuth(endpoints.transactions.list());
+    if (res.status === 204) return "no content"; // データがない場合は特別に扱う
+    return res.json();
+    //
 }
 
 export async function TransactionDetail(uuid: string) {
-    return await fetchWithAuth(endpoints.transactions.instance(uuid));
+    const res = await fetchWithAuth(endpoints.transactions.instance(uuid));
+    if (res.status === 204) return "no content"; // データがない場合は特別に扱う
+    return res.json();
 }
 
 export async function AddTransaction(formData: FormData) {
@@ -117,30 +122,34 @@ export async function DeleteItem(transactionId: string,itemId: string) {
 // カテゴリ関連のエンドポイント
 
 export async function CategoryList() {
-    return await fetchWithAuth(endpoints.categories.list());
+    const res = await fetchWithAuth(endpoints.categories.list());
+    return res.json();
 }
 
 export async function CategoryDetail(uuid: string) {
-    return await fetchWithAuth(endpoints.categories.instance(uuid));
+    const res = await fetchWithAuth(endpoints.categories.instance(uuid));
+    return res.json();
 }
 
 export async function AddCategory(formData: FormData) {
     const name = formData.get("name") as string;
-    console.log("Adding category:", { name }); // デバッグ用ログ
     
-    await fetchWithAuth(endpoints.categories.list(), {
+    const res = await fetchWithAuth(endpoints.categories.list(), {
         method: "POST",
         body: JSON.stringify({ name }),
     });
-
-    revalidatePath("/transaction/category");
+    const data = await res.json();
+    
+    if (res.ok) revalidatePath("/transaction/category");
+    
+    return {ok:res.ok,status:res.status,data:data}; // 追加したカテゴリ名を返す
 }
 
 export async function EditCategory(categoryId: string, formData: FormData) {
     const name = formData.get("name") as string;
     console.log("Editing category:", { name }); // デバッグ用ログ
     
-    const res = await fetchWithAuth(endpoints.categories.instance(categoryId), {
+    await fetchWithAuth(endpoints.categories.instance(categoryId), {
         method: "PUT",
         body: JSON.stringify({ name }),
     });

@@ -53,7 +53,7 @@ export async function fetchWithAuth(path: string, init?: RequestInit) {
       }
       
       if (retryRes.status === 204) return "no content"
-      return retryRes.json()
+        return retryRes.json()
     }
     
     // リフレッシュ失敗 → ログイン画面へ
@@ -69,5 +69,5 @@ export async function fetchWithAuth(path: string, init?: RequestInit) {
 
   if (res.status === 204) return "no content" // データがない場合は特別に扱う;
 
-  return res.json()
+  return res
 }
