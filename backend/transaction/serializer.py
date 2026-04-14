@@ -1,10 +1,20 @@
 from .models import Transaction, Category, Item
 from rest_framework import serializers
+from rest_framework.validators import UniqueTogetherValidator
 
 class CategorySerializer(serializers.ModelSerializer):
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
     class Meta:
         model = Category
-        fields = ['uuid', 'name']
+        fields = ['uuid', 'name', 'user']
+
+    @property
+    def validators(self):
+        return [UniqueTogetherValidator(
+            queryset=Category.objects.all().filter(user=self.context['request'].user),
+            fields=['name', 'user'],
+            message="このカテゴリーは既に存在しています。"
+        )]
 
 class ItemSerializer(serializers.ModelSerializer):
     uuid = serializers.UUIDField(read_only=True)
