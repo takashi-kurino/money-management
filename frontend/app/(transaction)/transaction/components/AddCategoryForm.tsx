@@ -1,12 +1,29 @@
-// 'use client';
+'use client';
 
 import { AddCategory } from "../endpoints";
+import { useState } from 'react';
 
 export default function AddItemForm () {
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
   async function addCategory(formData: FormData) {
-    'use server'
-    await AddCategory(formData);
+
+    const {ok,status,data} =  await AddCategory(formData);
+    console.log(ok, status,data); // デバッグ用ログ
+    if (!ok) {
+      if (status === 400 && data.non_field_errors) {
+        setError(data.non_field_errors.join(", ")); // APIからのエラーメッセージを表示
+        setSuccess(""); // 成功メッセージをクリア
+      } else {
+        setError("カテゴリの追加に失敗しました"); // 一般的なエラーメッセージ
+        setSuccess(""); // 成功メッセージをクリア
+      }
+    } else {
+      setSuccess("カテゴリが追加されました"); // 成功メッセージ
+      setError(""); // エラーメッセージをクリア
+    }
+   
   }
   return (
     <>
@@ -22,7 +39,8 @@ export default function AddItemForm () {
                 />
               </div>
           </div>
-
+        {error && <p className="text-red-500 mb-4">{error}</p>}
+        {success && <p className="text-green-500 mb-4">{success}</p>}
         <button
           type="submit"
           className="w-full bg-blue-500 text-white px-4 py-2 my-4 rounded hover:bg-blue-600"
