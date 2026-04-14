@@ -6,6 +6,7 @@ import { fetchWithAuth } from "@/lib/api.server";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 
+// 取引関連のエンドポイント
 
 export async function TransactionList() {
     return await fetchWithAuth(endpoints.transactions.list());
@@ -69,6 +70,8 @@ export async function DeleteTransaction(uuid: string) {
     
 }
 
+// アイテム関連のエンドポイント
+
 export async function ItemDetail(transactionId: string,itemId: string) {
     return await fetchWithAuth(endpoints.items.instance(transactionId,itemId));
 }
@@ -108,5 +111,49 @@ export async function DeleteItem(transactionId: string,itemId: string) {
 
     revalidatePath(`/transaction/${transactionId}/item/${itemId}`); // 一覧ページのキャッシュを破棄
     redirect(`/transaction/${transactionId}`);       // 一覧へ移動
+    
+}
+
+// カテゴリ関連のエンドポイント
+
+export async function CategoryList() {
+    return await fetchWithAuth(endpoints.categories.list());
+}
+
+export async function CategoryDetail(uuid: string) {
+    return await fetchWithAuth(endpoints.categories.instance(uuid));
+}
+
+export async function AddCategory(formData: FormData) {
+    const name = formData.get("name") as string;
+    console.log("Adding category:", { name }); // デバッグ用ログ
+    
+    await fetchWithAuth(endpoints.categories.list(), {
+        method: "POST",
+        body: JSON.stringify({ name }),
+    });
+
+    revalidatePath("/transaction/category");
+}
+
+export async function EditCategory(categoryId: string, formData: FormData) {
+    const name = formData.get("name") as string;
+    console.log("Editing category:", { name }); // デバッグ用ログ
+    
+    const res = await fetchWithAuth(endpoints.categories.instance(categoryId), {
+        method: "PUT",
+        body: JSON.stringify({ name }),
+    });
+    revalidatePath("/transaction/category");
+}
+
+export async function DeleteCategory(categoryId: string) {
+    const res = await fetchWithAuth(endpoints.categories.instance(categoryId), {
+        method: "DELETE",
+    }); 
+    console.log("Delete category response:", res); // デバッグ用ログ
+
+    revalidatePath(`/transaction/category/${categoryId}`); // 一覧ページのキャッシュを破棄
+    redirect(`/transaction/category`);       // 一覧へ移動
     
 }
