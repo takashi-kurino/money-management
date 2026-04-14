@@ -73,7 +73,10 @@ api.interceptors.response.use(
         return api(original);
       } catch {
         // refresh token 無い or 期限切れ
-        window.location.href = "/login";
+        if (window.location.pathname !== "/registration/verify-email") {
+          alert("セッションの有効期限が切れました。再度ログインしてください。");
+          window.location.href = "/login";
+        }
         return Promise.reject(error);
       }
     }
