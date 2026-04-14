@@ -13,6 +13,10 @@ class TransactionViewSet(viewsets.ModelViewSet):
     
     queryset = Transaction.objects.all()
     serializer_class = TransactionSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Transaction.objects.filter(user=self.request.user).prefetch_related('items__category')  # N+1対策
     
     def get_serializer_class(self):
         if self.action == 'list':
@@ -41,6 +45,7 @@ class CategoryViewSet(viewsets.ModelViewSet):
 class ItemViewSet(viewsets.ModelViewSet):
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
+    permission_classes = [IsAuthenticated]
 
     def destroy(self, request, *args, **kwargs):
         item = self.get_object()
@@ -61,7 +66,7 @@ class ItemViewSet(viewsets.ModelViewSet):
         return super().update(request, *args, **kwargs)
 
     def get_queryset(self):
-        qs = super().get_queryset()
+        qs = super().get_queryset().filter(transaction__user=self.request.user)
         transaction_pk = self.kwargs.get('transaction_pk')
         if transaction_pk is not None:
             return qs.filter(transaction__uuid=transaction_pk)
@@ -69,7 +74,7 @@ class ItemViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         transaction_pk = self.kwargs.get('transaction_pk')
-        transaction = Transaction.objects.get(uuid=transaction_pk)
+        transaction = Transaction.objects.get(uuid=transaction_pk, user=self.request.user)
         serializer.save(transaction=transaction)
         # total_price update in TransactionSerializer.create handles when
         # items are provided during transaction creation, but when items are
