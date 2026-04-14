@@ -5,7 +5,6 @@ import DeleteTransaction from "../components/DeleteTransaction";
 import EditTransactionForm from "../components/EditTransaction";
 import Link from "next/link";
 
-
 type Item = {
   uuid: string;
   name: string;

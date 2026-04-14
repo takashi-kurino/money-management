@@ -2,12 +2,9 @@
 
 import { DeleteItem } from "../endpoints";
 
-interface DeleteItemProps {
-    transaction_uuid: string;
-    item_uuid: string;
-}
 
-export default function Deletetransaction({ transaction_uuid,item_uuid }: DeleteItemProps) {
+export default function Deletetransaction({ transaction_uuid,item_uuid }: {transaction_uuid:string, item_uuid:string}
+) {
   const handleDelete = async () => {
     await DeleteItem(transaction_uuid,item_uuid);
   };
