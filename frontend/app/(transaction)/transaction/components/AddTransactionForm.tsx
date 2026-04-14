@@ -243,36 +243,7 @@ export default function AddTransactionForm() {
           ))}
         </div>
       )}
-
-      {/* プレビュー */}
-      {/* {inputMode && (
-        <div className="mb-6 p-3 bg-gray-100 rounded">
-          <p className="text-sm font-semibold mb-2">送信データプレビュー:</p>
-          <pre className="text-xs overflow-auto">
-            {JSON.stringify(
-              inputMode === '詳細登録'
-                ? {
-                    type,
-                    store,
-                    items: items.map(item => ({
-                      name: item.name,
-                      price: parseFloat(item.price) || 0,
-                      amount: parseFloat(item.amount) || 0,
-                    }))
-                  }
-                : {
-                    type,
-                    store,
-                    total_price: parseFloat(totalPrice) || 0,
-                  },
-              null,
-              2
-            )}
-          </pre>
-        </div>
-      )} */}
-
-      {/* 送信ボタン */}
+      
       <button
         type="submit"
         className="w-full bg-blue-500 text-white px-4 py-2 my-4 rounded hover:bg-blue-600"

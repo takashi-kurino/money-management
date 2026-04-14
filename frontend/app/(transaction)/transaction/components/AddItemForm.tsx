@@ -1,11 +1,11 @@
-// 'use client';
+'use client';
 
 import { AddItem } from "../endpoints";
 
 export default function AddItemForm ({ uuid }: { uuid: string }) {
 
   async function addItem(formData: FormData) {
-    'use server'
+
     await AddItem(uuid, formData);
   }
   return (

@@ -6,7 +6,7 @@ import { EditCategory } from "../endpoints";
 export default function EditCategoryForm(data: { uuid: string , name: string }) {
     
     const handleSubmit = async (formData: FormData) =>{
-       await EditCategory(data.uuid, formData);
+        await EditCategory(data.uuid, formData);
     }
 
     return (
