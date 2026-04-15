@@ -1,8 +1,8 @@
 
-import {TransactionDetail} from "../endpoints";
-import AddItemForm from "../components/AddItemForm";
-import DeleteTransaction from "../components/DeleteTransaction";
-import EditTransactionForm from "../components/EditTransaction";
+import {TransactionDetail} from "../../endpoints";
+import AddItemForm from "../../_components/AddItemForm";
+import DeleteTransaction from "../../_components/DeleteTransaction";
+import EditTransactionForm from "../../_components/EditTransaction";
 import Link from "next/link";
 
 type Item = {

@@ -1,6 +1,6 @@
 
-import  EditCategoryForm  from "../../components/EditCategory";
-import  DeleteCategoryButton  from "../../components/DeleteCategory";
+import  EditCategoryForm  from "../../_components/EditCategory";
+import  DeleteCategoryButton  from "../../_components/DeleteCategory";
 import { CategoryDetail } from "../../endpoints";
 
 export default async function CategoryEditPage({ params }: { params: Promise<{ uuid: string }> }) {

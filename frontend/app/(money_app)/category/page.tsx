@@ -1,7 +1,7 @@
 
 import  Link  from "next/link";
 import { CategoryList } from "../endpoints";
-import AddCategoryForm  from "../components/AddCategoryForm";
+import AddCategoryForm  from "../_components/AddCategoryForm";
 
 type Category = {
     uuid: string;
