@@ -5,8 +5,8 @@
 import { PasswordChangeForm } from "@/app/(auth)/components/PasswordChangeForm"
 import { AccountDeleteForm } from "@/app/(auth)/components/AccountDeleteForm"
 
-import { Separator } from "@/components/ui/separator"
-import LoggoutButton from "@/components/button/LogoutButton";
+import { Separator } from "@/_components/ui/separator"
+import LoggoutButton from "@/_components/button/LogoutButton";
 
 export default function Page() {
   return (

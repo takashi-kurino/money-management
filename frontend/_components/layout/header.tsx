@@ -1,6 +1,6 @@
 // Header.tsx
 import Link from "next/link";
-import UserName from "@/app/user/components/UserName";
+import UserName from "@/app/(auth)/user/components/UserName";
 
 export default async function Header() {
 

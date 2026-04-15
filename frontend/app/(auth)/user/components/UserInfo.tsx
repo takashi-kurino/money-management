@@ -2,7 +2,7 @@
 'use client';
 
 import { useUser } from '../hooks/useUserInfo';
-import { Skeleton } from '@/components/ui/skeleton'
+import { Skeleton } from '@/_components/ui/skeleton'
 
 type User = {
   id: string;

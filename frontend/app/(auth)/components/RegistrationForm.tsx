@@ -5,17 +5,17 @@ import { useState } from 'react';
 import { useRegistration } from '@/app/(auth)/hooks/useRegistration';
 import { useRegistrationResendEmail } from '@/app/(auth)/hooks/useRegistrationResendEmail';
 
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
+import { cn } from "@/_lib/utils"
+import { Button } from "@/_components/ui/button"
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+} from "@/_components/ui/card"
+import { Input } from "@/_components/ui/input"
+import { Label } from "@/_components/ui/label"
 
 export function RegistrationFrom({
   className,

@@ -16,6 +16,7 @@ async function refreshAccessToken() {
   return res.ok
 }
 
+
 export async function fetchWithAuth(path: string, init?: RequestInit) {
   const cookieStore = await cookies()
   const cookieHeader = cookieStore.toString() // 全Cookie文字列を取得

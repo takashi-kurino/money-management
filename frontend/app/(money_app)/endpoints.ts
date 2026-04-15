@@ -1,8 +1,8 @@
 
 // transaction/endpoints.ts
 "use server";
-import endpoints from '@/lib/apiEndpoints';
-import { fetchWithAuth } from "@/lib/api.server";
+import endpoints from '@/_lib/apiEndpoints';
+import { fetchWithAuth } from "@/_lib/api.server";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 

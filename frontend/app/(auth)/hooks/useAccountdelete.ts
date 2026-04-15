@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { deleteAccount } from '@/app/user/endpoints';
+import { deleteAccount } from '@/app/(auth)/user/endpoints';
 import { useState } from 'react';
 import axios from 'axios';
 

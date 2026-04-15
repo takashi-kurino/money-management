@@ -2,7 +2,7 @@
 
 'use client';
 import { VerifyEmail } from "@/app/(auth)/components/RegistrationVerifyEmail"
-import WithSuspense from "@/components/common/WithSuspense";
+import WithSuspense from "@/_components/common/WithSuspense";
 
 
 export default function Page() {

@@ -1,6 +1,6 @@
 // frontend/app/page.tsx
 
-import {CardHome} from "../components/ui/card";
+import {CardHome} from "../_components/ui/card";
 
 export default function Home() {
   return (

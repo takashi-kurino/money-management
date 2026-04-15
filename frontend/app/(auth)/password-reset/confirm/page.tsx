@@ -1,7 +1,7 @@
 'use client';
 
 import { PasswordResetConfirmPage } from "@/app/(auth)/components/PasswordResetForm";
-import WithSuspense from "@/components/common/WithSuspense";
+import WithSuspense from "@/_components/common/WithSuspense";
 
 export default function Page() {
   return (

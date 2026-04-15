@@ -1,6 +1,6 @@
 'use client';
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/_lib/utils"
 import { useLogout } from '@/app/(auth)/hooks/useLogout';
 import {Button} from '../ui/button';
 

@@ -2,17 +2,17 @@
 
 import { useState } from 'react';
 import { useAccountDelete } from '@/app/(auth)/hooks/useAccountdelete';
-import { Button } from '@/components/ui/button';
-import { cn } from "@/lib/utils"
+import { Button } from '@/_components/ui/button';
+import { cn } from "@/_lib/utils"
 import {
     Card,
     CardContent,
     CardDescription,
     CardHeader,
     CardTitle,
-} from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+} from "@/_components/ui/card"
+import { Input } from "@/_components/ui/input"
+import { Label } from "@/_components/ui/label"
 
 export function AccountDeleteForm() {
     
