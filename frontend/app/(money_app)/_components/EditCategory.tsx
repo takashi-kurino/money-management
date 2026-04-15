@@ -1,7 +1,7 @@
 "use client";
 
 import  Link  from "next/link";
-import { EditCategory } from "../endpoints";
+import { EditCategory } from "@/app/(money_app)/endpoints";
 
 export default function EditCategoryForm(data: { uuid: string , name: string }) {
     

@@ -1,6 +1,6 @@
 
-import {TransactionList} from "../endpoints";
-import AddTransactionForm from "../_components/AddTransactionForm";
+import {TransactionList} from "@/app/(money_app)/endpoints";
+import AddTransactionForm from "@/app/(money_app)/_components/AddTransactionForm";
 import Link from 'next/link';
 
 interface transaction {

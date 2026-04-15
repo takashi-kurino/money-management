@@ -1,6 +1,6 @@
 'use client';
 
-import { AddItem } from "../endpoints";
+import { AddItem } from "@/app/(money_app)/endpoints";
 
 export default function AddItemForm ({ uuid }: { uuid: string }) {
 

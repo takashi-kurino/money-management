@@ -1,6 +1,6 @@
-import {ItemDetail} from "../../../../endpoints";
-import EditItemForm from "../../../../_components/EditItemForm";
-import DeleteItem from "../../../../_components/DeleteItem";
+import {ItemDetail} from "@/app/(money_app)/endpoints";
+import EditItemForm from "@/app/(money_app)/_components/EditItemForm";
+import DeleteItem from "@/app/(money_app)/_components/DeleteItem";
 
 export default async function ItemEditPage({ params }: { params: Promise<{ uuid: string ;item_uuid:string}> }) {
 

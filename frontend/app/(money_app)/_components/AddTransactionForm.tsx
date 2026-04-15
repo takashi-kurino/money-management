@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useCallback } from 'react';
-import { AddTransactionWithItems } from "../endpoints";
+import { AddTransactionWithItems } from "@/app/(money_app)/endpoints";
 
 // フォームアイテムの型定義
 type FormItem = {

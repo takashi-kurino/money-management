@@ -1,5 +1,5 @@
 'use client';
-import { EditItem } from "../endpoints" ;
+import { EditItem } from "@/app/(money_app)/endpoints" ;
 
 interface Item {
   name: string;

@@ -1,6 +1,6 @@
 "use client";
 
-import { DeleteItem } from "../endpoints";
+import { DeleteItem } from "@/app/(money_app)/endpoints";
 
 
 export default function Deletetransaction({ transaction_uuid,item_uuid }: {transaction_uuid:string, item_uuid:string}

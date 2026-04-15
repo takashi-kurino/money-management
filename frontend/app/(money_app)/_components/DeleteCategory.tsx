@@ -1,6 +1,6 @@
 "use client";
 
-import { DeleteCategory } from "../endpoints";
+import { DeleteCategory } from "@/app/(money_app)/endpoints";
 
 export default function DeleteCategoryButton({ category_uuid }: { category_uuid: string }) {
   const handleDelete = async () => {

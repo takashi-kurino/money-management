@@ -1,8 +1,8 @@
 
-import {TransactionDetail} from "../../endpoints";
-import AddItemForm from "../../_components/AddItemForm";
-import DeleteTransaction from "../../_components/DeleteTransaction";
-import EditTransactionForm from "../../_components/EditTransaction";
+import {TransactionDetail} from "@/app/(money_app)/endpoints";
+import AddItemForm from "@/app/(money_app)/_components/AddItemForm";
+import DeleteTransaction from "@/app/(money_app)/_components/DeleteTransaction";
+import EditTransactionForm from "@/app/(money_app)/_components/EditTransaction";
 import Link from "next/link";
 
 type Item = {

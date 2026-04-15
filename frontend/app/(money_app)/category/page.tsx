@@ -1,7 +1,7 @@
 
 import  Link  from "next/link";
-import { CategoryList } from "../endpoints";
-import AddCategoryForm  from "../_components/AddCategoryForm";
+import { CategoryList } from "@/app/(money_app)/endpoints";
+import AddCategoryForm  from "@/app/(money_app)/_components/AddCategoryForm";
 
 type Category = {
     uuid: string;
@@ -17,7 +17,7 @@ export default async function CategoryPage() {
             <AddCategoryForm />
             <ul>
                 {categories.map((category) => (
-                    <Link key={category.uuid} href={`/transaction/category/${category.uuid}`} className="flex items-center gap-2 text-blue-500 hover:underline">
+                    <Link key={category.uuid} href={`/category/${category.uuid}`} className="flex items-center gap-2 text-blue-500 hover:underline">
                         
                         <li key={category.uuid}>{category.uuid}{category.name}</li>
                     </Link>

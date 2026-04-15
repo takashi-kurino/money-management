@@ -1,7 +1,7 @@
 // components/deletetransaction.tsx
 "use client";
 
-import { DeleteTransaction } from "../endpoints";
+import { DeleteTransaction } from "@/app/(money_app)/endpoints";
 
 export default function Deletetransaction({ uuid }: { uuid: string }) {
   const handleDelete = async () => {
