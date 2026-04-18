@@ -140,6 +140,9 @@ REST_AUTH = {
     'USE_JWT': True,
     'JWT_AUTH_COOKIE': 'access',
     'JWT_AUTH_REFRESH_COOKIE': 'refresh',
+    'JWT_AUTH_HTTPONLY': False,
+    'JWT_AUTH_SECURE': False,      # debug now
+    'JWT_AUTH_SAMESITE': 'Lax',
 }
 
 if DEBUG:
@@ -149,11 +152,6 @@ if DEBUG:
         'ROTATE_REFRESH_TOKENS': True,
         'BLACKLIST_AFTER_ROTATION': True,
     }
-
-
-# JWT_AUTH_HTTPONLY = True
-# JWT_AUTH_SAMESITE = "Lax"
-
 
 # ========================
 # allauth 設定
