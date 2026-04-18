@@ -7,7 +7,7 @@ export async function POST() {
 
   console.log("🔄 [Route Handler] リフレッシュトークン送信中...")
 
-  const res = await fetch(`${process.env.DJANGO_API_URL}auth/token/refresh/`, {
+  const res = await fetch(`${process.env.DJANGO_INTERNAL_URL}/api/auth/token/refresh/`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

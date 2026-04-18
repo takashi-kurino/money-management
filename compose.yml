@@ -54,8 +54,8 @@ services:
     ports:
       - "3000:3000"
     environment:
-      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
-      Django_API_URL: ${DJANGO_API_URL} # SSR用
+      NEXT_PUBLIC_URL: ${NEXT_PUBLIC_URL}
+      DJANGO_INTERNAL_URL: ${DJANGO_INTERNAL_URL} # SSR用
     env_file:
       - .env
     depends_on:
@@ -80,6 +80,7 @@ services:
 volumes:
   postgres_data:
   static_volume:
+  node_modules:
 
 networks:
   app-network:

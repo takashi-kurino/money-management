@@ -2,16 +2,12 @@
 import axios from "axios";
 import endpoints from "./apiEndpoints";
 
-/**
- * 実行環境に応じたベースURLを取得
- * - クライアント: 同一オリジンの相対URL
- * - サーバー: 環境変数から取得
- */
 const getBaseURL = () => {
   if (typeof window !== "undefined") {
     return `${window.location.protocol}//${window.location.host}/api/`;
   }
-  return process.env.NEXT_PUBLIC_API_URL || "http://localhost/api/";
+  return `${process.env.DJANGO_INTERNAL_URL}/api` || "http://localhost:8000/api/";
+
 };
 
 /**
