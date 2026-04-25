@@ -1,10 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useLogin } from '@/app/(auth)/hooks/useLogin';
-import { useState } from 'react';
 
-import { cn } from "@/_lib/utils"
 import { Button } from "@/_components/ui/button"
 import {
   Card, CardContent, CardDescription,
@@ -14,26 +11,28 @@ import {
 import { Input } from "@/_components/ui/input"
 import { Label } from "@/_components/ui/label"
 
-type Props = React.ComponentProps<"div">;
+import {useActionState,useEffect} from "react"
+import {Login} from "@/app/(auth)/clientactions"
+import {useRouter} from "next/navigation"
 
-export function LoginForm({ className, ...props }: Props) {   
+const initialState={
+  message:"",
+  redirectTo:"",
+}
 
-  const { login, error, loading } = useLogin();
+export function LoginForm() {   
+  const [state, formAction, pending] = useActionState(Login, initialState)
+  const router = useRouter()
 
-  const [form, setForm] = useState({
-    username: "",
-    password: "",
-  });
-
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-  };
-
+  useEffect(() => {
+    if (state?.redirectTo) {
+      router.push(state.redirectTo)
+    }
+  }, [state])
+  
   return (
-    <div className={cn("flex flex-col gap-6", className)} {...props}>
+    <div >
+
       <Card>
         <CardHeader>
           <CardTitle>ログイン</CardTitle>
@@ -41,10 +40,7 @@ export function LoginForm({ className, ...props }: Props) {
         </CardHeader>
 
         <CardContent>
-          <form
-            className="space-y-6"
-            onSubmit={(e) => login(e, form)}
-          >
+          <form action={formAction} className="space-y-6">
             <div className="flex flex-col gap-6">
               
               {/* USERNAME */}
@@ -54,7 +50,6 @@ export function LoginForm({ className, ...props }: Props) {
                   id="username"
                   name="username"
                   type="username"
-                  onChange={onChange}
                   required
                 />
               </div>
@@ -74,28 +69,21 @@ export function LoginForm({ className, ...props }: Props) {
                   id="password"
                   name="password"
                   type="password"
-                  onChange={onChange}
                   required
                 />
               </div>
-
-              {error && (
-                <p className="text-red-500 text-sm">{error}</p>
-              )}
+                {state?.message && <p className= "text-red-500" aria-live="polite">{state.message}</p>}
 
               <div className="flex flex-col gap-3">
-                <Button type="submit" className="w-full" disabled={loading}>
-                  {loading ? "ログイン中…" : "ログイン"}
+                <Button disabled={pending} type="submit" className="w-full">
+                  ログイン
                 </Button>
-                {/* <Button variant="outline" className="w-full">
-                  Login with Google
-                </Button> */}
               </div>
             </div>
 
             <div className="mt-4 text-center text-sm">
               アカウント作成は{" "}
-              <Link href="/registration" className="underline underline-offset-4">
+              <Link href="/registration2" className="underline underline-offset-4">
                 こちら
               </Link>
             </div>
