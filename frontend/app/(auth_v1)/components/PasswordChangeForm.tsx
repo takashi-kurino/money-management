@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { usePasswordchange } from '@/app/(auth)/hooks/usePasswordchange';
+import { usePasswordchange } from '@/app/(auth_v1)/hooks/usePasswordchange';
 
 import { cn } from "@/_lib/utils"
 import { Button } from "@/_components/ui/button"

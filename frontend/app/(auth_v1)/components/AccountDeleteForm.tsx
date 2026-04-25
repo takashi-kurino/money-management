@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useAccountDelete } from '@/app/(auth)/hooks/useAccountdelete';
+import { useAccountDelete } from '@/app/(auth_v1)/hooks/useAccountdelete';
 import { Button } from '@/_components/ui/button';
 import { cn } from "@/_lib/utils"
 import {

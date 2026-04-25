@@ -1,24 +1,26 @@
-// hooks/usePasswordchange.ts
+// hooks/useLogin.ts
 "use client";
 import { useState } from 'react';
-import { passwordChange } from '@/app/(auth)/endpoints';
+import { registerUser } from '@/app/(auth_v1)/endpoints';
+import { useRouter } from 'next/navigation';
 
-export const usePasswordchange = () => {
+export const useRegistration = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
-    const [oldpassworderror, setOldPasswordError] = useState<string | null>(null);
     const [passworderror, setPasswordError] = useState<string | null>(null);
     const [confirmpassworderror, setConfirmpasswordError] = useState<string | null>(null);
+    const [usererror, setUserError] = useState<string | null>(null);
+    const [emailerror, setEmailError] = useState<string | null>(null);
     const [success, setSuccess] = useState(false);
+    const router = useRouter();
     
-    const handlePasswordchange = async (e: React.FormEvent, new_password1: string, new_password2: string,old_password: string) => {
+    const handleRegistration = async (e: React.FormEvent, username: string, email: string,password1: string,password2:string) => {
         e.preventDefault();
         setError(null);
 
     try {
-        const data = await passwordChange( new_password1, new_password2,old_password);
+        const data = await registerUser( username, email, password1, password2);
         setSuccess(true);
-
         return data;
     } catch (err: any) {
       
@@ -27,24 +29,37 @@ export const usePasswordchange = () => {
             const data = err.response.data;
             console.log(data);
             
-            if(data.old_password){
-                data.old_password.forEach((msg:string) => {
+            if(data.email){
+                data.email.forEach((msg:string) => {
                     if(msg==="This field may not be blank."){
-                        setOldPasswordError("現在のパスワードを入力してください");
-                    } else if(msg==="The password is incorrect."){
-                        setOldPasswordError("現在のパスワードが正しくありません");
+                        setEmailError("メールアドレスを入力してください");
+                    } else if(msg==="Enter a valid email address."){
+                        setEmailError("有効なメールアドレスを入力してください");
+                    } else if(msg==="A user is already registered with this e-mail address."){
+                        setEmailError("このメールアドレスは既に登録されています");
                     } else {
-                        setOldPasswordError(msg);
+                        setEmailError(msg);
                     }
                 });
             }
 
-            if(data.new_password1){
-                data.new_password1.forEach((msg:string) => {
+            if(data.username){
+                data.username.forEach((msg:string) => {
                     if(msg==="This field may not be blank."){
-                        setPasswordError("新しいパスワードを入力してください");
+                        setUserError("ユーザー名を入力してください");
+                    } else if(msg==="A user with that username already exists."){
+                        setUserError("このユーザー名は既に登録されています");
+                    } else {
+                        setUserError(msg);
+                    }
+                });
+            }
+            if(data.password1){
+                data.password1.forEach((msg:string) => {
+                    if(msg==="This field may not be blank."){
+                        setPasswordError("パスワードを入力してください");
                     } else if(msg==="This password is too short. It must contain at least 8 characters."){
-                        setPasswordError("新しいパスワードは8文字以上で設定してください");
+                        setPasswordError("パスワードは8文字以上で設定してください");
                     } else if(msg==="This password is too common."){
                         setPasswordError("よく使われるパスワードは設定できません");
                     } else if(msg==="This password is entirely numeric."){
@@ -54,8 +69,8 @@ export const usePasswordchange = () => {
                     }
                 });
             }
-            if(data.new_password2){
-                data.new_password2.forEach((msg:string) => {
+            if(data.password2){
+                data.password2.forEach((msg:string) => {
                     if(msg==="This field may not be blank."){
                         setConfirmpasswordError("確認用パスワードを入力してください");
                     } else if(msg==="The two password fields didn't match."){
@@ -80,5 +95,5 @@ export const usePasswordchange = () => {
     }
   };
 
-  return { handlePasswordchange, error,oldpassworderror,passworderror,confirmpassworderror,loading ,success};
+  return { handleRegistration, error,usererror,emailerror,passworderror,confirmpassworderror,loading ,success};
 };

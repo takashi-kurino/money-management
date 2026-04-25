@@ -1,6 +1,6 @@
 'use client';
 
-import { logoutUser } from '@/app/(auth)/endpoints'
+import { logoutUser } from '@/app/(auth_v1)/endpoints'
 
 export const useLogout = () => {
   const logout = async () => {

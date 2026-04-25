@@ -1,6 +1,6 @@
 "use client"
 
-import { usePasswordResetConfirmation } from "@/app/(auth)/hooks/usePaswordresetconfirmation"
+import { usePasswordResetConfirmation } from "@/app/(auth_v1)/hooks/usePaswordresetconfirmation"
 import { useSearchParams } from "next/navigation"
 import { useState } from "react"
 

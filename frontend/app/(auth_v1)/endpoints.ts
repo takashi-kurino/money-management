@@ -1,8 +1,8 @@
 
 // auth/endpoints.ts - uses centralized apiEndpoints
 
-import api from '@/lib/axiosapi';
-import endpoints from '@/lib/apiEndpoints';
+import api from '@/_lib/axiosapi';
+import endpoints from '@/_lib/apiEndpoints';
 
 export async function refreshToken() {
     console.log('Attempting token refresh...');
@@ -20,10 +20,29 @@ export async function UserInfo() {
     return response.data;
 }
 
+// export async function loginUser(username: string, password: string) {
+//     const response = await api.post(endpoints.auth.login(), { username, password });
+//     return response.data;
+
+//}
 
 export async function loginUser(username: string, password: string) {
-    const response = await api.post(endpoints.auth.login(), { username, password });
-    return response.data;
+    console.log("run this function")
+  const res = await fetch("/api/auth/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ username, password }),
+    credentials: "include",
+  });
+
+  console.log("Login response status:", res.status);
+
+  if (!res.ok) {
+    const errorData = await res.json();
+    throw new Error(errorData.detail || "Login failed");
+  }
+
+  return await res.json(); // ← res.data は axios の書き方なので修正
 }
 
 export async function logoutUser() {

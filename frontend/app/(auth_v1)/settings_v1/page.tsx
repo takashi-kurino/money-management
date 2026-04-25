@@ -2,8 +2,8 @@
 
 'use client';
 
-import { PasswordChangeForm } from "@/app/(auth)/components/PasswordChangeForm"
-import { AccountDeleteForm } from "@/app/(auth)/components/AccountDeleteForm"
+import { PasswordChangeForm } from "@/app/(auth_v1)/components/PasswordChangeForm"
+import { AccountDeleteForm } from "@/app/(auth_v1)/components/AccountDeleteForm"
 
 import { Separator } from "@/_components/ui/separator"
 import LoggoutButton from "@/_components/button/LogoutButton";

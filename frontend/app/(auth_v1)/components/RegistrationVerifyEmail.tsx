@@ -12,7 +12,7 @@ import {
   CardTitle,
 } from "@/_components/ui/card"
 
-import { useRegistrationVerifyEmail } from '@/app/(auth)/hooks/useRegistrationVerifyEmail'
+import { useRegistrationVerifyEmail } from '@/app/(auth_v1)/hooks/useRegistrationVerifyEmail'
 import { useSearchParams } from "next/navigation"
 import { useEffect } from "react"
 

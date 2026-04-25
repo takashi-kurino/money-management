@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { passwordResetConfirm } from "@/app/(auth)/endpoints"
+import { passwordResetConfirm } from "@/app/(auth_v1)/endpoints"
 
 export function usePasswordResetConfirmation() {
   const [loading, setLoading] = useState(false)

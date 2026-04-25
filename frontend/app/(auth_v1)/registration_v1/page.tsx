@@ -1,7 +1,7 @@
 // frontend/app/login2/page.tsx
 
 'use client';
-import { RegistrationFrom } from "@/app/(auth)/components/RegistrationForm"
+import { RegistrationFrom } from "@/app/(auth_v1)/components/RegistrationForm"
 
 export default function Page() {
   return (

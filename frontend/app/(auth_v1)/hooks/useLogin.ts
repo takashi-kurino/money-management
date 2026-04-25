@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from 'react';
-import { loginUser } from '@/app/(auth)/endpoints';
+import { loginUser } from '@/app/(auth_v1)/endpoints';
 
 type LoginFormValues = {
   username: string;

@@ -1,7 +1,7 @@
-// frontend/app/registration/verify-email/page.tsx    
+// frontend/app/login2/page.tsx
 
 'use client';
-import { VerifyEmail } from "@/app/(auth)/components/RegistrationVerifyEmail"
+import { PasswordResetForm } from "@/app/(auth_v1)/components/PasswordReset"
 import WithSuspense from "@/_components/common/WithSuspense";
 
 
@@ -10,7 +10,7 @@ export default function Page() {
     <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
       <div className="w-full max-w-sm">
         <WithSuspense>
-          <VerifyEmail />
+          <PasswordResetForm />
         </WithSuspense>
         
       </div>

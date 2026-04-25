@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { usePasswordReset } from '@/app/(auth)/hooks/usePasswordreset';
+import { usePasswordReset } from '@/app/(auth_v1)/hooks/usePasswordreset';
 
 import { cn } from "@/_lib/utils"
 import { Button } from "@/_components/ui/button"

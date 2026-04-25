@@ -3,7 +3,7 @@
 
 "use client";
 import { useState } from 'react';
-import { passwordReset } from '@/app/(auth)/endpoints';
+import { passwordReset } from '@/app/(auth_v1)/endpoints';
 
 export const usePasswordReset = () => {
     const [error, setError] = useState<string | null>(null);

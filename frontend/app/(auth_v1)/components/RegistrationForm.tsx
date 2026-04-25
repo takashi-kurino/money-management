@@ -2,8 +2,8 @@
 'use client';
 
 import { useState } from 'react';
-import { useRegistration } from '@/app/(auth)/hooks/useRegistration';
-import { useRegistrationResendEmail } from '@/app/(auth)/hooks/useRegistrationResendEmail';
+import { useRegistration } from '@/app/(auth_v1)/hooks/useRegistration';
+import { useRegistrationResendEmail } from '@/app/(auth_v1)/hooks/useRegistrationResendEmail';
 
 import { cn } from "@/_lib/utils"
 import { Button } from "@/_components/ui/button"

@@ -1,6 +1,6 @@
 "use client";
 import { useState } from 'react';
-import { verifyEmail } from '@/app/(auth)/endpoints';
+import { verifyEmail } from '@/app/(auth_v1)/endpoints';
 
 export const useRegistrationVerifyEmail = () => {
   const [loading, setLoading] = useState(false);

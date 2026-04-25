@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { registrationResendEmail } from '@/app/(auth)/endpoints';
+import { registrationResendEmail } from '@/app/(auth_v1)/endpoints';
 
 export const useRegistrationResendEmail = (email: string) => {
   const [cooldown, setCooldown] = useState<number>(0);
