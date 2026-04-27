@@ -1,6 +1,7 @@
 // Header.tsx
 import Link from "next/link";
-import UserName from "@/app/(auth)/user/components/UserName";
+// import UserName from "@/app/(auth_v1)/user/components/UserName";
+import UserName from "@/app/(auth)/components/UserName";
 
 export default async function Header() {
 
@@ -16,8 +17,8 @@ export default async function Header() {
               <ul className="flex space-x-4">
                 <li><Link href="/">Home</Link></li>
                 <li><Link href="/transaction">Transaction</Link></li>
-                <li><Link href="/admin">Django admin</Link></li>
-                <li><Link href="/api">Django api</Link></li>
+                <li><Link href="http://localhost:8000/admin">Django admin</Link></li>
+                <li><Link href="http://localhost:8000/api">Django api</Link></li>
                 <li><UserName /></li>
               </ul>
             </nav>

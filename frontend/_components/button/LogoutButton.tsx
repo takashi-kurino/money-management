@@ -1,8 +1,8 @@
 'use client';
 
 import { cn } from "@/_lib/utils"
-import { useLogout } from '@/app/(auth)/hooks/useLogout';
-import {Button} from '../ui/button';
+import { useLogout } from '@/app/(auth_v1)/hooks/useLogout';
+import { Button } from '../ui/button';
 
 export default function LoggoutButton() {
     const logout = useLogout();

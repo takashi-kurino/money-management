@@ -23,7 +23,7 @@ export const user = {
 export const transactions = {
   list: () => "transactions/",
   bulk: () => "transactions/",
-  instance: (id: string) => `transactions/${id}/`,
+  instance: (id: string) => `transactions/${id}`,
 }
 export const items = {
   list: (transactionId: string) => `transactions/${transactionId}/items/`,
