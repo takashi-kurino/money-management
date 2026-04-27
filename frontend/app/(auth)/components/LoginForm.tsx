@@ -13,7 +13,6 @@ import { Label } from "@/_components/ui/label"
 
 import {useActionState,useEffect} from "react"
 import {Login} from "@/app/(auth)/clientactions"
-import {useRouter} from "next/navigation"
 
 const initialState={
   message:"",
@@ -22,11 +21,11 @@ const initialState={
 
 export function LoginForm() {   
   const [state, formAction, pending] = useActionState(Login, initialState)
-  const router = useRouter()
 
   useEffect(() => {
     if (state?.redirectTo) {
-      router.push(state.redirectTo)
+      window.location.href = state.redirectTo; // 直接リダイレクトする
+      // ログイン後のユーザー名がHeaderに反映されない問題を解決するため、直接リダイレクトする。
     }
   }, [state])
   
