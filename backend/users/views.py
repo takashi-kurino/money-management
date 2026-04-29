@@ -24,8 +24,8 @@ class CustomUserDeleteView(generics.GenericAPIView):
         response = Response({"detail": "アカウントを削除しました。"}, status=status.HTTP_204_NO_CONTENT)
 
         # Cookie削除
-        response.delete_cookie('access_token', path='/')
-        response.delete_cookie('refresh_token', path='/')
+        response.delete_cookie('access', path='/')
+        response.delete_cookie('refresh', path='/')
 
         return response
     
