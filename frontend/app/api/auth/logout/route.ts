@@ -7,14 +7,14 @@ import { NextRequest, NextResponse } from "next/server"
 
 export async function POST(req: NextRequest) {
   
-  const Res = await fetch(`${process.env.DJANGO_INTERNAL_URL}api/auth/logout/`, {
+  const Res = await fetch(`${process.env.DJANGO_INTERNAL_URL}/api/auth/logout/`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     credentials: "include",
   })
 
-  const data = await Res.json()
   if (!Res.ok) {
+    const data = await Res.json()
     return NextResponse.json(data, { status: Res.status })
   }
 

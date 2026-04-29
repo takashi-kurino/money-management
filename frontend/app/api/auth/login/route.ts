@@ -7,8 +7,7 @@ import { NextRequest, NextResponse } from "next/server"
 export async function POST(req: NextRequest) {
   
   const body = await req.json()
-  
-  const Res = await fetch(`${process.env.DJANGO_INTERNAL_URL}api/auth/login/`, {
+  const Res = await fetch(`${process.env.DJANGO_INTERNAL_URL}/api/auth/login/`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),

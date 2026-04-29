@@ -14,13 +14,20 @@ import { Label } from "@/_components/ui/label"
 import {useActionState,useEffect} from "react"
 import {Login} from "@/app/(auth)/clientactions"
 
+type LoginError={
+  password?: string[]
+  non_field_errors?:string[]
+}
+
 const initialState={
-  message:"",
+  data:null,
   redirectTo:"",
 }
 
 export function LoginForm() {   
   const [state, formAction, pending] = useActionState(Login, initialState)
+  
+  const error = state?.data as LoginError | null
 
   useEffect(() => {
     if (state?.redirectTo) {
@@ -31,7 +38,6 @@ export function LoginForm() {
   
   return (
     <div >
-
       <Card>
         <CardHeader>
           <CardTitle>ログイン</CardTitle>
@@ -48,7 +54,7 @@ export function LoginForm() {
                 <Input
                   id="username"
                   name="username"
-                  type="username"
+                  type="text"
                   required
                 />
               </div>
@@ -70,8 +76,21 @@ export function LoginForm() {
                   type="password"
                   required
                 />
+                {error?.password && (
+                  <p className="text-red-500" aria-live="polite">
+                    {error.password?.map((msg, index) => (
+                      <span key={index}>{msg}</span>
+                    ))}
+                  </p>
+                )}
               </div>
-                {state?.message && <p className= "text-red-500" aria-live="polite">{state.message}</p>}
+                {error?.non_field_errors && (
+                  <p className="text-red-500" aria-live="polite">
+                    {error.non_field_errors?.map((msg, index) => (
+                      <span key={index}>{msg}</span>
+                    ))}
+                  </p>
+                )}
 
               <div className="flex flex-col gap-3">
                 <Button disabled={pending} type="submit" className="w-full">
@@ -82,7 +101,7 @@ export function LoginForm() {
 
             <div className="mt-4 text-center text-sm">
               アカウント作成は{" "}
-              <Link href="/registration2" className="underline underline-offset-4">
+              <Link href="/registration" className="underline underline-offset-4">
                 こちら
               </Link>
             </div>
