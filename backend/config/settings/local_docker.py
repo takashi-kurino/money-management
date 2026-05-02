@@ -1,8 +1,8 @@
 # local.py
 import os
 
-DEBUG = True
 from .base import *
+DEBUG = True
 from datetime import timedelta
 
 # ========================

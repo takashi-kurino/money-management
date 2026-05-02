@@ -1,7 +1,7 @@
 # settings/dev.py
 
-DEBUG = True
 from .base import *
+DEBUG = True
 
 from datetime import timedelta
 # ========================
@@ -31,7 +31,17 @@ ALLOWED_HOSTS += [
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost",
     "http://localhost:8000",
-    ]
+]
+
+REST_AUTH = {
+    'PASSWORD_RESET_SERIALIZER': 'custom_auth.password_reset.serializer.CustomPasswordResetSerializer',
+    'USE_JWT': True,
+    'JWT_AUTH_COOKIE': 'access',
+    'JWT_AUTH_REFRESH_COOKIE': 'refresh',
+    'JWT_AUTH_HTTPONLY': False,
+    'JWT_AUTH_SECURE': False,      # debug now
+    'JWT_AUTH_SAMESITE': 'Lax',
+}
 
 # ========================
 # dev用 Database（デフォルト: .env の値を参照）
@@ -55,8 +65,6 @@ DATABASES = {
 # ========================
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-# Gmail 設定を使いたい場合は以下をコメント解除して .env に設定
-# EMAIL_BACKEND = os.getenv("EMAIL_BACKEND", "django.core.mail.backends.smtp.EmailBackend")
 
 # ========================
 # ロギング設定（デバッグ用）
@@ -81,6 +89,8 @@ LOGGING = {
         },
     },
 }
+# Gmail 設定を使いたい場合は以下をコメント解除して .env に設定
+# EMAIL_BACKEND = os.getenv("EMAIL_BACKEND", "django.core.mail.backends.smtp.EmailBackend")
 
 # EMAIL_HOST = os.getenv("EMAIL_HOST", "smtp.gmail.com")
 # EMAIL_PORT = int(os.getenv("EMAIL_PORT", 587))

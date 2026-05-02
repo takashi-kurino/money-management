@@ -137,6 +137,7 @@ ACCOUNT_ADAPTER = "custom_auth.registration_verify.adapter.CustomAccountAdapter"
 # -----------------------------------------------
 
 REST_AUTH = {
+    # 'PASSWORD_RESET_SERIALIZER': 'custom_auth.password_reset.serializer.CustomPasswordResetSerializer',
     'USE_JWT': True,
     'JWT_AUTH_COOKIE': 'access',
     'JWT_AUTH_REFRESH_COOKIE': 'refresh',
