@@ -61,6 +61,47 @@ export async function VerifyEmail(key:string){
         
 }
 
+export async function PasswordReset(prevState:any,formData:FormData){
+    const email = formData.get("email")
+
+    const res = await fetch("/api/auth/passwordreset", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify( {email} ),
+        credentials: "include",
+    });
+
+    const data = await res.json();
+    if(!res.ok){
+        return{data:data,success:false}
+    }
+
+    return{data:data,success:true}
+}
+
+export async function PasswordResetConfirm(prevState:any,formData:FormData){
+    const new_password1 = formData.get("new_password1")
+    const new_password2 = formData.get("new_password2")
+    const uid = formData.get("uid")
+    const token = formData.get("token")
+    console.log("PasswordResetConfirm called with:", {new_password1,new_password2,uid,token});
+
+    const res = await fetch("/api/auth/passwordreset/confirm", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify( {new_password1,new_password2,uid,token} ),
+        credentials: "include",
+    });
+
+    const data = await res.json();
+    console.log("PasswordResetConfirm failed:", data);
+    if(!res.ok){
+        return{data:data,success:false}
+    }
+
+    return{data:data,success:true}
+}
+
 export async function DeleteAccount(prevState:any,formData:FormData){
     const password = formData.get("password")
     console.log("DeleteAccount called with password:", password);
