@@ -6,7 +6,7 @@ export async function getUserName(){
     const cookieStore = await cookies();
     const token = cookieStore.get("access")?.value;
 
-    const res = await fetch(`${process.env.DJANGO_INTERNAL_URL}api/auth/user/`,{
+    const res = await fetch(`${process.env.DJANGO_INTERNAL_URL}/api/auth/user/`,{
         headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
         method: "GET",
         credentials: "include",

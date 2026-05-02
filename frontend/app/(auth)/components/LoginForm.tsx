@@ -55,7 +55,8 @@ export function LoginForm() {
                   id="username"
                   name="username"
                   type="text"
-                  required
+                  suppressHydrationWarning
+
                 />
               </div>
 
@@ -74,7 +75,8 @@ export function LoginForm() {
                   id="password"
                   name="password"
                   type="password"
-                  required
+                  suppressHydrationWarning
+
                 />
                 {error?.password && (
                   <p className="text-red-500" aria-live="polite">

@@ -8,7 +8,7 @@ import { redirect } from "next/navigation"
 async function refreshAccessToken() {
 
   // ✅ Route Handler経由（絶対URLが必要）
-  const res = await fetch(`${process.env.DJANGO_INTERNAL_URL}api/auth/token/refresh`, {
+  const res = await fetch(`${process.env.DJANGO_INTERNAL_URL}/api/auth/token/refresh`, {
     method: "POST",
     cache: "no-store",
   })
@@ -20,7 +20,7 @@ export async function fetchWithAuth(path: string, init?: RequestInit) {
   const cookieStore = await cookies()
   const cookieHeader = cookieStore.toString() // 全Cookie文字列を取得
   // console.log(cookieHeader)
-  const res = await fetch(`${process.env.DJANGO_INTERNAL_URL}api/${path}`, {
+  const res = await fetch(`${process.env.DJANGO_INTERNAL_URL}/api/${path}`, {
     ...init,
     headers: {
       "Content-Type": "application/json",
@@ -38,7 +38,7 @@ export async function fetchWithAuth(path: string, init?: RequestInit) {
     if (refreshed) {
       // リフレッシュ成功 → 再度リクエストを実行
       
-      const retryRes = await fetch(`${process.env.DJANGO_INTERNAL_URL}api/${path}`, {
+      const retryRes = await fetch(`${process.env.DJANGO_INTERNAL_URL}/api/${path}`, {
         ...init,
         headers: {
           "Content-Type": "application/json",

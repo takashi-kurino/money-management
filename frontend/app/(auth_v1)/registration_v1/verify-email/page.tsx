@@ -1,4 +1,4 @@
-// frontend/app/registration/verify-email/page.tsx    
+// frontend/app/registration_v1/verify-email/page.tsx    
 
 'use client';
 import { VerifyEmail } from "@/app/(auth_v1)/components/RegistrationVerifyEmail"

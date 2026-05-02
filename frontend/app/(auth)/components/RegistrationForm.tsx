@@ -65,7 +65,8 @@ export function RegistrationForm() {
                   id="username"
                   name="username"
                   type="username"
-                  required
+                  suppressHydrationWarning
+
                 />
               </div>
 
@@ -83,7 +84,8 @@ export function RegistrationForm() {
                   id="email"
                   name="email"
                   type="email"
-                  required
+                  suppressHydrationWarning
+
                 />
               </div>
 
@@ -104,7 +106,8 @@ export function RegistrationForm() {
                   id="password1"
                   name="password1"
                   type="password1"
-                  required
+                  suppressHydrationWarning
+
                 />
               </div>
 
@@ -125,7 +128,8 @@ export function RegistrationForm() {
                   id="password2"
                   name="password2"
                   type="password2"
-                  required
+                  suppressHydrationWarning
+
                 />
               </div>
               {error?.password2 && (
