@@ -1,7 +1,4 @@
 // app/api/auth/login/route.ts
-
-"use server"
-
 import { NextRequest, NextResponse } from "next/server"
 
 export async function POST(req: NextRequest) {
@@ -14,6 +11,7 @@ export async function POST(req: NextRequest) {
   })
 
   const data = await Res.json()
+  console.log("Login response:", data )
 
   if (!Res.ok) {
     return NextResponse.json(data, { status: Res.status })
@@ -21,18 +19,19 @@ export async function POST(req: NextRequest) {
 
   // DRF から来た Set-Cookie をそのまま転送、または自前でセット
   const response = NextResponse.json({ ok: true })
-  response.cookies.set("access", data.access, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
-    path: "/",
-  })
-  response.cookies.set("refresh", data.refresh, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
-    path: "/",
-  })
-  
+    response.cookies.set("access", data.access, {
+      httpOnly: true,
+      maxAge: 60*5, // 1分間
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      path: "/",
+    })
+    response.cookies.set("refresh", data.refresh, {
+      httpOnly: true,
+      maxAge: 60 * 60 * 24 * 7, // 7日間
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      path: "/",
+    })
   return response
 }
