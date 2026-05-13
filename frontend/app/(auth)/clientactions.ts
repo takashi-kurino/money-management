@@ -1,9 +1,6 @@
 'use client'
 
-import { json } from "node:stream/consumers";
-
 // BFFのため、クライアントで動作する。実行ファイルは@/app/api/auth/*/route.ts
-
 
 export async function Login(prevState:any,formData:FormData) {
 
@@ -14,7 +11,6 @@ export async function Login(prevState:any,formData:FormData) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify( {username,password} ),
-        credentials: "include",
     });
     if(!res.ok){
         const data = await res.json();
@@ -35,15 +31,39 @@ export async function Registration(prevState:any,formData:FormData) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify( {username,email,password1,password2} ),
-        credentials: "include",
     });
     const data = await res.json();
     if(!res.ok){
-        return{data:data,success_flag:false}
+        return{data:data,success_flag:false,email:email}
     }
     if(res.ok){
-        return{data:data,success_flag:true}
+        return{data:data,success_flag:true,email:email}
     }
+}
+
+export async function ResendEmail(email:string){
+    console.log("ResendEmail called with email:", email);
+
+    const res = await fetch("/api/auth/registration/resend-email/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify( {email} ),
+    });
+
+    if (!res.ok) {
+        // エラー時だけ json を読む（エラーレスポンスにはボディがあるはず）
+        const errorData = await res.json().catch(() => ({}));
+        throw new Error(errorData?.detail ?? `Request failed: ${res.status}`);
+    }
+
+    // 成功時：ボディがある場合だけ json をパース
+    const contentType = res.headers.get("content-type");
+    if (contentType?.includes("application/json")) {
+        return await res.json();
+    }
+
+    return null; // 204 など空レスポンスの場合
+        
 }
 
 export async function VerifyEmail(key:string){ 
@@ -52,12 +72,11 @@ export async function VerifyEmail(key:string){
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify( {key} ),
-        credentials: "include",
     });
 
     const data = await res.json();
 
-    return{data:data}
+    return{data:data,status:res.status}
         
 }
 
@@ -68,7 +87,6 @@ export async function PasswordReset(prevState:any,formData:FormData){
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify( {email} ),
-        credentials: "include",
     });
 
     const data = await res.json();
@@ -90,7 +108,7 @@ export async function PasswordResetConfirm(prevState:any,formData:FormData){
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify( {new_password1,new_password2,uid,token} ),
-        credentials: "include",
+        
     });
 
     const data = await res.json();
@@ -110,7 +128,7 @@ export async function DeleteAccount(prevState:any,formData:FormData){
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify( {password} ),
-        credentials: "include",
+        
     });
 
     if(!res.ok){
@@ -126,7 +144,7 @@ export async function Logout(){
     const res = await fetch("/api/auth/logout",{
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        credentials: "include",
+        
 
     });
     if(!res.ok){

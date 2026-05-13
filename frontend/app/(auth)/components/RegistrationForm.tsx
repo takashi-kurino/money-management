@@ -9,8 +9,8 @@ import {
 import { Input } from "@/_components/ui/input"
 import { Label } from "@/_components/ui/label"
 
-import {useActionState} from "react"
-import {Registration} from "@/app/(auth)/clientactions"
+import {useActionState,useState,useEffect} from "react"
+import {Registration, ResendEmail} from "@/app/(auth)/clientactions"
 
 type RegistrationError={
   username?: string[]
@@ -19,19 +19,48 @@ type RegistrationError={
   password2?: string[]
   non_field_errors?:string[]
 }
+
 type RegistrationSuccess={
   message?: string
 }
 
 const initialState={
   data:null,
-  success_flag:false
+  success_flag:false,
+  email:null
 }
+const useRegistrationResendEmail = (email: string) => {
+  const [cooldown, setCooldown] = useState<number>(0);
+
+  const resend = async (): Promise<void> => {
+    try {
+      await ResendEmail(email);
+      console.log('再送しました');
+      setCooldown(60); // クールダウン開始
+    } catch (err) {
+      console.error('再送できませんでした', err);
+    }
+  };
+
+  // カウントダウン処理
+  useEffect(() => {
+    if (cooldown <= 0) return;
+
+    const timer = setInterval(() => {
+      setCooldown((prev) => prev - 1);
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [cooldown]);
+
+  return { resend, cooldown };
+};
 
 export function RegistrationForm() {   
   const [state, formAction, pending] = useActionState(Registration, initialState)
   const error = state?.data as RegistrationError | null
   const success = state?.data as RegistrationSuccess | null
+  const { resend, cooldown } = useRegistrationResendEmail(state?.email ?? "")
 
   return (
     <div >
@@ -47,12 +76,24 @@ export function RegistrationForm() {
 
         {state?.success_flag == true && (
 
-            <div className="flex flex-col gap-6">
-              {success?.message}
-              認証メールを送信しました。メール内のリンクをクリックして、メールアドレスを認証してください。
-              届かない場合は、迷惑メールフォルダも確認してください。
-              
-            </div>
+          // <div className="flex flex-col gap-6">
+          <div>
+            {success?.message}
+
+            メール内のリンクをクリックして、メールアドレスの確認を完了してください。
+            メールが来ない場合は
+            <button onClick={resend} disabled={cooldown>0} className='text-blue-600 underline'>
+                こちら
+            </button>
+            
+            をクリックしてください
+
+            {cooldown > 0 && (
+                <p className="text-red-500 ml-auto inline-block text-sm underline-offset-4 hover:underline">再送は{cooldown}秒後に可能です</p>
+            )}
+
+            
+          </div>
         )}
         {state?.success_flag == false && (
           <form action={formAction} className="space-y-6">
