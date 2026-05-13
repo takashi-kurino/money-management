@@ -3,18 +3,6 @@
 "use server"
 
 import { cookies } from "next/headers"
-import { redirect } from "next/navigation"
-
-async function refreshAccessToken() {
-
-  // ✅ Route Handler経由（絶対URLが必要）
-  const res = await fetch(`${process.env.DJANGO_INTERNAL_URL}/api/auth/token/refresh`, {
-    method: "POST",
-    cache: "no-store",
-  })
-
-  return res.ok
-}
 
 export async function fetchWithAuth(path: string, init?: RequestInit) {
   const cookieStore = await cookies()
@@ -31,40 +19,40 @@ export async function fetchWithAuth(path: string, init?: RequestInit) {
     cache: "no-store", // 認証済みデータはキャッシュしない
   })
   
-  // 401エラーの場合、リフレッシュトークンを試す
-  if (res.status === 401) {
-    const refreshed = await refreshAccessToken()
+  // // 401エラーの場合、リフレッシュトークンを試す
+  // if (res.status === 401) {
+  //   const refreshed = await refreshAccessToken()
     
-    if (refreshed) {
-      // リフレッシュ成功 → 再度リクエストを実行
+  //   if (refreshed) {
+  //     // リフレッシュ成功 → 再度リクエストを実行
       
-      const retryRes = await fetch(`${process.env.DJANGO_INTERNAL_URL}/api/${path}`, {
-        ...init,
-        headers: {
-          "Content-Type": "application/json",
-          Cookie: (await cookies()).toString(),
-          "X-CSRFToken": (await cookies()).get("csrftoken")?.value || "",
-          ...init?.headers,
-        },
-        cache: "no-store",
-      })
+  //     const retryRes = await fetch(`${process.env.DJANGO_INTERNAL_URL}/api/${path}`, {
+  //       ...init,
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Cookie: (await cookies()).toString(),
+  //         "X-CSRFToken": (await cookies()).get("csrftoken")?.value || "",
+  //         ...init?.headers,
+  //       },
+  //       cache: "no-store",
+  //     })
       
-      if (retryRes.status === 401 || retryRes.status === 403) {
-        redirect("/login")
-      }
+  //     if (retryRes.status === 401 || retryRes.status === 403) {
+  //       redirect("/login")
+  //     }
       
-      if (retryRes.status === 204) return "no content"
-        return retryRes.json()
-    }
+  //     if (retryRes.status === 204) return "no content"
+  //       return retryRes.json()
+  //   }
     
-    // リフレッシュ失敗 → ログイン画面へ
-    redirect("/login")
-  }
+  //   // リフレッシュ失敗 → ログイン画面へ
+  //   redirect("/login")
+  // }
   
-  // 403エラー → ログイン画面へ
-  if (res.status === 403) {
-    redirect("/login")
-  }
+  // // 403エラー → ログイン画面へ
+  // if (res.status === 403) {
+  //   redirect("/login")
+  // }
   
   // if (!res.ok) throw new Error(`API error: ${res.status}`)
 
