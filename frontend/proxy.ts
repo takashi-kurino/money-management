@@ -19,15 +19,15 @@ export async function proxy(req: NextRequest) {
 
   // 保護対象外のパスはスルー
   const isPublicPath =
-    req.nextUrl.pathname.startsWith("/") ||
+    req.nextUrl.pathname === "/" ||
     req.nextUrl.pathname.startsWith("/login") ||
     req.nextUrl.pathname.startsWith("/password-reset") ||
     req.nextUrl.pathname.startsWith("/registration") ||
     req.nextUrl.pathname.startsWith("/api/auth");
 
-  const isAuthPath = 
-    req.nextUrl.pathname.startsWith("/transaction")|| 
-    req.nextUrl.pathname.startsWith("/category")||
+  const isAuthPath =
+    req.nextUrl.pathname.startsWith("/transaction") ||
+    req.nextUrl.pathname.startsWith("/category") ||
     req.nextUrl.pathname.startsWith("/settings");
 
   const isAuthPage = 
@@ -36,17 +36,20 @@ export async function proxy(req: NextRequest) {
     req.nextUrl.pathname.startsWith("/password-reset");
     
   // 保護対象のパスにアクセスしているがアクセストークンもリフレッシュトークンもない場合はログインへリダイレクト
-  if (isAuthPath && !refreshToken) {
+  if (isAuthPath && !accessToken && !refreshToken) {
+    console.log("保護されたパスにアクセスしていますが、アクセストークンもリフレッシュトークンもありません。ログインへリダイレクトします。");
     return NextResponse.redirect(new URL("/login", req.url));
   }
 
   // ログイン済みユーザーがログイン/登録ページにアクセスした場合は設定ページへリダイレクト
   if (accessToken && isAuthPage) {
+    console.log("ログイン済みユーザーがログイン/登録ページにアクセスしています。設定ページへリダイレクトします。");
     return NextResponse.redirect(new URL("/settings", req.url));
   }
 
   // 保護対象外のパスはそのまま通す
   if (isPublicPath){
+    console.log("保護対象外のパスにアクセスしています。リクエストをそのまま通します。");
     return NextResponse.next();
   } 
 
@@ -54,7 +57,7 @@ export async function proxy(req: NextRequest) {
   if ((!accessToken || isTokenExpired(accessToken)) && refreshToken) {
     console.log("アクセストークンが切れているか存在しませんが、リフレッシュトークンがあります。リフレッシュを試みます。");  
 
-    const refreshRes = await fetch(`${req.nextUrl.origin}/api/auth/refresh`, {
+    const refreshRes = await fetch(`${req.nextUrl.origin}/api/auth/refresh/`, {
       method: "POST",
       headers: { cookie: req.headers.get("cookie") ?? ""},
     });
