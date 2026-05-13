@@ -1,21 +1,119 @@
 // actions.ts
-"use server";
 
+"use server"
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 
-export async function DeleteTransaction(uuid: string) {
-  const cookieStore = await cookies();
-  const res = await fetch(`${process.env.API_URL}/api/transactions/${uuid}/`, {
+async function getToken(): Promise<string | undefined> {
+    const cookieStore = await cookies();
+    return cookieStore.get("access")?.value;
+}
+
+export async function TransactionList() {
+    const token = await getToken();
+
+    const res = await fetch(`${process.env.DJANGO_INTERNAL_URL}/api/transactions/`,{
+        headers: {  "Authorization": `Bearer ${token}` },
+        method: "GET",
+        cache: "no-store", // キャッシュを無効化して常に最新のユーザー情報を取得
+    });
+    if(!res.ok){
+        return []
+    }
+    return res.json();
+}
+
+export async function TransactionAdd(prevState: any,formData: FormData) {
+    const token = await getToken();
+
+    const res = await fetch(`${process.env.DJANGO_INTERNAL_URL}/api/transactions/`,{
+        headers: { "Authorization": `Bearer ${token}` },
+        method: "POST",
+        body: formData,
+    });
+    if(!res.ok){
+        return { message: "取引の追加に失敗しました" }
+    }
+    if(res.ok){
+        revalidatePath("/transaction"); // 一覧ページのキャッシュを破棄
+        redirect("/transaction");       // 一覧へ移動
+    }
+    return { message: "取引が正常に追加されました" };
+}
+
+export async function TransactionDetail(uuid: string) {
+    const token = await getToken();
+    
+    const res = await fetch(`${process.env.DJANGO_INTERNAL_URL}/api/transactions/${uuid}/`,{
+        headers: { "Authorization": `Bearer ${token}` },
+        method: "GET",
+        cache: "no-store", // キャッシュを無効化して常に最新のユーザー情報を取得
+    });
+    if(!res.ok){
+        return null
+    }
+    return res.json();
+}
+
+export async function TransactionEdit(uuid: string, prevState: any, formData: FormData) {
+    const token = await getToken();
+    const res = await fetch(`${process.env.DJANGO_INTERNAL_URL}/api/transactions/${uuid}/`,{
+        headers: {  "Authorization": `Bearer ${token}` },
+        method: "PUT",
+        body: formData,
+    });
+    if(!res.ok){
+        return { message: "取引の編集に失敗しました" }
+    }
+    if(res.ok){
+        revalidatePath("/transaction"); // 一覧ページのキャッシュを破棄
+        redirect("/transaction");       // 一覧へ移動
+    }
+    return { message: "取引が正常に編集されました" };
+}
+
+export async function TransactionDelete(uuid: string) {
+    const token = await getToken();
+  const res = await fetch(`${process.env.DJANGO_INTERNAL_URL}/api/transactions/${uuid}/`, {
     method: "DELETE",
-    headers: { Cookie: cookieStore.toString() },
+    headers: { "Authorization": `Bearer ${token}` },
   });
 
-  if (res.status === 401) redirect("/login");
-
   if (res.ok) {
-    revalidatePath("/transactions"); // 一覧ページのキャッシュを破棄
-    redirect("/transactions");       // 一覧へ移動
+    revalidatePath("/transaction"); // 一覧ページのキャッシュを破棄
+    redirect("/transaction");       // 一覧へ移動
   }
+}
+
+export async function CategoryList() {
+    const token = await getToken();
+
+    const res = await fetch(`${process.env.DJANGO_INTERNAL_URL}/api/categories/`,{
+        headers: { "Authorization": `Bearer ${token}` },
+        method: "GET",
+        cache: "no-store", // キャッシュを無効化して常に最新のユーザー情報を取得
+    });
+    if(!res.ok){
+        return []
+    }
+    return res.json();
+}
+
+export async function CategoryAdd(prevState: any, formData: FormData) {
+    const token = await getToken();
+    const name = formData.get("name");
+
+    const res = await fetch(`${process.env.DJANGO_INTERNAL_URL}/api/categories/`,{
+        headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
+        method: "POST",
+        body: JSON.stringify( {name} ),
+    });
+    
+    if(!res.ok){
+        return { message: `カテゴリーの追加に失敗しました: ${res.status}` }
+    }
+    
+    revalidatePath("/category"); // 一覧ページのキャッシュを破棄
+    redirect("/category");       // 一覧へ移動
 }

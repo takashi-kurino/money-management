@@ -1,28 +1,16 @@
+'use client'
 
-import  Link  from "next/link";
-import { CategoryList } from "@/app/(money_app)/actions";
-import { CategoryAddForm } from "@/app/(money_app)/_components/CategoryAddForm";
+import Link from 'next/link'
 
-type Category = {
-    uuid: string;
-    name: string;
-};
+interface Category {
+  uuid: string
+  name: string
+}
 
-export default async function CategoryPage() {
-
-    const data = await CategoryList();
-    const categories: Category[] = await data;
+export default function CategoryRow({ categories }: { categories: Category[] }) {
     return (
-
-
         <div className="min-h-screen bg-gray-50 p-6">
             <div className="mx-auto max-w-4xl">
-            <h1 className="text-3xl font-bold text-gray-900 mb-8">カテゴリー管理</h1>
-    
-            <div className="bg-white rounded-lg shadow-sm p-6 mb-8">
-                <CategoryAddForm />
-            </div>
-    
             <div className="bg-white rounded-lg shadow-sm overflow-hidden">
                 <ul>
                     {categories.map((category) => (

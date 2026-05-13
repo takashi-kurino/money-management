@@ -1,12 +1,18 @@
 
-import {TransactionList} from "@/app/(money_app)/endpoints";
-import AddTransactionForm from "@/app/(money_app)/_components/AddTransactionForm";
-import Link from 'next/link';
+import {TransactionList,CategoryList} from "@/app/(money_app)/actions";
+import {TransactionAddForm }from "@/app/(money_app)/_components/TransactionAddForm";
+import { TransactionRow } from "@/app/(money_app)/_components/TransactionRow";
+
+interface Category {
+  uuid: string;
+  name: string;
+}
 
 interface transaction {
   uuid: string;
   type: string;
   store: string;
+  category: Category | null;
   total_price: number;
   created_at: string;
 }
@@ -14,28 +20,36 @@ interface transaction {
 export default async function Page() {
 
   const transactions = await TransactionList();
-  
+  const categories = await CategoryList();
+
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Transaction Page</h1>
+    <div className="min-h-screen bg-gray-50 p-6">
+      <div className="mx-auto max-w-4xl">
+        <h1 className="text-3xl font-bold text-gray-900 mb-8">取引管理</h1>
 
-
-          <div className="flex justify-center ">
-            <div className="min-w-3/4 max-w-3/4">
-
-              <AddTransactionForm />  
-            </div>
-
-          </div>
-          <ul>
-          {transactions.map((transaction: transaction) => (
-            <li key={transaction.uuid}>
-              <Link href={`/transaction/${transaction.uuid}`}>{transaction.created_at}-{transaction.type}-{transaction.store}-{transaction.total_price}</Link>
-
-            </li>
-          ))}
-          </ul>
+        <div className="bg-white rounded-lg shadow-sm p-6 mb-8">
+          <TransactionAddForm categories={categories} />
         </div>
+
+        <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+          <table className="w-full">
+            <thead className="bg-gray-100 border-b border-gray-200">
+              <tr>
+                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">収支</th>
+                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">店舗</th>
+                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">カテゴリ</th>
+                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">金額</th>
+              </tr>
+            </thead>
+            <tbody>
+              {transactions.map((transaction: transaction) => (
+                <TransactionRow key={transaction.uuid} transaction={transaction} />
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
         
   );
 }
