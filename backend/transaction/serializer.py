@@ -4,12 +4,14 @@ from rest_framework.validators import UniqueTogetherValidator
 
 class CategorySerializer(serializers.ModelSerializer):
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    
     class Meta:
         model = Category
         fields = ['uuid', 'name', 'user']
 
     @property
     def validators(self):
+        
         return [UniqueTogetherValidator(
             queryset=Category.objects.all().filter(user=self.context['request'].user),
             fields=['name', 'user'],
@@ -18,18 +20,19 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class ItemSerializer(serializers.ModelSerializer):
     uuid = serializers.UUIDField(read_only=True)
-    category_name = serializers.CharField(source='category.name', read_only=True)
+    category = CategorySerializer(read_only=False, required=False)
 
     class Meta:
         model = Item
-        fields = ['uuid', 'name', 'price', 'amount', 'category', 'category_name']
+        fields = ['uuid', 'name', 'price', 'amount', 'category']
 
-class TransactionSerializer(serializers.ModelSerializer):
+class TransactionDetailSerializer(serializers.ModelSerializer):
     items = ItemSerializer(many=True, read_only=False, required=False)
+    category = CategorySerializer(read_only=False, required=False)
 
     class Meta:
         model = Transaction
-        fields = ['uuid', 'type', 'store', 'total_price', 'created_at', 'updated_at', 'items']
+        fields = ['uuid', 'type', 'store', 'category', 'total_price', 'created_at', 'updated_at', 'items']
 
     def _recalculate_total(self, transaction):
         """削除された後の残ったitemで合計を再計算する"""
@@ -74,10 +77,11 @@ class TransactionSerializer(serializers.ModelSerializer):
         return instance
     
 class TransactionListSerializer(serializers.ModelSerializer):
-
+    category = CategorySerializer(read_only=False, required=False)
+        
     class Meta:
         model = Transaction
-        fields = ['uuid', 'type', 'store', 'total_price', 'created_at', 'updated_at']
+        fields = ['uuid', 'type', 'store', 'category', 'total_price', 'created_at', 'updated_at']
 
 class WeeklyTransactionSerializer(serializers.Serializer):
     week_start = serializers.DateField()

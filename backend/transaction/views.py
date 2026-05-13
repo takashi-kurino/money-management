@@ -1,18 +1,19 @@
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from .models import Transaction, Category, Item
-from .serializer import TransactionSerializer, CategorySerializer, ItemSerializer, TransactionListSerializer, WeeklyTransactionSerializer
+from .serializer import TransactionDetailSerializer, CategorySerializer, ItemSerializer, TransactionListSerializer, WeeklyTransactionSerializer
 from django.db.models import Q
 from django.db.models import Sum
 from datetime import date
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
+from .serializer import TransactionListSerializer
 
 class TransactionViewSet(viewsets.ModelViewSet):
     
     queryset = Transaction.objects.all()
-    serializer_class = TransactionSerializer
+    serializer_class = TransactionDetailSerializer
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
@@ -20,9 +21,8 @@ class TransactionViewSet(viewsets.ModelViewSet):
     
     def get_serializer_class(self):
         if self.action == 'list':
-            from .serializer import TransactionListSerializer
             return TransactionListSerializer
-        return TransactionSerializer
+        return TransactionDetailSerializer
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
@@ -52,7 +52,7 @@ class ItemViewSet(viewsets.ModelViewSet):
         transaction = item.transaction  # 削除前に親を取得しておく
         item.delete()  # itemを削除
         # 残ったitemで再計算
-        serializer = TransactionSerializer()
+        serializer = TransactionDetailSerializer()
         serializer._recalculate_total(transaction)
         
         return Response(status=status.HTTP_204_NO_CONTENT)
@@ -60,7 +60,7 @@ class ItemViewSet(viewsets.ModelViewSet):
     def update(self, request, *args, **kwargs):
         item = self.get_object()
         item.save()
-        serializer = TransactionSerializer()
+        serializer = TransactionDetailSerializer()
         transaction = item.transaction  
         serializer._recalculate_total(transaction)
         return super().update(request, *args, **kwargs)
