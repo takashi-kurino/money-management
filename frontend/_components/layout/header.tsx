@@ -1,28 +1,33 @@
 // Header.tsx
 import Link from "next/link";
-// import UserName from "@/app/(auth_v1)/user/components/UserName";
-import UserName from "@/app/(auth)/components/UserName";
+import { getUserName } from "@/app/(auth)/actions";
 
 export default async function Header() {
 
+  const user = await getUserName();
+
   return (
-    <header className="fixed top-0 left-0 right-0 w-full shadow-md bg-white dark:bg-gray-900 z-10">
-      <div className="max-w-1xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
-          <div className="flex items-center">
-            <h1 className="text-lg font-bold">Money Manage App</h1>
+    <header className="fixed top-0 left-0 right-0 w-full h-16 shadow-md bg-white dark:bg-gray-900 z-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
+        <div className="flex justify-between items-center h-full">
+          <div>
+            <h1 className="text-lg font-bold text-gray-900 dark:text-white">Money Manage App</h1>
           </div>
-          <div className="flex items-center space-x-4">
-            <nav>
-              <ul className="flex space-x-4">
-                <li><Link href="/">Home</Link></li>
-                <li><Link href="/transaction">Transaction</Link></li>
-                <li><Link href="http://localhost:8000/admin">Django admin</Link></li>
-                <li><Link href="http://localhost:8000/api">Django api</Link></li>
-                <li><UserName /></li>
-              </ul>
-            </nav>
-          </div>
+          <nav>
+            <ul className="flex space-x-4 text-sm md:text-base">
+              <li><Link href="/" className="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">Home</Link></li>
+              <li><Link href="/transaction" className="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">Transaction</Link></li>
+              <li><Link href="/category" className="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">Category</Link></li>
+              {user ? (
+                <>
+                  <li className="text-gray-700 dark:text-gray-300">{user}</li>
+                  <li><Link href="/settings" className="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">Settings</Link></li>
+                </>
+              ) : (
+                <li><Link href="/login" className="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">Login</Link></li>
+              )}
+            </ul>
+          </nav>
         </div>
       </div>
     </header>
