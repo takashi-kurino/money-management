@@ -4,22 +4,21 @@ import {CardHome} from "../_components/ui/card";
 
 export default function Home() {
   return (
-    <> 
-      <div className="w-full flex justify-center items-center flex-col gap-6">
-        <h1 className="text-4xl font-bold text-center">
-          Welcome to Takashi Kurino's Portfolio.
+    <div className="min-h-screen flex flex-col justify-center items-center bg-gray-50 p-6">
+      <div className="w-full max-w-4xl">
+        <h1 className="text-4xl font-bold text-center text-gray-900 mb-4">
+          Welcome to Takashi Kurino's Portfolio
         </h1>
-        <h2 className="text-2xl text-center">
+        <h2 className="text-xl text-center text-gray-600 mb-12">
           This stack includes
         </h2>
-        <div className="columns-1 md:columns-2 lg:columns-4 gap-4 space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <CardHome title="Frontend" description="React + Next.js" />
-          <CardHome title="webserver" description="Nginx" />
+          <CardHome title="Webserver" description="Nginx" />
           <CardHome title="Backend" description="Django" />
-          <CardHome title="db" description="PostgreSQL" />
+          <CardHome title="Database" description="PostgreSQL" />
         </div>
       </div>
-    </>
-
+    </div>
   );
 }

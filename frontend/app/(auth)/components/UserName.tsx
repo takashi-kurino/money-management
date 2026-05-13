@@ -10,7 +10,7 @@ export default async function UserName() {
     <div>
       {user ? (
         <div>
-          <p><Link href="/settings">{user}</Link></p>
+          <p>{user}</p>
         </div>
       ) : (
         <p><Link href="/login">login</Link></p>

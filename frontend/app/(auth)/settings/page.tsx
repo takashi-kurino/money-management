@@ -5,6 +5,7 @@
 import { Separator } from "@/_components/ui/separator"
 import LoggoutButton from "@/_components/button/LogoutButton";
 import { AccountDeleteForm } from "@/app/(auth)/components/AccountDeleteForm";
+import { PasswordChangeForm } from "@/app/(auth)/components/PasswordChangeForm";
 
 export default function Page() {
   return (
@@ -14,9 +15,9 @@ export default function Page() {
         {/* <UserInfo /> */}
         <LoggoutButton />
 
-        {/* <Separator className="my-6" /> */}
+        <Separator className="my-6" />
 
-        {/* <PasswordChangeForm /> */}
+        <PasswordChangeForm />
 
         <Separator className="my-6" />
         

@@ -24,15 +24,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ja">
-
-      <body >
+    <html lang="ja" className="scroll-smooth">
+      <body className="m-0">
         <Header />
-        <main className="pt-16 min-h-screen dark:bg-gray-900 z-10">
-          {children}  {/*  app content */}
+        <main className="pt-16">
+          {children}
         </main>
       </body>
-      
     </html>
   );
 }
