@@ -1,6 +1,6 @@
 
 import  Link  from "next/link";
-import { CategoryList } from "@/app/(money_app)/actions";
+import { GetCategoryList } from "@/app/(money_app)/actions";
 import { CategoryAddForm } from "@/app/(money_app)/_components/CategoryAddForm";
 
 type Category = {
@@ -10,7 +10,7 @@ type Category = {
 
 export default async function CategoryPage() {
 
-    const data = await CategoryList();
+    const data = await GetCategoryList();
     const categories: Category[] = await data;
     return (
 

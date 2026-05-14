@@ -1,57 +1,25 @@
+import {GetTransactionDetail,GetCategoryList} from "@/app/(money_app)/actions";
+import {TransactionEditForm }from "@/app/(money_app)/_components/TransactionEditForm";
+import { TransactionDeleteButton } from "@/app/(money_app)/_components/TransactionDeleteButton";
 
-import {TransactionDetail} from "@/app/(money_app)/endpoints";
-import AddItemForm from "@/app/(money_app)/_components/AddItemForm";
-import DeleteTransaction from "@/app/(money_app)/_components/DeleteTransaction";
-import EditTransactionForm from "@/app/(money_app)/_components/EditTransaction";
-import Link from "next/link";
-
-type Item = {
-  uuid: string;
-  name: string;
-  amount: string;
-  price: number;
-};
-
-export default async function TransactionEditPage({ params }: { params: Promise<{ uuid: string }> }) {
-
+export default async function Page({ params }: { params: Promise<{ uuid: string }> }) {
   const { uuid } = await params;
-  const transaction = await TransactionDetail(uuid);
-  const item : Item[] = await transaction.items;
+  const transactiondetail = await GetTransactionDetail(uuid);
+  const categories = await GetCategoryList();
 
   return (
-    <>  
-      <h1 className="text-2xl font-bold mb-4 p-4">Transaction Edit Page</h1>
-      <div className="flex justify-center ">
+    <div className="min-h-screen bg-gray-50 p-6">
+      <div className="mx-auto max-w-2xl">
+        <h1 className="text-3xl font-bold text-gray-900 mb-8">取引詳細</h1>
 
+        <div className="bg-white rounded-lg shadow-sm p-6">
+          <TransactionEditForm uuid={uuid} initialData={transactiondetail} categories={categories} />
 
-        <div className="min-w-3/4 max-w-3/4">
-
-          <EditTransactionForm uuid={uuid} transaction={transaction} item_length={item.length}/>
-          <AddItemForm uuid={uuid} />
-        
+          <div className="mt-8 pt-6 border-t border-gray-200">
+            <TransactionDeleteButton uuid={uuid} />
+          </div>
         </div>
-        
-
       </div>
-      <div className="p-4">
-      <ul>
-            {item.map((item) => (
-              <li key={item.uuid} className="mb-2">
-
-                <Link href={`/transaction/${transaction.uuid}/item/${item.uuid}`}>
-                  <strong>name:</strong> {item.name} 
-                  <strong>amount:</strong> {item.amount}
-                  <strong>price:</strong> {item.price}
-                </Link>
-                  
-                
-              </li>
-            ))}
-          </ul>
-          <DeleteTransaction uuid={uuid} />
-
-      </div>
-
-    </>
+    </div>
   );
 }

@@ -1,18 +1,18 @@
 'use client'
  
 import { useActionState } from 'react'
-import { CategoryAdd } from '@/app/(money_app)/actions'
+import { PostCategory } from '@/app/(money_app)/actions'
  
 const initialState = {
   message: "",
 }
  
 export function CategoryAddForm() {
-  const [state, formAction, pending] = useActionState(CategoryAdd, initialState)
+  const [state, formAction, pending] = useActionState(PostCategory, initialState)
  
   return (
     <form action={formAction} className="space-y-4">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-end">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2" htmlFor="name">カテゴリー名</label>
           <input

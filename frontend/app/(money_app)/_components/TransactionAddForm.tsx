@@ -1,22 +1,15 @@
 'use client'
  
 import { useActionState } from 'react'
-import { TransactionAdd,CategoryList } from '@/app/(money_app)/actions'
- 
+import { PostTransaction } from '@/app/(money_app)/actions'
 import { categorytype } from '../types'
 
 const initialState = {
   message: "",
 }
-
-type Category = {
-  uuid: string;
-  name: string;
-}
  
-export function TransactionAddForm({ categories }: { categories: Category[] }) {
-  const [state, formAction, pending] = useActionState(TransactionAdd, initialState)
 export function TransactionAddForm({ categories }: { categories: categorytype[] }) {
+  const [state, formAction, pending] = useActionState(PostTransaction, initialState)
  
   return (
     <form action={formAction} className="space-y-4">
@@ -29,7 +22,7 @@ export function TransactionAddForm({ categories }: { categories: categorytype[] 
             name="type"
             required
           >
-            <option value="">選択してください</option>
+            <option value=""></option>
             <option value="収入">収入</option>
             <option value="支出">支出</option>
           </select>
@@ -42,8 +35,7 @@ export function TransactionAddForm({ categories }: { categories: categorytype[] 
             type="text"
             id="store"
             name="store"
-            placeholder="店舗・取引先名"
-            required
+            // required
           />
         </div>
 
@@ -53,9 +45,8 @@ export function TransactionAddForm({ categories }: { categories: categorytype[] 
             className="w-full px-3 py-2 border border-gray-300 rounded-md text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             id="category"
             name="category"
+            
           >
-            <option value="">選択してください</option>
-            {categories.map((category: Category) => (
             <option value=""></option>
             {categories.map((category: categorytype) => (
               <option key={category.uuid} value={category.uuid}>

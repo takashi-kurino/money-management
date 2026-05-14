@@ -1,13 +1,13 @@
 
-import {TransactionList,CategoryList} from "@/app/(money_app)/actions";
+import {GetTransactionList,GetCategoryList} from "@/app/(money_app)/actions";
 import {TransactionAddForm }from "@/app/(money_app)/_components/TransactionAddForm";
 import { TransactionRow } from "@/app/(money_app)/_components/TransactionRow";
 import type { transactiontype } from "@/app/(money_app)/types";
 
 export default async function Page() {
 
-  const transactions = await TransactionList();
-  const categories = await CategoryList();
+  const transactions = await GetTransactionList();
+  const categories = await GetCategoryList();
 
   return (
     <div className="min-h-screen bg-gray-50 p-6">

@@ -10,7 +10,7 @@ async function getToken(): Promise<string | undefined> {
     return cookieStore.get("access")?.value;
 }
 
-export async function TransactionList() {
+export async function GetTransactionList() {
     const token = await getToken();
 
     const res = await fetch(`${process.env.DJANGO_INTERNAL_URL}/api/transactions/`,{
@@ -24,7 +24,7 @@ export async function TransactionList() {
     return res.json();
 }
 
-export async function TransactionAdd(prevState: any,formData: FormData) {
+export async function PostTransaction(prevState: any,formData: FormData) {
     const token = await getToken();
 
     const res = await fetch(`${process.env.DJANGO_INTERNAL_URL}/api/transactions/`,{
@@ -42,7 +42,7 @@ export async function TransactionAdd(prevState: any,formData: FormData) {
     return { message: "取引が正常に追加されました" };
 }
 
-export async function TransactionDetail(uuid: string) {
+export async function GetTransactionDetail(uuid: string) {
     const token = await getToken();
     
     const res = await fetch(`${process.env.DJANGO_INTERNAL_URL}/api/transactions/${uuid}/`,{
@@ -56,7 +56,8 @@ export async function TransactionDetail(uuid: string) {
     return res.json();
 }
 
-export async function TransactionEdit(uuid: string, prevState: any, formData: FormData) {
+export async function PutTransaction(uuid: string, prevState: any, formData: FormData) {
+    console.log(formData)
     const token = await getToken();
     const res = await fetch(`${process.env.DJANGO_INTERNAL_URL}/api/transactions/${uuid}/`,{
         headers: {  "Authorization": `Bearer ${token}` },
@@ -73,7 +74,7 @@ export async function TransactionEdit(uuid: string, prevState: any, formData: Fo
     return { message: "取引が正常に編集されました" };
 }
 
-export async function TransactionDelete(uuid: string) {
+export async function DeleteTransaction(uuid: string) {
     const token = await getToken();
   const res = await fetch(`${process.env.DJANGO_INTERNAL_URL}/api/transactions/${uuid}/`, {
     method: "DELETE",
@@ -86,7 +87,7 @@ export async function TransactionDelete(uuid: string) {
   }
 }
 
-export async function CategoryList() {
+export async function GetCategoryList() {
     const token = await getToken();
 
     const res = await fetch(`${process.env.DJANGO_INTERNAL_URL}/api/categories/`,{
@@ -100,7 +101,7 @@ export async function CategoryList() {
     return res.json();
 }
 
-export async function CategoryAdd(prevState: any, formData: FormData) {
+export async function PostCategory(prevState: any, formData: FormData) {
     const token = await getToken();
     const name = formData.get("name");
 

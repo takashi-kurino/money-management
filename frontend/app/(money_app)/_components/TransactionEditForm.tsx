@@ -2,8 +2,7 @@
 'use client'
 
 import { useActionState } from 'react'
-import { TransactionEdit } from '@/app/(money_app)/actions'
-
+import { PutTransaction } from '@/app/(money_app)/actions'
 import { transactiontype,categorytype } from '../types'
 const initialState = { message: '' }
 
@@ -16,7 +15,7 @@ export function TransactionEditForm({
     initialData: transactiontype
     categories: categorytype[]
 }) {
-    const boundAction = TransactionEdit.bind(null, uuid)
+    const boundAction = PutTransaction.bind(null, uuid)
     const [state, formAction, pending] = useActionState(boundAction, initialState)
 
     return (
