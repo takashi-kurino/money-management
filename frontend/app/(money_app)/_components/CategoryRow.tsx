@@ -1,9 +1,9 @@
 'use client'
 
 import Link from 'next/link'
-import {categorytype} from '../types'
+import {category} from '../types'
 
-export default function CategoryRow({ categories }: { categories: categorytype[] }) {
+export default function CategoryRow({ categories }: { categories: category[] }) {
     return (
         <div className="min-h-screen bg-gray-50 p-6">
             <div className="mx-auto max-w-4xl">

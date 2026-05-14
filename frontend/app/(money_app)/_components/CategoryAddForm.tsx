@@ -12,7 +12,7 @@ export function CategoryAddForm() {
  
   return (
     <form action={formAction} className="space-y-4">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-end">
+      <div className="grid grid-cols-1 gap-4 ">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2" htmlFor="name">カテゴリー名</label>
           <input
@@ -31,12 +31,14 @@ export function CategoryAddForm() {
         >
           {pending ? "作成中..." : "作成"}
         </button>
-
-        {state?.message && (
-            <p aria-live="polite" className="text-sm text-center text-red-600 mt-2">
+        <div>
+          {state?.message && (
+            <p aria-live="polite" className=" text-red-600 mt-2">
             {state.message}
             </p>
-        )}
+          )}
+        
+        </div>
         </div>
     </form>
   )

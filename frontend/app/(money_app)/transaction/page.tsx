@@ -2,7 +2,7 @@
 import {GetTransactionList,GetCategoryList} from "@/app/(money_app)/actions";
 import {TransactionAddForm }from "@/app/(money_app)/_components/TransactionAddForm";
 import { TransactionRow } from "@/app/(money_app)/_components/TransactionRow";
-import type { transactiontype } from "@/app/(money_app)/types";
+import type { transaction } from "@/app/(money_app)/types";
 
 export default async function Page() {
 
@@ -29,7 +29,7 @@ export default async function Page() {
               </tr>
             </thead>
             <tbody>
-              {transactions.map((transaction: transactiontype) => (
+              {transactions.map((transaction: transaction) => (
                 <TransactionRow key={transaction.uuid} transaction={transaction} />
               ))}
             </tbody>

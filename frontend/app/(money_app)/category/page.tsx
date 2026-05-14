@@ -2,16 +2,12 @@
 import  Link  from "next/link";
 import { GetCategoryList } from "@/app/(money_app)/actions";
 import { CategoryAddForm } from "@/app/(money_app)/_components/CategoryAddForm";
-
-type Category = {
-    uuid: string;
-    name: string;
-};
+import {category} from '../types'
 
 export default async function CategoryPage() {
 
     const data = await GetCategoryList();
-    const categories: Category[] = await data;
+    const categories: category[] = await data;
     return (
 
 
@@ -28,7 +24,7 @@ export default async function CategoryPage() {
                     {categories.map((category) => (
                         <Link key={category.uuid} href={`/category/${category.uuid}`} className="flex items-center gap-2 text-blue-500 hover:underline">
                             
-                            <li key={category.uuid}>{category.uuid}{category.name}</li>
+                            <li key={category.uuid}>{category.name}</li>
                         </Link>
                     ))}
                 </ul>

@@ -1,9 +1,9 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { transactiontype } from '../types'
+import { transaction } from '../types'
 
-export function TransactionRow({ transaction }: { transaction: transactiontype }) {
+export function TransactionRow({ transaction }: { transaction: transaction }) {
   const router = useRouter()
   const categoryLabel =
     transaction.category ? transaction.category.name : ''

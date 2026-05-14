@@ -3,7 +3,7 @@
 
 import { useActionState } from 'react'
 import { PutTransaction } from '@/app/(money_app)/actions'
-import { transactiontype,categorytype } from '../types'
+import { transaction,category } from '../types'
 const initialState = { message: '' }
 
 export function TransactionEditForm({
@@ -12,8 +12,8 @@ export function TransactionEditForm({
     categories
 }: {
     uuid: string
-    initialData: transactiontype
-    categories: categorytype[]
+    initialData: transaction
+    categories: category[]
 }) {
     const boundAction = PutTransaction.bind(null, uuid)
     const [state, formAction, pending] = useActionState(boundAction, initialState)
@@ -60,7 +60,7 @@ export function TransactionEditForm({
                     name="category"
                 >
                     <option value="">{initialData?.category?.name ?? ""}</option>
-                    {categories.map((category: categorytype) => (
+                    {categories.map((category: category) => (
                     <option key={category.uuid} value={category.uuid}>
                         {category.name}
                     </option>

@@ -1,14 +1,14 @@
 
-export interface categorytype {
+export interface category {
   uuid: string;
   name: string;
 }
 
-export interface transactiontype {
+export interface transaction {
   uuid: string;
   type: string;
   store: string;
-  category: categorytype | null;
+  category: category | null;
   total_price: number;
   created_at: string;
   updated_at: string;

@@ -2,13 +2,13 @@
  
 import { useActionState } from 'react'
 import { PostTransaction } from '@/app/(money_app)/actions'
-import { categorytype } from '../types'
+import { category } from '../types'
 
 const initialState = {
   message: "",
 }
  
-export function TransactionAddForm({ categories }: { categories: categorytype[] }) {
+export function TransactionAddForm({ categories }: { categories: category[] }) {
   const [state, formAction, pending] = useActionState(PostTransaction, initialState)
  
   return (
@@ -48,7 +48,7 @@ export function TransactionAddForm({ categories }: { categories: categorytype[] 
             
           >
             <option value=""></option>
-            {categories.map((category: categorytype) => (
+            {categories.map((category: category) => (
               <option key={category.uuid} value={category.uuid}>
                 {category.name}
               </option>
