@@ -25,7 +25,6 @@ export const usePasswordchange = () => {
         if (err.response) {
             
             const data = err.response.data;
-            console.log(data);
             
             if(data.old_password){
                 data.old_password.forEach((msg:string) => {

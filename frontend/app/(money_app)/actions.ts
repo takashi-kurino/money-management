@@ -57,7 +57,6 @@ export async function GetTransactionDetail(uuid: string) {
 }
 
 export async function PutTransaction(uuid: string, prevState: any, formData: FormData) {
-    console.log(formData)
     const token = await getToken();
     const res = await fetch(`${process.env.DJANGO_INTERNAL_URL}/api/transactions/${uuid}/`,{
         headers: {  "Authorization": `Bearer ${token}` },

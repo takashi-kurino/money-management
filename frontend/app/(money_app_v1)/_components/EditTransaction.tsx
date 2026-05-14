@@ -22,7 +22,6 @@ export default function EditTransactionForm({ uuid, transaction ,item_length }: 
         if (item_length > 0) {
             formData.append("total_price", transaction.total_price); // itemが存在する場合、total_priceをフォームデータから削除
         }
-        console.log("Form data before submission:", {formData: Object.fromEntries(formData.entries())}); // デバッグ用ログ
         await EditTransaction(uuid, formData);
         alert("取引が編集されました");
     };

@@ -42,7 +42,6 @@ export async function Registration(prevState:any,formData:FormData) {
 }
 
 export async function ResendEmail(email:string){
-    console.log("ResendEmail called with email:", email);
 
     const res = await fetch("/api/auth/registration/resend-email/", {
         method: "POST",
@@ -102,7 +101,6 @@ export async function PasswordResetConfirm(prevState:any,formData:FormData){
     const new_password2 = formData.get("new_password2")
     const uid = formData.get("uid")
     const token = formData.get("token")
-    console.log("PasswordResetConfirm called with:", {new_password1,new_password2,uid,token});
 
     const res = await fetch("/api/auth/passwordreset/confirm", {
         method: "POST",
@@ -112,7 +110,6 @@ export async function PasswordResetConfirm(prevState:any,formData:FormData){
     });
 
     const data = await res.json();
-    console.log("PasswordResetConfirm failed:", data);
     if(!res.ok){
         return{data:data,success:false}
     }
@@ -141,7 +138,6 @@ export async function PasswordChange(prevState:any,formData:FormData){
 
 export async function DeleteAccount(prevState:any,formData:FormData){
     const password = formData.get("password")
-    console.log("DeleteAccount called with password:", password);
     
     const res = await fetch("/api/auth/delete", {
         method: "POST",

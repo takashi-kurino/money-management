@@ -10,7 +10,6 @@ export default function AddItemForm () {
   async function addCategory(formData: FormData) {
 
     const {ok,status,data} =  await AddCategory(formData);
-    console.log(ok, status,data); // デバッグ用ログ
     if (!ok) {
       if (status === 400 && data.non_field_errors) {
         setError(data.non_field_errors.join(", ")); // APIからのエラーメッセージを表示

@@ -35,7 +35,6 @@ const useRegistrationResendEmail = (email: string) => {
   const resend = async (): Promise<void> => {
     try {
       await ResendEmail(email);
-      console.log('再送しました');
       setCooldown(60); // クールダウン開始
     } catch (err) {
       console.error('再送できませんでした', err);

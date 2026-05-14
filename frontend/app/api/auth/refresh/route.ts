@@ -38,13 +38,11 @@ export async function POST(req: NextRequest) {
 
   // Django から返された Set-Cookie を取得
   // const setCookieHeaders = res.headers.getSetCookie()
-  // console.log("🍪 [Route Handler] Set-Cookie ヘッダー:", setCookieHeaders)
 
   // Set-Cookie ヘッダーをブラウザに返す
   // for (const setCookieHeader of setCookieHeaders) {
   //   response.headers.append("Set-Cookie", setCookieHeader)
   // }
 
-  console.log("✅ [Route Handler] リフレッシュ成功、Cookie をブラウザに返却")
   return response
 }

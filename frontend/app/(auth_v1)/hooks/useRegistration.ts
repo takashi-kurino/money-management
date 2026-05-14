@@ -27,7 +27,6 @@ export const useRegistration = () => {
         if (err.response) {
             
             const data = err.response.data;
-            console.log(data);
             
             if(data.email){
                 data.email.forEach((msg:string) => {

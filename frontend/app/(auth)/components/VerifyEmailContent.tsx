@@ -30,7 +30,6 @@ export default function VerifyEmailContent() {
         async function verify() {
 
             const {data,status} = await VerifyEmail(verify_key);
-            console.log("VerifyEmailのレスポンス", {data, status});
 
             if (status !== 200) {
                 setState(data.detail || "認証に失敗しました。リンクが無効です。");

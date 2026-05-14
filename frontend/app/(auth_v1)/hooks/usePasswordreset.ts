@@ -18,12 +18,8 @@ export const usePasswordReset = () => {
         
         try {
             const res= await passwordReset(email); // fetch または axios
-            console.log("res=",res)
-            console.log("status=",res.status);
-            console.log("res=",res.data);
             
             if (res.status === 200 || res.status === 204) {
-                console.log(res.data.detail);
                 setSuccess(true); // ✅ 空でも成功扱い
             } else {
                 setError("メール送信に失敗しました");

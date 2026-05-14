@@ -15,7 +15,6 @@ export const useAccountDelete = () => {
 
     try {
       await deleteAccount(password);
-      console.log('削除成功');
       router.push('/');
     } catch (err) {
       if (axios.isAxiosError(err)) {

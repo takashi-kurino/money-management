@@ -75,7 +75,6 @@ export default function AddTransactionForm() {
       data.total_price = parseFloat(totalPrice) || 0;
     }
 
-    console.log('送信データ:', data);
 
     try {
       // API に送信

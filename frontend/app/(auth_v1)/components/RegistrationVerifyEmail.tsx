@@ -21,7 +21,7 @@ export function VerifyEmail() {
   
   const searchParams = useSearchParams();
   let verify_key = searchParams.get("key") || "";
-  console.log("Verifying email with key:", verify_key);
+
   useEffect(() => {
     if (verify_key) {
       

@@ -19,13 +19,9 @@ export const useLogin = () => {
 
     try {
       const response = await loginUser(form.username, form.password);
-      console.log("Login response:", response);
-      console.log("Cookies after login:", document.cookie);
+
       window.location.href = '/';
     } catch (err: any) {
-      console.log("Login error response headers:", err.response?.headers);
-      console.log("Login error response:", err.response?.data);
-      console.log("Cookies after failed login:", document.cookie);
       if (err.response?.data?.non_field_errors) {
         setError("ユーザネームまたはパスワードが違います");
       } else {

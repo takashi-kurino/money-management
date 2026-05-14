@@ -5,7 +5,6 @@ import api from '@/_lib/axiosapi';
 import endpoints from '@/_lib/apiEndpoints';
 
 export async function refreshToken() {
-    console.log('Attempting token refresh...');
     try {
         const res = await api.post(endpoints.auth.refresh());
         return res.data;
@@ -27,15 +26,13 @@ export async function UserInfo() {
 //}
 
 export async function loginUser(username: string, password: string) {
-    console.log("run this function")
+
   const res = await fetch("/api/auth/login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ username, password }),
     credentials: "include",
   });
-
-  console.log("Login response status:", res.status);
 
   if (!res.ok) {
     const errorData = await res.json();

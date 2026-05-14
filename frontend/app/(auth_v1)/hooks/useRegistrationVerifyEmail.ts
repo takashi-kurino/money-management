@@ -17,8 +17,6 @@ export const useRegistrationVerifyEmail = () => {
       return data;
     } catch (err: any) {
       if (err.response) {
-        console.log("error no 1")
-        console.log("verify-email error:", err.response.data);
         setError(JSON.stringify(err.response.data) || "認証に失敗しました");
       } else {
         setError(err.message || "認証に失敗しました");

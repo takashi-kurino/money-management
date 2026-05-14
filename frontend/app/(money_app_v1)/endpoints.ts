@@ -25,7 +25,6 @@ export async function AddTransaction(formData: FormData) {
     const type = formData.get("type") as string;
     const store = formData.get("store") as string;
     const total_price = parseFloat(formData.get("total_price") as string);
-    console.log("Adding transaction:", { type, store, total_price }); // デバッグ用ログ
     
     await fetchWithAuth(endpoints.transactions.list(), {
         method: "POST",
@@ -41,7 +40,6 @@ export async function AddTransactionWithItems(data: {
     store: string;
     items: Array<{ name: string; price: number; amount: number }>;
 }) {
-    console.log("Adding transaction with items:", data); // デバッグ用ログ
     
     await fetchWithAuth(endpoints.transactions.list(), {
         method: "POST",
@@ -55,7 +53,6 @@ export async function EditTransaction(uuid: string, formData: FormData) {
     const type = formData.get("type") as string;
     const store = formData.get("store") as string;
     const total_price = parseFloat(formData.get("total_price") as string);
-    console.log("Editing transaction:", { type, store, total_price }); // デバッグ用ログ
     
     const res = await fetchWithAuth(endpoints.transactions.instance(uuid), {
         method: "PUT",
@@ -68,7 +65,6 @@ export async function DeleteTransaction(uuid: string) {
     const res = await fetchWithAuth(endpoints.transactions.instance(uuid), {
         method: "DELETE",
     }); 
-    console.log("Delete response:", res); // デバッグ用ログ
 
     revalidatePath(`/transaction/${uuid}`); // 一覧ページのキャッシュを破棄
     redirect("/transaction");       // 一覧へ移動
@@ -85,8 +81,7 @@ export async function AddItem(transactionId: string, formData: FormData){
     const name = formData.get("name") as string;
     const amount = parseInt(formData.get("amount") as string);
     const price = parseFloat(formData.get("price") as string);
-    console.log("Adding item:", { name, amount, price }); // デバッグ用ログ
-    
+
     await fetchWithAuth(endpoints.items.list(transactionId), {
         method: "POST",
         body: JSON.stringify({ name, amount, price }),
@@ -99,7 +94,6 @@ export async function EditItem(transactionId: string,itemId: string, formData: F
     const name = formData.get("name") as string;
     const amount = parseInt(formData.get("amount") as string);
     const price = parseFloat(formData.get("price") as string);
-    console.log("Editing item:", { name, amount, price }); // デバッグ用ログ
     
     const res = await fetchWithAuth(endpoints.items.instance(transactionId,itemId), {
         method: "PUT",
@@ -112,7 +106,6 @@ export async function DeleteItem(transactionId: string,itemId: string) {
     const res = await fetchWithAuth(endpoints.items.instance(transactionId,itemId), {
         method: "DELETE",
     }); 
-    console.log("Delete item response:", res); // デバッグ用ログ
 
     revalidatePath(`/transaction/${transactionId}/item/${itemId}`); // 一覧ページのキャッシュを破棄
     redirect(`/transaction/${transactionId}`);       // 一覧へ移動
@@ -147,7 +140,6 @@ export async function AddCategory(formData: FormData) {
 
 export async function EditCategory(categoryId: string, formData: FormData) {
     const name = formData.get("name") as string;
-    console.log("Editing category:", { name }); // デバッグ用ログ
     
     await fetchWithAuth(endpoints.categories.instance(categoryId), {
         method: "PUT",
@@ -160,7 +152,6 @@ export async function DeleteCategory(categoryId: string) {
     const res = await fetchWithAuth(endpoints.categories.instance(categoryId), {
         method: "DELETE",
     }); 
-    console.log("Delete category response:", res); // デバッグ用ログ
 
     revalidatePath(`/transaction/category/${categoryId}`); // 一覧ページのキャッシュを破棄
     redirect(`/transaction/category`);       // 一覧へ移動

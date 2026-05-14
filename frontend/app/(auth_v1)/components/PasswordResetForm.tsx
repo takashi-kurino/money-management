@@ -22,8 +22,6 @@ export function PasswordResetConfirmPage() {
   const uid = searchParams.get("uid") || ""
   const token = searchParams.get("token") || ""
 
-  console.log(`${uid} ${uid.length}`);
-
   const { resetPassword, loading, newpassworderror, confirmpassworderror, error, success } = usePasswordResetConfirmation()
   const [newPassword1, setNewPassword1] = useState("")
   const [newPassword2, setNewPassword2] = useState("")
