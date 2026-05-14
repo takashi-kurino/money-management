@@ -100,6 +100,20 @@ export async function GetCategoryList() {
     return res.json();
 }
 
+export async function GetCategoryDetail(uuid: string) {
+    const token = await getToken();
+    
+    const res = await fetch(`${process.env.DJANGO_INTERNAL_URL}/api/categories/${uuid}/`,{
+        headers: { "Authorization": `Bearer ${token}` },
+        method: "GET",
+        cache: "no-store", // キャッシュを無効化して常に最新のユーザー情報を取得
+    });
+    if(!res.ok){
+        return null
+    }
+    return res.json();
+}
+
 export async function PostCategory(prevState: any, formData: FormData) {
     const token = await getToken();
     const name = formData.get("name");
@@ -116,4 +130,35 @@ export async function PostCategory(prevState: any, formData: FormData) {
     
     revalidatePath("/category"); // 一覧ページのキャッシュを破棄
     redirect("/category");       // 一覧へ移動
+}
+
+export async function EditCategory(uuid: string, prevState: any, formData: FormData) {
+    const token = await getToken();
+    const name = formData.get("name");
+
+    const res = await fetch(`${process.env.DJANGO_INTERNAL_URL}/api/categories/${uuid}/`,{
+        headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
+        method: "PUT",
+        body: JSON.stringify( {name} ),
+    });
+    
+    if(!res.ok){
+        return { message: `カテゴリーの編集に失敗しました: ${res.status}` }
+    }
+    
+    revalidatePath("/category"); // 一覧ページのキャッシュを破棄
+    redirect("/category");       // 一覧へ移動
+}
+
+export async function DeleteCategory(uuid: string) {
+    const token = await getToken();
+    const res = await fetch(`${process.env.DJANGO_INTERNAL_URL}/api/categories/${uuid}/`, {
+        method: "DELETE",
+        headers: { "Authorization": `Bearer ${token}` },
+    });
+
+    if (res.ok) {
+        revalidatePath("/category"); // 一覧ページのキャッシュを破棄
+        redirect("/category");       // 一覧へ移動
+    }
 }

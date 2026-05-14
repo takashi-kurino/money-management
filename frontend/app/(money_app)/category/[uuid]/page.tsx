@@ -1,19 +1,24 @@
-
-import  EditCategoryForm  from "@/app/(money_app)/_components/EditCategory";
-import  DeleteCategoryButton  from "@/app/(money_app)/_components/DeleteCategory";
-import { CategoryDetail } from "@/app/(money_app)/endpoints";
+import { GetCategoryDetail } from "@/app/(money_app)/actions";
+import { CategoryEditForm } from "@/app/(money_app)/_components/CategoryEditForm";
+import { CategoryDeleteButton } from "@/app/(money_app)/_components/CategoryDeleteButton";
 
 export default async function CategoryEditPage({ params }: { params: Promise<{ uuid: string }> }) {
     const { uuid } = await params;
-    const data = await CategoryDetail(uuid);
+    const data = await GetCategoryDetail(uuid);
 
     return (
-        <div className="p-6">
-            <h1>Category Edit Page</h1>
-            {data.name}
-            <EditCategoryForm uuid={uuid} name={data.name}/>
-            <DeleteCategoryButton category_uuid={uuid}/>
-        </div>  
+
+        <div className="min-h-screen bg-gray-50 p-6">
+            <div className="mx-auto max-w-2xl">
+                <h1 className="text-3xl font-bold text-gray-900 mb-8">カテゴリー編集</h1>
+                <div className="bg-white rounded-lg shadow-sm p-6">
+                    <CategoryEditForm category={data}/>
+                    <div className="mt-8 pt-6 border-t border-gray-200">
+                        <CategoryDeleteButton uuid={uuid}/>
+                    </div>
+                </div>
+            </div>
+        </div>
     );
 
 }
