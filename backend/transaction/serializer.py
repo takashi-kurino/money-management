@@ -60,19 +60,19 @@ class TransactionDetailSerializer(serializers.ModelSerializer):
 
         total = sum(item.price * item.amount for item in transaction.items.all())
         transaction.total_price = total
-        print("Total price calculated:", total, flush=True)  # デバッグ用ログ
+
         transaction.save()
 
     def create(self, validated_data):
-        print("Creating Transaction with data:", validated_data, flush=True)  # デバッグ用ログ
+
         items_data = validated_data.pop('items', [])
         transaction = Transaction.objects.create(**validated_data)
         self._save_items(transaction, items_data)
-        print("Transaction created:", transaction, flush=True)  # デバッグ用ログ
+
         return transaction
 
     def update(self, instance, validated_data):
-        print("Updating Transaction with data:", validated_data, flush=True)  # デバッグ用ログ
+
         items_data = validated_data.pop('items', None)
 
         # Transaction フィールドの更新
