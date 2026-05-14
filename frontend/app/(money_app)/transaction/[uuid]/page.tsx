@@ -13,7 +13,7 @@ export default async function Page({ params }: { params: Promise<{ uuid: string 
         <h1 className="text-3xl font-bold text-gray-900 mb-8">取引詳細</h1>
 
         <div className="bg-white rounded-lg shadow-sm p-6">
-          <TransactionEditForm uuid={uuid} initialData={transactiondetail} categories={categories} />
+          <TransactionEditForm uuid={uuid} transaction={transactiondetail} categories={categories} />
 
           <div className="mt-8 pt-6 border-t border-gray-200">
             <TransactionDeleteButton uuid={uuid} />

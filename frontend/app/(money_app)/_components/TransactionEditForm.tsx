@@ -8,11 +8,11 @@ const initialState = { message: '' }
 
 export function TransactionEditForm({
     uuid,
-    initialData,
+    transaction,
     categories
 }: {
     uuid: string
-    initialData: transaction
+    transaction: transaction
     categories: category[]
 }) {
     const boundAction = PutTransaction.bind(null, uuid)
@@ -27,7 +27,7 @@ export function TransactionEditForm({
                 <select
                     id="type"
                     name="type"
-                    defaultValue={initialData?.type ?? ''}
+                    defaultValue={transaction?.type ?? ''}
                     className="w-full px-3 py-2 border border-gray-300 rounded-md text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     required
                 >
@@ -44,7 +44,7 @@ export function TransactionEditForm({
                     type="text"
                     id="store"
                     name="store"
-                    defaultValue={initialData?.store ?? ''}
+                    defaultValue={transaction?.store ?? ''}
                     className="w-full px-3 py-2 border border-gray-300 rounded-md text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     required
                 />
@@ -58,8 +58,9 @@ export function TransactionEditForm({
                     className="w-full px-3 py-2 border border-gray-300 rounded-md text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     id="category"
                     name="category"
+                    defaultValue={transaction?.category?.uuid ?? ''}
                 >
-                    <option value="">{initialData?.category?.name ?? ""}</option>
+                    <option value=""></option>
                     {categories.map((category: category) => (
                     <option key={category.uuid} value={category.uuid}>
                         {category.name}
@@ -68,7 +69,6 @@ export function TransactionEditForm({
                 </select>
             </div>
             
-
             <div>
                 <label htmlFor="total_price" className="block text-sm font-medium text-gray-700 mb-2">
                     金額
@@ -77,7 +77,7 @@ export function TransactionEditForm({
                     type="number"
                     id="total_price"
                     name="total_price"
-                    defaultValue={initialData?.total_price ?? ''}
+                    defaultValue={transaction?.total_price ?? ''}
                     className="w-full px-3 py-2 border border-gray-300 rounded-md text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     required
                 />
@@ -94,7 +94,7 @@ export function TransactionEditForm({
                 disabled={pending}
                 className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-medium py-2 px-4 rounded-md transition-colors"
             >
-                {pending ? '更新中...' : '更新'}
+                更新
             </button>
 
             <div className="bg-gray-50 rounded-md p-4 space-y-2">
@@ -102,11 +102,11 @@ export function TransactionEditForm({
                 <dl className="text-sm text-gray-600 space-y-1">
                     <div className="flex justify-between">
                         <dt className="font-medium">作成日時:</dt>
-                        <dd>{initialData?.created_at}</dd>
+                        <dd>{transaction?.created_at}</dd>
                     </div>
                     <div className="flex justify-between">
                         <dt className="font-medium">更新日時:</dt>
-                        <dd>{initialData?.updated_at}</dd>
+                        <dd>{transaction?.updated_at}</dd>
                     </div>
                 </dl>
             </div>

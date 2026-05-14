@@ -29,7 +29,7 @@ export function CategoryAddForm() {
           disabled={pending}
           className="md:col-span-3 lg:col-span-1 w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-medium py-2 px-4 rounded-md transition-colors"
         >
-          {pending ? "作成中..." : "作成"}
+          作成
         </button>
         <div>
           {state?.message && (
@@ -39,7 +39,7 @@ export function CategoryAddForm() {
           )}
         
         </div>
-        </div>
+      </div>
     </form>
   )
 }
