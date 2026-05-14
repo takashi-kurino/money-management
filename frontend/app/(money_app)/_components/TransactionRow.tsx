@@ -1,28 +1,12 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
+import { transactiontype } from '../types'
 
-interface Category {
-  uuid: string
-  name: string
-}
-
-interface Transaction {
-  uuid: string
-  type: string
-  store: string
-  category: Category | null
-  total_price: number
-  created_at: string
-}
-
-
-export function TransactionRow({ transaction }: { transaction: Transaction }) {
+export function TransactionRow({ transaction }: { transaction: transactiontype }) {
   const router = useRouter()
   const categoryLabel =
-    typeof transaction.category === 'string'
-      ? transaction.category
-      : transaction.category?.name ?? '未分類'
+    transaction.category ? transaction.category.name : ''
 
   return (
     <tr

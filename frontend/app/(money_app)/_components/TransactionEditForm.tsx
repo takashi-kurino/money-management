@@ -4,23 +4,17 @@
 import { useActionState } from 'react'
 import { TransactionEdit } from '@/app/(money_app)/actions'
 
+import { transactiontype,categorytype } from '../types'
 const initialState = { message: '' }
-
-type TransactionData = {
-    type: string
-    store: string
-    category: string | null
-    total_price: number
-    created_at: string
-    updated_at: string
-} | null
 
 export function TransactionEditForm({
     uuid,
     initialData,
+    categories
 }: {
     uuid: string
-    initialData: TransactionData
+    initialData: transactiontype
+    categories: categorytype[]
 }) {
     const boundAction = TransactionEdit.bind(null, uuid)
     const [state, formAction, pending] = useActionState(boundAction, initialState)
@@ -56,6 +50,25 @@ export function TransactionEditForm({
                     required
                 />
             </div>
+
+            <div>
+                <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-2">
+                    カテゴリ
+                </label>
+                <select
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    id="category"
+                    name="category"
+                >
+                    <option value="">{initialData?.category?.name ?? ""}</option>
+                    {categories.map((category: categorytype) => (
+                    <option key={category.uuid} value={category.uuid}>
+                        {category.name}
+                    </option>
+                    ))}
+                </select>
+            </div>
+            
 
             <div>
                 <label htmlFor="total_price" className="block text-sm font-medium text-gray-700 mb-2">

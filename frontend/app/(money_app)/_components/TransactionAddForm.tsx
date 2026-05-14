@@ -3,6 +3,8 @@
 import { useActionState } from 'react'
 import { TransactionAdd,CategoryList } from '@/app/(money_app)/actions'
  
+import { categorytype } from '../types'
+
 const initialState = {
   message: "",
 }
@@ -14,6 +16,7 @@ type Category = {
  
 export function TransactionAddForm({ categories }: { categories: Category[] }) {
   const [state, formAction, pending] = useActionState(TransactionAdd, initialState)
+export function TransactionAddForm({ categories }: { categories: categorytype[] }) {
  
   return (
     <form action={formAction} className="space-y-4">
@@ -53,6 +56,8 @@ export function TransactionAddForm({ categories }: { categories: Category[] }) {
           >
             <option value="">選択してください</option>
             {categories.map((category: Category) => (
+            <option value=""></option>
+            {categories.map((category: categorytype) => (
               <option key={category.uuid} value={category.uuid}>
                 {category.name}
               </option>
