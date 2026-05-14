@@ -1,7 +1,7 @@
 # =========================
 # ① Django 本体・依存ライブラリ
 # =========================
-Django            # Django 本体（Webアプリのフレームワーク）
+Django>=5.2.2            # Django 本体（Webアプリのフレームワーク）
 asgiref                  # Django が async/ASGI を扱うための内部依存
 sqlparse                 # Django が SQL を扱うための内部依存
 
@@ -18,10 +18,10 @@ django-debug-toolbar     # 開発用のデバッグツールバー（dev環境�
 # ③ REST API・認証関連
 # =========================
 
-djangorestframework   # REST API を作るためのフレームワーク
+djangorestframework>=3.16.0   # REST API を作るためのフレームワーク
 djangorestframework-simplejwt # JWT 認証（フロントと連携しやすい）
-dj-rest-auth            # ログイン / ログアウト / パスワードリセット等 API を自動生成
-django-allauth # SNSログインやメール認証。socialaccount使わないなら不要
+dj-rest-auth==6.0.0            # ログイン / ログアウト / パスワードリセット等 API を自動生成
+django-allauth>=65.9.0 # SNSログインやメール認証。socialaccount使わないなら不要
 requests                        # 外部APIへの HTTP リクエスト
 django-timezone-field           # TimeZoneField をモデルで使う場合に必要
 drf-nested-routers              # ネストされたルーティングを簡単に定義するためのライブラリ
