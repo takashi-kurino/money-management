@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from .models import Transaction, Category, Item
-from .serializer import TransactionDetailSerializer, CategorySerializer, ItemSerializer, TransactionListSerializer, WeeklyTransactionSerializer
+from .serializer import TransactionDetailSerializer, CategoryCreateSerializer, ItemSerializer, TransactionListSerializer, WeeklyTransactionSerializer
 from django.db.models import Q
 from django.db.models import Sum
 from datetime import date
@@ -29,7 +29,7 @@ class TransactionViewSet(viewsets.ModelViewSet):
 
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
-    serializer_class = CategorySerializer
+    serializer_class = CategoryCreateSerializer
     permission_classes = [IsAuthenticated]
     
     def get_queryset(self):

@@ -2,7 +2,7 @@ from .models import Transaction, Category, Item
 from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
 
-class CategorySerializer(serializers.ModelSerializer):
+class CategoryCreateSerializer(serializers.ModelSerializer):
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
     
     class Meta:
@@ -18,21 +18,32 @@ class CategorySerializer(serializers.ModelSerializer):
             message="このカテゴリーは既に存在しています。"
         )]
 
+class CategoryReadSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ['uuid', 'name']
+    
 class ItemSerializer(serializers.ModelSerializer):
     uuid = serializers.UUIDField(read_only=True)
-    category = CategorySerializer(read_only=False, required=False)
 
     class Meta:
         model = Item
         fields = ['uuid', 'name', 'price', 'amount', 'category']
 
 class TransactionDetailSerializer(serializers.ModelSerializer):
-    items = ItemSerializer(many=True, read_only=False, required=False)
-    category = CategorySerializer(read_only=False, required=False)
+    items = ItemSerializer(many=True, read_only=False, required=False)       
 
     class Meta:
         model = Transaction
         fields = ['uuid', 'type', 'store', 'category', 'total_price', 'created_at', 'updated_at', 'items']
+
+    
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        # GETのレスポンス時だけcategoryを詳細オブジェクトに差し替える
+        if instance.category:
+            data['category'] = CategoryReadSerializer(instance.category).data
+        return data
 
     def _recalculate_total(self, transaction):
         """削除された後の残ったitemで合計を再計算する"""
@@ -77,11 +88,16 @@ class TransactionDetailSerializer(serializers.ModelSerializer):
         return instance
     
 class TransactionListSerializer(serializers.ModelSerializer):
-    category = CategorySerializer(read_only=False, required=False)
-        
     class Meta:
         model = Transaction
         fields = ['uuid', 'type', 'store', 'category', 'total_price', 'created_at', 'updated_at']
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        # GETのレスポンス時だけcategoryを詳細オブジェクトに差し替える
+        if instance.category:
+            data['category'] = CategoryReadSerializer(instance.category).data
+        return data
 
 class WeeklyTransactionSerializer(serializers.Serializer):
     week_start = serializers.DateField()

@@ -2,8 +2,6 @@ from django.db import models
 import uuid
 
 from users.models import CustomUser
-# Create your models here.
-
 
 class Category(models.Model):
     uuid = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
