@@ -3,7 +3,6 @@
 from .base import *
 DEBUG = True
 
-from datetime import timedelta
 # ========================
 # Local Development Overrides - HTTP Only
 # ========================
@@ -12,25 +11,29 @@ from datetime import timedelta
 # Cookie & CSRF設定（ローカル開発用・HTTP対応）
 # ========================
 
-JWT_AUTH_HTTPONLY = True
-JWT_AUTH_SAMESITE = "Lax"
-JWT_AUTH_SECURE = False  # dev
-CSRF_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False  # safariはsecureなcookieをローカルで受け取れないため、開発時はFalseにする
+CSRF_COOKIE_HTTPONLY = True  # 開発時は柔軟に
+CSRF_COOKIE_SAMESITE = "strict"
 
 SESSION_COOKIE_SECURE = False
+SESSION_COOKIE_HTTPONLY = True  # 開発時は柔軟に
+SESSION_COOKIE_SAMESITE = "strict"
 
 ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "127.0.0.1").split(",")
 
 ALLOWED_HOSTS += [
-    "localhost",
-    "127.0.0.1",
     "django-web",
-    "django-web:8000",
 ]
 
+SIMPLE_JWT = {  
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
+}
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost",
-    "http://localhost:8000",
+    "http://localhost:3000",
 ]
 
 REST_AUTH = {
@@ -38,10 +41,11 @@ REST_AUTH = {
     'USE_JWT': True,
     'JWT_AUTH_COOKIE': 'access',
     'JWT_AUTH_REFRESH_COOKIE': 'refresh',
-    'JWT_AUTH_HTTPONLY': False,
-    'JWT_AUTH_SECURE': False,      # debug now
-    'JWT_AUTH_SAMESITE': 'Lax',
+    'JWT_AUTH_HTTPONLY': True,
+    'JWT_AUTH_SECURE': False,   # safariはsecureなcookieをローカルで受け取れないため、開発時はFalseにする
+    'JWT_AUTH_SAMESITE': 'strict',
 }
+
 
 # ========================
 # dev用 Database（デフォルト: .env の値を参照）

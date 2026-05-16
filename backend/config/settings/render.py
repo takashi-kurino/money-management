@@ -22,12 +22,13 @@ DATABASES = {
 }
 
 MIDDLEWARE +=[
-        'corsheaders.middleware.CorsMiddleware',  # 追加 render.com用
-        'django.middleware.common.CommonMiddleware',  # 追加 render.com用
-        "whitenoise.middleware.WhiteNoiseMiddleware",  # 追加 静的ファイル配信用 render.com用
+    'corsheaders.middleware.CorsMiddleware',  # 追加 render.com用
+    'django.middleware.common.CommonMiddleware',  # 追加 render.com用
+    "whitenoise.middleware.WhiteNoiseMiddleware",  # 追加 静的ファイル配信用 render.com用
 ]
 
 CORS_ALLOW_CREDENTIALS = True
+
 CORS_ALLOWED_ORIGINS += [
     "https://docker-template-six.vercel.app",    # ← フロント側
 

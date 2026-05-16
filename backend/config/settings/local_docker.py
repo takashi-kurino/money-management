@@ -3,7 +3,6 @@ import os
 
 from .base import *
 DEBUG = True
-from datetime import timedelta
 
 # ========================
 # Local Development Overrides - HTTP Only
@@ -12,36 +11,41 @@ from datetime import timedelta
 # ========================
 # Cookie & CSRF設定（ローカル開発用・HTTP対応）
 # ========================
-CSRF_COOKIE_SECURE = False  # HTTP を使用
-CSRF_COOKIE_HTTPONLY = False  # 開発時は柔軟に
-CSRF_COOKIE_SAMESITE = "Lax"
 
-CORS_ALLOWED_ORIGINS = ["http://localhost:3000"]
-CORS_ALLOW_CREDENTIALS = True  # Cookieを許可
+CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_HTTPONLY = True  # 開発時は柔軟に
+CSRF_COOKIE_SAMESITE = "strict"
 
-SESSION_COOKIE_HTTPONLY = True
-SESSION_COOKIE_SAMESITE = "Lax"
-
-REST_AUTH = {
-    'USE_JWT': True,
-    'JWT_AUTH_COOKIE': 'access',
-    'JWT_AUTH_REFRESH_COOKIE': 'refresh',
-}
+SESSION_COOKIE_SECURE = False
 
 ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "127.0.0.1").split(",")
 
 ALLOWED_HOSTS += [
-    "localhost",
-    "127.0.0.1",
-    "django-web",  # Docker コンテナ名
+    "django-web",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost",
-    "http://localhost:8000",
-    "http://127.0.0.1:8000",
-    "http://localhost:3000",  # Next.js dev server
+    "http://localhost:3000",
 ]
+
+REST_AUTH = {
+    'PASSWORD_RESET_SERIALIZER': 'custom_auth.password_reset.serializer.CustomPasswordResetSerializer',
+    'USE_JWT': True,
+    'JWT_AUTH_COOKIE': 'access',
+    'JWT_AUTH_REFRESH_COOKIE': 'refresh',
+    'JWT_AUTH_HTTPONLY': True,
+    'JWT_AUTH_SECURE': True,
+    'JWT_AUTH_SAMESITE': 'strict',
+}
+
+SIMPLE_JWT = {  
+    # 'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+    # 'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
+}
+
 
 # ========================
 # ローカル用 Database（デフォルト: .env の値を参照）

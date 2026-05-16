@@ -6,7 +6,11 @@ from datetime import timedelta
 SECURE_SSL_REDIRECT = True
 
 CSRF_COOKIE_SECURE = True
-CSRF_COOKIE_SAMESITE = "None"
+CSRF_COOKIE_SAMESITE = "strict"
+CSRF_COOKIE_HTTPONLY = True
+
+SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_SAMESITE = "strict"
 
 REST_AUTH = {
     'PASSWORD_RESET_SERIALIZER': 'custom_auth.password_reset.serializer.CustomPasswordResetSerializer',
@@ -14,7 +18,15 @@ REST_AUTH = {
     'JWT_AUTH_COOKIE': 'access',
     'JWT_AUTH_REFRESH_COOKIE': 'refresh',
     'JWT_AUTH_HEADER_PREFIX': 'Bearer',
+    'JWT_AUTH_HTTPONLY': True,
+    'JWT_AUTH_SECURE': True,
+    'JWT_AUTH_SAMESITE': 'strict',
     'OLD_PASSWORD_FIELD_ENABLED': True,
+}
+
+SIMPLE_JWT = {  
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
 }
 
 REST_FRAMEWORK = {

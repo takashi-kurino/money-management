@@ -136,24 +136,6 @@ ACCOUNT_ADAPTER = "custom_auth.registration_verify.adapter.CustomAccountAdapter"
 
 # -----------------------------------------------
 
-REST_AUTH = {
-    # 'PASSWORD_RESET_SERIALIZER': 'custom_auth.password_reset.serializer.CustomPasswordResetSerializer',
-    'USE_JWT': True,
-    'JWT_AUTH_COOKIE': 'access',
-    'JWT_AUTH_REFRESH_COOKIE': 'refresh',
-    'JWT_AUTH_HTTPONLY': False,
-    'JWT_AUTH_SECURE': False,      # debug now
-    'JWT_AUTH_SAMESITE': 'Lax',
-}
-
-if DEBUG:
-    SIMPLE_JWT = {  
-        'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
-        'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
-        'ROTATE_REFRESH_TOKENS': True,
-        'BLACKLIST_AFTER_ROTATION': True,
-    }
-
 # ========================
 # allauth 設定
 # ========================
