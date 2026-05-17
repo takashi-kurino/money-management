@@ -2,13 +2,13 @@
 import  Link  from "next/link";
 import { GetCategoryList } from "@/app/(money_app)/actions";
 import { CategoryForm } from "@/app/(money_app)/_components/CategoryForm";
-import { category } from '../types'
+import { Category } from '../types'
 import CategoryList from "../_components/CategoryList";
 
 export default async function CategoryPage() {
 
   const data = await GetCategoryList();
-  const categories: category[] = await data;
+  const categories: Category[] = await data;
   return (
 
 

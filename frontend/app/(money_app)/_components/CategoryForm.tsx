@@ -3,13 +3,14 @@
 
 import { useActionState } from 'react'
 import { PostCategory, EditCategory } from '@/app/(money_app)/actions'
-import { category } from '../types'
+import { Category } from '../types'
 
 const initialState = { message: '' }
 
 type Props =
   | { mode: 'create' }
-  | { mode: 'edit'; category: category }
+  | { mode: 'edit'; category: Category }
+  | { mode: 'bulk_create'}
 
 export function CategoryForm(props: Props) {
   const action =

@@ -3,13 +3,13 @@
 
 import { useActionState } from 'react'
 import { PostTransaction, PutTransaction } from '@/app/(money_app)/actions'
-import { transaction, category } from '../types'
+import { Transaction, Category } from '../types'
 
 const initialState = { message: '' }
 
 type Props =
-  | { mode: 'create'; categories: category[] }
-  | { mode: 'edit'; uuid: string; transaction: transaction; categories: category[] }
+  | { mode: 'create'; categories: Category[] }
+  | { mode: 'edit'; uuid: string; transaction: Transaction; categories: Category[] }
 
 export function TransactionForm(props: Props) {
   const action =

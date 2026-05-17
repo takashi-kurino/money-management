@@ -1,9 +1,9 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { transaction } from '../types'
+import { Transaction } from '../types'
 
-export function TransactionList({ transactions }: { transactions: transaction[] }) {
+export function TransactionList({ transactions }: { transactions: Transaction[] }) {
   const router = useRouter()
 
   return (
@@ -18,16 +18,16 @@ export function TransactionList({ transactions }: { transactions: transaction[] 
         </tr>
       </thead>
       <tbody>
-        {transactions.map((transaction: transaction) => (
-          <tr key={transaction.uuid} 
+        {transactions.map((t) => (
+          <tr key={t.uuid} 
             className="border-b border-gray-200 hover:bg-gray-50 transition-colors cursor-pointer"
-            onClick={() => router.push(`/transaction/${transaction.uuid}`)}
+            onClick={() => router.push(`/transaction/${t.uuid}`)}
           >
-            <td className="px-6 py-4 text-sm text-gray-900">{transaction.date}</td>
-            <td className="px-6 py-4 text-sm text-gray-900">{transaction.type}</td>
-            <td className="px-6 py-4 text-sm text-gray-600">{transaction.store}</td>
-            <td className="px-6 py-4 text-sm text-gray-600">{transaction.category?.name || '-'}</td>
-            <td className="px-6 py-4 text-sm font-medium text-gray-900">¥{transaction.total_price.toLocaleString()}</td>
+            <td className="px-6 py-4 text-sm text-gray-900">{t.date}</td>
+            <td className="px-6 py-4 text-sm text-gray-900">{t.type}</td>
+            <td className="px-6 py-4 text-sm text-gray-600">{t.store}</td>
+            <td className="px-6 py-4 text-sm text-gray-600">{t.category?.name || '-'}</td>
+            <td className="px-6 py-4 text-sm font-medium text-gray-900">¥{t.total_price.toLocaleString()}</td>
           </tr>
         ))}
       </tbody>
