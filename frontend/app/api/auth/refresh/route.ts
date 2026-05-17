@@ -3,46 +3,30 @@ import { cookies } from "next/headers"
 
 export async function POST(req: NextRequest) {
   const cookieStore = await cookies()
-  const cookieHeader = cookieStore.toString()
+  const token = cookieStore.get("refresh")?.value
+  const body = await req.json()
 
   const res = await fetch(`${process.env.DJANGO_INTERNAL_URL}/api/auth/token/refresh/`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Cookie: cookieHeader,
-      "X-CSRFToken": cookieStore.get("csrftoken")?.value || "",
+      "Authorization": `Bearer ${token}`
     },
-    body: JSON.stringify({ refresh: cookieStore.get("refresh")?.value }),
+    body: JSON.stringify(body),
   })
 
   if (!res.ok) {
     return NextResponse.json({ success: false }, { status: 401 })
   }
 
-  const data = await res.json()
   const response = NextResponse.json({ ok: true })
-  response.cookies.set("access", data.access, {
-    httpOnly: true,
-    maxAge: 60*60*24, // 1日間
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
-    path: "/",
-  })
-  response.cookies.set("refresh", data.refresh, {
-    httpOnly: true,
-    maxAge: 60 * 60 * 24 * 7, // 7日間
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
-    path: "/",
-  })
 
-  // Django から返された Set-Cookie を取得
-  // const setCookieHeaders = res.headers.getSetCookie()
-
-  // Set-Cookie ヘッダーをブラウザに返す
-  // for (const setCookieHeader of setCookieHeaders) {
-  //   response.headers.append("Set-Cookie", setCookieHeader)
-  // }
+  res.headers.getSetCookie().forEach((cookie) => {
+  // sessionid が含まれて「いない」場合だけ、レスポンスに追加する
+    if (!cookie.includes("sessionid=")) {
+      response.headers.append("Set-Cookie", cookie);
+    } 
+  });
 
   return response
 }

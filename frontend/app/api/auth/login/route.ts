@@ -17,20 +17,15 @@ export async function POST(req: NextRequest) {
   }
 
   // DRF から来た Set-Cookie をそのまま転送、または自前でセット
+  
   const response = NextResponse.json({ ok: true })
-    response.cookies.set("access", data.access, {
-      httpOnly: true,
-      maxAge: 60*5, // 1分間
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
-      path: "/",
-    })
-    response.cookies.set("refresh", data.refresh, {
-      httpOnly: true,
-      maxAge: 60 * 60 * 24 * 7, // 7日間
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
-      path: "/",
-    })
+
+  Res.headers.getSetCookie().forEach((cookie) => {
+  // sessionid が含まれて「いない」場合だけ、レスポンスに追加する
+    if (!cookie.includes("sessionid=")) {
+      response.headers.append("Set-Cookie", cookie);
+    } 
+  });
+    
   return response
 }
