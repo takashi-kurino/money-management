@@ -1,6 +1,6 @@
 import { GetCategoryDetail } from "@/app/(money_app)/actions";
-import { CategoryEditForm } from "@/app/(money_app)/_components/CategoryEditForm";
 import { CategoryDeleteButton } from "@/app/(money_app)/_components/CategoryDeleteButton";
+import { CategoryForm } from "@/app/(money_app)/_components/CategoryForm";
 
 export default async function CategoryEditPage({ params }: { params: Promise<{ uuid: string }> }) {
     const { uuid } = await params;
@@ -12,7 +12,8 @@ export default async function CategoryEditPage({ params }: { params: Promise<{ u
             <div className="mx-auto max-w-2xl">
                 <h1 className="text-3xl font-bold text-gray-900 mb-8">カテゴリー編集</h1>
                 <div className="bg-white rounded-lg shadow-sm p-6">
-                    <CategoryEditForm category={data}/>
+
+                    <CategoryForm mode="edit" category={data} />
                     <div className="mt-8 pt-6 border-t border-gray-200">
                         <CategoryDeleteButton uuid={uuid}/>
                     </div>
