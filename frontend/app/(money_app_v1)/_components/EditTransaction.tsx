@@ -1,6 +1,6 @@
 'use client';
 
-import { EditTransaction } from "@/app/(money_app)/endpoints";
+import { EditTransaction } from "@/app/(money_app_v1)/endpoints";
 
 interface Transaction {
     uuid: string;

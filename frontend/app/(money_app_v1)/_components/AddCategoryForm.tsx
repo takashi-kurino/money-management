@@ -1,6 +1,6 @@
 'use client';
 
-import { AddCategory } from "@/app/(money_app)/endpoints";
+import { AddCategory } from "@/app/(money_app_v1)/endpoints";
 import { useState } from 'react';
 
 export default function AddItemForm () {
