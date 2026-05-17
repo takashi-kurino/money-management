@@ -1,6 +1,6 @@
 import {GetTransactionDetail,GetCategoryList} from "@/app/(money_app)/actions";
 import {TransactionForm }from "@/app/(money_app)/_components/TransactionForm";
-import { TransactionDeleteButton } from "@/app/(money_app)/_components/TransactionDeleteButton";
+import {DeleteButton} from "@/app/(money_app)/_components/DeleteButton";
 
 export default async function Page({ params }: { params: Promise<{ uuid: string }> }) {
   const { uuid } = await params;
@@ -16,7 +16,7 @@ export default async function Page({ params }: { params: Promise<{ uuid: string 
           <TransactionForm mode="edit" uuid={uuid} transaction={transactiondetail} categories={categories} />
 
           <div className="mt-8 pt-6 border-t border-gray-200">
-            <TransactionDeleteButton uuid={uuid} />
+            <DeleteButton mode="transaction" uuid={uuid} />
           </div>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import { GetCategoryDetail } from "@/app/(money_app)/actions";
-import { CategoryDeleteButton } from "@/app/(money_app)/_components/CategoryDeleteButton";
+import { DeleteButton } from "@/app/(money_app)/_components/DeleteButton";
 import { CategoryForm } from "@/app/(money_app)/_components/CategoryForm";
 
 export default async function CategoryEditPage({ params }: { params: Promise<{ uuid: string }> }) {
@@ -15,7 +15,7 @@ export default async function CategoryEditPage({ params }: { params: Promise<{ u
 
                     <CategoryForm mode="edit" category={data} />
                     <div className="mt-8 pt-6 border-t border-gray-200">
-                        <CategoryDeleteButton uuid={uuid}/>
+                        <DeleteButton mode="category" uuid={uuid} />
                     </div>
                 </div>
             </div>
