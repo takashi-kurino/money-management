@@ -20,6 +20,7 @@ class Category(models.Model):
 class Transaction(models.Model):
     uuid = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='transactions')
+    date = models.DateField(blank=True, null=True)
     type = models.CharField(max_length=10, choices=[('収入', '収入'), ('支出', '支出')])
     store = models.CharField(max_length=255, null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
@@ -28,8 +29,8 @@ class Transaction(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.created_at} - {self.type} - {self.store} - {self.total_price}"
-    
+        return f"{self.date} - {self.type} - {self.store} - {self.total_price}"
+
 class Item(models.Model):
     uuid = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
     transaction = models.ForeignKey(Transaction, on_delete=models.CASCADE, related_name='items')

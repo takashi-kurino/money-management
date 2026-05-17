@@ -9,11 +9,15 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
 from .serializer import TransactionListSerializer
+from rest_framework.filters import OrderingFilter
 
 class TransactionViewSet(viewsets.ModelViewSet):
     
     queryset = Transaction.objects.all()
-    serializer_class = TransactionDetailSerializer
+    serializer_class = TransactionListSerializer
+    filter_backends = [OrderingFilter]
+    ordering_fields = ['date', 'type','category', 'total_price']  # 並び替えを許可するフィールド
+    ordering = ['-date']  # ← デフォルトの並び順（日付降順）
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):

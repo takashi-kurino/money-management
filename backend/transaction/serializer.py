@@ -35,7 +35,7 @@ class TransactionDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Transaction
-        fields = ['uuid', 'type', 'store', 'category', 'total_price', 'created_at', 'updated_at', 'items']
+        fields = ['uuid', 'date', 'type', 'store', 'category', 'total_price', 'created_at', 'updated_at', 'items']
 
     
     def to_representation(self, instance):
@@ -90,7 +90,7 @@ class TransactionDetailSerializer(serializers.ModelSerializer):
 class TransactionListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Transaction
-        fields = ['uuid', 'type', 'store', 'category', 'total_price', 'created_at', 'updated_at']
+        fields = ['uuid', 'date', 'type', 'store', 'category', 'total_price', 'created_at', 'updated_at']
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
