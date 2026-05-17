@@ -14,7 +14,7 @@ import {Registration, ResendEmail} from "@/app/(auth)/clientactions"
 
 type RegistrationError={
   username?: string[]
-  email?: string[]
+  email: string[]
   password1?: string[]
   password2?: string[]
   non_field_errors?:string[]
@@ -23,12 +23,17 @@ type RegistrationError={
 type RegistrationSuccess={
   message?: string
 }
-
-const initialState={
-  data:null,
-  success_flag:false,
-  email:null
+// initialState を明示的に型付け
+const initialState: {
+  data: null
+  success_flag: boolean
+  email: string | null   // ← null は許容するが string に限定
+} = {
+  data: null,
+  success_flag: false,
+  email: null
 }
+
 const useRegistrationResendEmail = (email: string) => {
   const [cooldown, setCooldown] = useState<number>(0);
 
@@ -59,7 +64,7 @@ export function RegistrationForm() {
   const [state, formAction, pending] = useActionState(Registration, initialState)
   const error = state?.data as RegistrationError | null
   const success = state?.data as RegistrationSuccess | null
-  const { resend, cooldown } = useRegistrationResendEmail(state?.email ?? "")
+  const { resend, cooldown } = useRegistrationResendEmail(typeof state?.email === 'string' ? state.email : "");
 
   return (
     <div >
