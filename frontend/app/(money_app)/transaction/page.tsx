@@ -1,8 +1,7 @@
 
 import {GetTransactionList,GetCategoryList} from "@/app/(money_app)/actions";
-import {TransactionAddForm }from "@/app/(money_app)/_components/TransactionAddForm";
-import { TransactionRow } from "@/app/(money_app)/_components/TransactionRow";
-import type { transaction } from "@/app/(money_app)/types";
+import {TransactionForm }from "@/app/(money_app)/_components/TransactionForm";
+import { TransactionList } from "@/app/(money_app)/_components/TransactionList";
 
 export default async function Page() {
 
@@ -15,25 +14,11 @@ export default async function Page() {
         <h1 className="text-3xl font-bold text-gray-900 mb-8">取引管理</h1>
 
         <div className="bg-white rounded-lg shadow-sm p-6 mb-8">
-          <TransactionAddForm categories={categories} />
+          <TransactionForm mode="create" categories={categories} />
         </div>
 
         <div className="bg-white rounded-lg shadow-sm overflow-hidden">
-          <table className="w-full">
-            <thead className="bg-gray-100 border-b border-gray-200">
-              <tr>
-                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">収支</th>
-                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">店舗</th>
-                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">カテゴリ</th>
-                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">金額</th>
-              </tr>
-            </thead>
-            <tbody>
-              {transactions.map((transaction: transaction) => (
-                <TransactionRow key={transaction.uuid} transaction={transaction} />
-              ))}
-            </tbody>
-          </table>
+          <TransactionList transactions={transactions} />
         </div>
       </div>
     </div>
