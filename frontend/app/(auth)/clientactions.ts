@@ -32,7 +32,11 @@ export async function Registration(prevState:any,formData:FormData) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify( {username,email,password1,password2} ),
     });
-    const data = await res.json();
+    
+    const contentType = res.headers.get("Content-Type") ?? ""
+    const data = contentType.includes("application/json") ? await res.json() : null
+    console.log("Registration response:", { status: res.status, data })
+
     if(!res.ok){
         return{data:data,success_flag:false,email:email}
     }
