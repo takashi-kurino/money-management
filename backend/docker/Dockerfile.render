@@ -26,7 +26,7 @@ COPY . .
 
 # --- 🔧 ここから追加部分 ---
 # エントリーポイントスクリプトをコピー
-COPY requirements/entrypoint.sh /app/entrypoint_render.sh
+COPY requirements/entrypoint_render.sh /app/entrypoint_render.sh
 
 # 実行権限を付与
 RUN chmod +x /app/entrypoint_render.sh

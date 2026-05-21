@@ -3,10 +3,8 @@ from .prod import *
 
 import dj_database_url
 
-
 ALLOWED_HOSTS += [   
-    "docker-template-rf61.onrender.com",  # ← これ必須
-    "docker-template-six.vercel.app",    # ← フロントエンド
+    os.environ.get("RENDER_URL"),
 ]
 
 INSTALLED_APPS += [
