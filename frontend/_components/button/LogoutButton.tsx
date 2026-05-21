@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from "@/_lib/utils"
-import { useLogout } from '@/app/(auth_v1)/hooks/useLogout';
+import { useLogout } from '@/app/_(auth_v1)/hooks/useLogout';
 import { Button } from '../ui/button';
 
 export default function LoggoutButton() {
