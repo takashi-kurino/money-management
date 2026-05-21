@@ -21,7 +21,7 @@ django-allauth # SNSログインやメール認証。socialaccount使わない�
 dj-rest-auth            # ログイン / ログアウト / パスワードリセット等 API を自動生成
 requests                        # 外部APIへの HTTP リクエスト
 drf-nested-routers              # ネストされたルーティングを簡単に定義するためのライブラリ
-corsheaders
+django-cors-headers
 
 
 # =========================
