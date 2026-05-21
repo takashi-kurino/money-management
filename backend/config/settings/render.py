@@ -4,7 +4,7 @@ from .prod import *
 import dj_database_url
 
 ALLOWED_HOSTS += [   
-    os.environ.get("RENDER_URL"),
+    os.environ.get("RENDER_URL", "").replace("https://", "").replace("http://", ""),
 ]
 
 INSTALLED_APPS += [
@@ -15,11 +15,11 @@ DATABASES = {
     'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
 }
 
-MIDDLEWARE +=[
+MIDDLEWARE =[
     'corsheaders.middleware.CorsMiddleware',  # 追加 render.com用
     'django.middleware.common.CommonMiddleware',  # 追加 render.com用
     "whitenoise.middleware.WhiteNoiseMiddleware",  # 追加 静的ファイル配信用 render.com用
-]
+] + MIDDLEWARE
 
 CORS_ALLOW_CREDENTIALS = True
 
