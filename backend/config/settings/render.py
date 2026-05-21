@@ -28,13 +28,15 @@ MIDDLEWARE +=[
 CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOWED_ORIGINS += [
-    "https://docker-template-six.vercel.app",    # ← フロント側
+
+    os.environ.get("VERCEL_URL"),    # ← フロント側
 
 ]   
 
 CSRF_TRUSTED_ORIGINS += [
-    "https://docker-template-rf61.onrender.com",  # ← RenderのURL
-    "https://docker-template-six.vercel.app",    # ← フロント側
+    os.environ.get("RENDER_URL"),  # ← RenderのURL
+
+    os.environ.get("VERCEL_URL"),    # ← フロント側
 ]
 
 # Tell Django to copy static assets into a path called `staticfiles` (this is specific to Render)

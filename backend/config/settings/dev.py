@@ -18,6 +18,13 @@ CSRF_COOKIE_SAMESITE = "strict"
 SESSION_COOKIE_SECURE = False
 SESSION_COOKIE_HTTPONLY = True  # 開発時は柔軟に
 SESSION_COOKIE_SAMESITE = "strict"
+INSTALLED_APPS +=[
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    
+]
 
 ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "127.0.0.1").split(",")
 
