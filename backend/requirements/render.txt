@@ -1,7 +1,7 @@
 # =========================
 # ① Django 本体・依存ライブラリ
 # =========================
-Django>=5.2.2            # Django 本体（Webアプリのフレームワーク）
+Django            # Django 本体（Webアプリのフレームワーク）
 asgiref                  # Django が async/ASGI を扱うための内部依存
 sqlparse                 # Django が SQL を扱うための内部依存
 
@@ -15,9 +15,10 @@ dj-database-url         # DATABASE_URL を Django 設定形式に変換（Render
 # =========================
 # ③ REST API・認証関連
 # =========================
-djangorestframework>=3.16.0   # REST API を作るためのフレームワーク
+djangorestframework   # REST API を作るためのフレームワーク
 djangorestframework-simplejwt # JWT 認証（フロントと連携しやすい）
-dj-rest-auth==6.0.0            # ログイン / ログアウト / パスワードリセット等 API を自動生成
+django-allauth # SNSログインやメール認証。socialaccount使わないなら不要
+dj-rest-auth            # ログイン / ログアウト / パスワードリセット等 API を自動生成
 requests                        # 外部APIへの HTTP リクエスト
 
 # =========================
@@ -33,7 +34,6 @@ whitenoise              # 静的ファイル配信用（Render 等で必要）
 # =========================
 # celery                 # 非同期タスクキュー（使ってないなら不要）
 # django-celery-beat     # Celery の定期実行（Celery未使用なら不要）
-# django-allauth>=65.9.0 # SNSログインやメール認証。socialaccount使わないなら不要
 # django-hide            # 管理画面でフィールド非表示。使ってないなら不要
 # django-timezone-field  # TimeZoneField をモデルで使う場合に必要
 # django-cors-headers    # CORS 制御用（INSTALLED_APPS に無ければ使えてない）
