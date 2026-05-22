@@ -116,12 +116,11 @@ export async function GetCategoryDetail(uuid: string) {
 
 export async function PostCategory(prevState: any, formData: FormData) {
     const token = await getToken();
-    const name = formData.get("name");
 
     const res = await fetch(`${process.env.DJANGO_INTERNAL_URL}/api/categories/`,{
-        headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
+        headers: {  "Authorization": `Bearer ${token}` },
         method: "POST",
-        body: JSON.stringify( {name} ),
+        body: formData ,
     });
     
     if(!res.ok){
@@ -134,12 +133,11 @@ export async function PostCategory(prevState: any, formData: FormData) {
 
 export async function EditCategory(uuid: string, prevState: any, formData: FormData) {
     const token = await getToken();
-    const name = formData.get("name");
 
     const res = await fetch(`${process.env.DJANGO_INTERNAL_URL}/api/categories/${uuid}/`,{
-        headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
+        headers: {  "Authorization": `Bearer ${token}` },
         method: "PUT",
-        body: JSON.stringify( {name} ),
+        body: formData ,
     });
     
     if(!res.ok){
