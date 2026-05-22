@@ -37,6 +37,8 @@
     ".next/dev/types/**/*.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "app/_(auth_v1)",
+    "app/_(money_app_v1)"
   ]
 }
