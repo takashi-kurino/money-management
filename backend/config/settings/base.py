@@ -145,11 +145,6 @@ ACCOUNT_SIGNUP_FIELDS = ["username*", "email*", "password1*", "password2*"]
 ACCOUNT_EMAIL_VERIFICATION = "none"  # 'mandatory', 'optional', or 'none'
 ACCOUNT_UNIQUE_EMAIL = True
 
-# ========================
-# メール設定（開発用コンソールバックエンド）
-# ========================
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # 開発用
-
 # # 確認完了後にリダイレクトするURL
 LOGIN_REDIRECT_URL = "/"
 
