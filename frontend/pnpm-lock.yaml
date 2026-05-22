@@ -41,6 +41,9 @@ importers:
       next:
         specifier: ^16.2.2
         version: 16.2.6(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+      next-nprogress-bar:
+        specifier: ^3.0.0
+        version: 3.0.0(next@16.2.6(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       react:
         specifier: 19.2.3
         version: 19.2.3
@@ -905,6 +908,13 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
+  next-nprogress-bar@3.0.0:
+    resolution: {integrity: sha512-I2RlVKYOO+pdLzrp9nENtry5NPrsLNK54fMHVPe+IxIGrI9nkgIFH0Rj3GPpCGNfPixYDwP9aBywLE8Hd+VbYQ==}
+    peerDependencies:
+      next: '>=13.0.0'
+      react: '>=18.0.0'
+      react-dom: '>=18.0.0'
+
   next@16.2.6:
     resolution: {integrity: sha512-qOVgKJg1+At15NpeUP+eJgCHvTCgXsogweq87Ri/Ix7PkqQHg4sdaXmSFqKlgaIXE4kW0g25LE68W87UANlHtw==}
     engines: {node: '>=20.9.0'}
@@ -925,6 +935,9 @@ packages:
         optional: true
       sass:
         optional: true
+
+  nprogress-v2@1.1.10:
+    resolution: {integrity: sha512-MypWLNIPIM07SS0bAc/oac0vhVFz9vAHm7d1sj//Pnf3J03LQ3CuWrlDteIu6exq0fIvkDJ6tUDRWLaifsIt5w==}
 
   picocolors@1.1.1:
     resolution: {integrity: sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==}
@@ -1695,6 +1708,13 @@ snapshots:
 
   nanoid@3.3.11: {}
 
+  next-nprogress-bar@3.0.0(next@16.2.6(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3):
+    dependencies:
+      next: 16.2.6(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+      nprogress-v2: 1.1.10
+      react: 19.2.3
+      react-dom: 19.2.3(react@19.2.3)
+
   next@16.2.6(react-dom@19.2.3(react@19.2.3))(react@19.2.3):
     dependencies:
       '@next/env': 16.2.6
@@ -1718,6 +1738,8 @@ snapshots:
     transitivePeerDependencies:
       - '@babel/core'
       - babel-plugin-macros
+
+  nprogress-v2@1.1.10: {}
 
   picocolors@1.1.1: {}
 
