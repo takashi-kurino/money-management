@@ -55,7 +55,7 @@ export async function proxy(req: NextRequest) {
 
     const refreshRes = await fetch(`${req.nextUrl.origin}/api/auth/refresh/`, {
       method: "POST",
-      headers: { cookie: req.headers.get("cookie") ?? ""},
+      body: JSON.stringify({ refresh: refreshToken }),
     });
 
     
