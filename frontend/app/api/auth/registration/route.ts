@@ -12,7 +12,8 @@ export async function POST(req: NextRequest) {
     body: JSON.stringify(body),
   })
 
-  const data = await Res.json()
+  const contentType = Res.headers.get("Content-Type") ?? ""
+  const data = contentType.includes("application/json") ? await Res.json() : null
 
   if (!Res.ok) {
     return NextResponse.json(data, { status: Res.status })
