@@ -163,8 +163,6 @@ export async function Logout(){
     const res = await fetch("/api/auth/logout",{
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        
-
     });
     if(!res.ok){
         return {message:"ログアウトに失敗しました。",redirectTo:""}
