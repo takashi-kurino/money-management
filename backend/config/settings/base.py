@@ -141,7 +141,7 @@ ACCOUNT_ADAPTER = "custom_auth.registration_verify.adapter.CustomAccountAdapter"
 # ========================
 
 ACCOUNT_LOGIN_METHODS = {"username"}
-ACCOUNT_SIGNUP_FIELDS = ["username*", "email", "password1*", "password2*"]
+ACCOUNT_SIGNUP_FIELDS = ["username*", "email*", "password1*", "password2*"]
 ACCOUNT_EMAIL_VERIFICATION = "none"  # 'mandatory', 'optional', or 'none'
 ACCOUNT_UNIQUE_EMAIL = True
 
