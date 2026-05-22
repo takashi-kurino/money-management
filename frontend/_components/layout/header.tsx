@@ -11,17 +11,19 @@ export default async function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
         <div className="flex justify-between items-center h-full">
           <div>
-            <h1 className="text-lg font-bold text-gray-900 dark:text-white">App</h1>
+            <h1 className="text-lg font-bold text-gray-900 dark:text-white">
+              <Link href="/" className="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">
+                Home
+              </Link>
+            </h1>
           </div>
           <nav>
             <ul className="flex space-x-4 text-sm md:text-base">
-              <li><Link href="/" className="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">Home</Link></li>
-              <li><Link href="/transaction" className="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">取引</Link></li>
-              <li><Link href="/category" className="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">カテゴリ</Link></li>
               {user ? (
                 <>
-                  <li className="text-gray-700 dark:text-gray-300">{user}</li>
-                  <li><Link href="/settings" className="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">設定</Link></li>
+                  <li><Link href="/transaction" className="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">transaction</Link></li>
+                  <li><Link href="/category" className="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">category</Link></li>
+                  <li><Link href="/settings" className="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">{user}</Link></li>
                 </>
               ) : (
                 <li><Link href="/login" className="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">Login</Link></li>

@@ -80,26 +80,6 @@ function CardFooter({ className, ...props }: React.ComponentProps<"div">) {
     />
   )
 }
-type CardHomeProps = {
-    title: string;
-    description: string;
-} & React.ComponentProps<"div">;
-
-function CardHome({title,description}:CardHomeProps) {
-  return (
-    <div className="w-auto md:w-auto lg:w-auto box-border border-1 border-indigo-100 rounded-xl shadow-md ">
-        <div className="md:flex">
-            <div className="p-8">
-            <div className="text-xl font-semibold tracking-wide text-blue-500 uppercase">{title}</div>
-            
-            <p className="mt-2 text-2xl">
-                {description}
-            </p>
-            </div>
-        </div>
-    </div>
-  )
-}
 
 export {
   Card,
@@ -109,5 +89,4 @@ export {
   CardAction,
   CardDescription,
   CardContent,
-  CardHome
 }

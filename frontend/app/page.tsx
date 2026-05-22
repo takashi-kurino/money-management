@@ -1,6 +1,6 @@
 // frontend/app/page.tsx
 
-import {CardHome} from "../_components/ui/card";
+import {CardHome} from "../_components/ui/cardhome";
 
 export default function Home() {
   return (
@@ -11,29 +11,47 @@ export default function Home() {
         </h1>
         
         <h2 className="text-xl text-center text-gray-600 mb-12">
-          This stack includes
+          This portforil include money management and auth.
         </h2>
+        
+        <h2 className="text-xl text-gray-600 mb-2 p-3">
+          Link To my Profile
+        </h2>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <CardHome title="GitHub" description="github" link="http://apple.com"/>
+          <CardHome title="Notion" description="write detail this portfolio" link="https://www.notion.so/Takashi-Kurino-Portfolio-356bb43e5cae8015900cc17d23b639bb?source=copy_link" />
+        </div>
+        
+        <h2 className="text-xl text-gray-600 mb-2 p-3">
+          Deploy Environment
+        </h2>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2  gap-6">
+          <CardHome title="Frontend" description="Vercel" link="https://vercel.com/"/>
+          <CardHome title="Backend" description="Render" link="https://render.com/"/>
+          <CardHome title="Database" description="Neon(PostgreSQL)" link="https://neon.com/"/>
+          <CardHome title="Email" description="Resend" link="https://resend.com/"/>
+        </div>
 
         <h2 className="text-xl text-gray-600 mb-2 p-3">
-          Local enviroment
+          Use Framework
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2  gap-6">
           <CardHome title="Frontend" description="React + Next.js" />
-          <CardHome title="Database" description="PostgreSQL" />
           <CardHome title="Backend" description="Django" />
+        </div>
+
+        <h2 className="text-xl text-gray-600 mb-2 p-3">
+          Local Dev Environment
+        </h2>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2  gap-6">
+          <CardHome title="Database" description="PostgreSQL" />
           <CardHome title="Webserver" description="Nginx" />
         </div>
 
-        <h2 className="text-xl text-gray-600 mb-2 p-3">
-          Deploy enviroment
-        </h2>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <CardHome title="Frontend" description="Vercel" />
-          <CardHome title="Backend" description="Render" />
-          <CardHome title="Database" description="Neon" />
-        </div>
       </div>
     </div>
   );
