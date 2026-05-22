@@ -145,6 +145,21 @@ ACCOUNT_SIGNUP_FIELDS = ["username*", "email*", "password1*", "password2*"]
 ACCOUNT_EMAIL_VERIFICATION = "none"  # 'mandatory', 'optional', or 'none'
 ACCOUNT_UNIQUE_EMAIL = True
 
+
+# ========================
+# Email Backend（ローカル開発用: コンソール出力）
+# ========================
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Gmail 設定を使いたい場合は以下をコメント解除して .env に設定
+EMAIL_BACKEND = os.getenv("GMAIL_BACKEND", "django.core.mail.backends.smtp.EmailBackend")
+
+EMAIL_HOST = os.getenv("GMAIL_HOST", "smtp.gmail.com")
+EMAIL_PORT = int(os.getenv("GMAIL_PORT", 587))
+EMAIL_HOST_USER = os.getenv("GMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("GMAIL_HOST_PASSWORD")
+EMAIL_USE_TLS = os.getenv("GMAIL_USE_TLS", "True") == "True"
+
 # # 確認完了後にリダイレクトするURL
 LOGIN_REDIRECT_URL = "/"
 
