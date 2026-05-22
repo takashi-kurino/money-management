@@ -48,7 +48,7 @@ export function CategoryForm(props: Props) {
         disabled={pending}
         className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-medium py-2 px-4 rounded-md transition-colors"
       >
-        {props.mode === 'edit' ? '更新' : '作成'}
+        {props.mode === 'edit' ? pending?"更新":"更新中..." : pending?"作成":"作成中..."}
       </button>
     </form>
   )

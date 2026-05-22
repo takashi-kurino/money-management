@@ -131,7 +131,7 @@ export function PasswordResetConfirmForm() {
 
                         <div className="flex flex-col gap-3">
                             <Button disabled={pending} type="submit" className="w-full">
-                            パスワードをリセット
+                                {pending?"パスワードをリセット":"パスワードをリセット中..."}
                             </Button>
                         </div>
                 </div>
