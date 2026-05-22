@@ -33,7 +33,7 @@ export function TransactionForm(props: Props) {
             name="date"
             defaultValue={t?.date ?? ''}
             className="w-full px-3 py-2 border border-gray-300 rounded-md text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            required={props.mode === 'edit'}
+            required
           />
         </div>
 
@@ -51,6 +51,18 @@ export function TransactionForm(props: Props) {
             <option value="支出">支出</option>
           </select>
         </div>
+        <div>
+          <label htmlFor="total_price" className="block text-sm font-medium text-gray-700 mb-2">金額</label>
+          <input
+            type="number"
+            id="total_price"
+            name="total_price"
+            defaultValue={t?.total_price ?? ''}
+            placeholder="0"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            required
+          />
+        </div>
 
         <div>
           <label htmlFor="store" className="block text-sm font-medium text-gray-700 mb-2">店舗・取引先</label>
@@ -60,7 +72,6 @@ export function TransactionForm(props: Props) {
             name="store"
             defaultValue={t?.store ?? ''}
             className="w-full px-3 py-2 border border-gray-300 rounded-md text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            required={props.mode === 'edit'}
           />
         </div>
 
@@ -81,25 +92,17 @@ export function TransactionForm(props: Props) {
           </select>
         </div>
 
-        <div>
-          <label htmlFor="total_price" className="block text-sm font-medium text-gray-700 mb-2">金額</label>
-          <input
-            type="number"
-            id="total_price"
-            name="total_price"
-            defaultValue={t?.total_price ?? ''}
-            placeholder="0"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            required
-          />
-        </div>
 
         <button
           type="submit"
           disabled={pending}
           className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-medium py-2 px-4 rounded-md transition-colors"
         >
-          {props.mode === 'edit' ? '更新' : '作成'}
+          
+        {props.mode === 'create' 
+          ? pending ? "作成中...":"作成"
+          : pending ? "更新中...":"更新" 
+        }
         </button>
       </div>
 

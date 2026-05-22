@@ -10,7 +10,7 @@ const initialState = { message: '' }
 type Props =
   | { mode: 'create' }
   | { mode: 'edit'; category: Category }
-  | { mode: 'bulk_create'}
+  // | { mode: 'bulk_create'}
 
 export function CategoryForm(props: Props) {
   const action =
@@ -29,7 +29,7 @@ export function CategoryForm(props: Props) {
         <input
           type="text"
           id="name"
-          name="name"           // ← "store" だったのを修正
+          name="name"
           defaultValue={props.mode === 'edit' ? props.category.name : ''}
           placeholder="カテゴリー名"
           className="w-full px-3 py-2 border border-gray-300 rounded-md text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -48,7 +48,10 @@ export function CategoryForm(props: Props) {
         disabled={pending}
         className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-medium py-2 px-4 rounded-md transition-colors"
       >
-        {props.mode === 'edit' ? pending?"更新中...":"更新" : pending?"作成中...":"作成"}
+        {props.mode === 'create' 
+          ? pending ? "作成中...":"作成"
+          : pending ? "更新中...":"更新" 
+        }
       </button>
     </form>
   )
