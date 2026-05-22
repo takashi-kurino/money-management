@@ -87,7 +87,7 @@ export function PasswordChangeForm() {
 
                 <div className="flex flex-col gap-3">
                     <Button disabled={pending} type="submit" className="w-full">
-                      {pending?"パスワードを変更":"パスワードを変更中..."}
+                      {pending?"パスワードを変更中...":"パスワードを変更"}
                     </Button>
                 </div>
 

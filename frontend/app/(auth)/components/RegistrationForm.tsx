@@ -194,7 +194,7 @@ export function RegistrationForm() {
               )}
               <div className="flex flex-col gap-3">
                 <Button disabled={pending} type="submit" className="w-full">
-                  {pending?"ユーザー登録":"ユーザー登録中..."}
+                  {pending?"ユーザー登録中...":"ユーザー登録"}
                 </Button>
               </div>
 

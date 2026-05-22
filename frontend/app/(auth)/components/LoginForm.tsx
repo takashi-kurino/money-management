@@ -96,7 +96,7 @@ export function LoginForm() {
 
               <div className="flex flex-col gap-3">
                 <Button disabled={pending} type="submit" className="w-full">
-                  {pending?"ログイン":"ログイン中..."}
+                  {pending?"ログイン中...":"ログイン"}
                 </Button>
               </div>
             </div>
