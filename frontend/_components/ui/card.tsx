@@ -87,7 +87,7 @@ type CardHomeProps = {
 
 function CardHome({title,description}:CardHomeProps) {
   return (
-    <div className="box-border border-1 border-indigo-100  mx-auto max-w-md overflow-hidden rounded-xl  shadow-md md:max-w-2xl mb-4">
+    <div className="w-auto md:w-auto lg:w-auto box-border border-1 border-indigo-100 rounded-xl shadow-md ">
         <div className="md:flex">
             <div className="p-8">
             <div className="text-xl font-semibold tracking-wide text-blue-500 uppercase">{title}</div>

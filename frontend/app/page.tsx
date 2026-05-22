@@ -9,14 +9,30 @@ export default function Home() {
         <h1 className="text-4xl font-bold text-center text-gray-900 mb-4">
           Welcome to Takashi Kurino's Portfolio
         </h1>
+        
         <h2 className="text-xl text-center text-gray-600 mb-12">
           This stack includes
         </h2>
+
+        <h2 className="text-xl text-gray-600 mb-2 p-3">
+          Local enviroment
+        </h2>
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <CardHome title="Frontend" description="React + Next.js" />
-          <CardHome title="Webserver" description="Nginx" />
-          <CardHome title="Backend" description="Django" />
           <CardHome title="Database" description="PostgreSQL" />
+          <CardHome title="Backend" description="Django" />
+          <CardHome title="Webserver" description="Nginx" />
+        </div>
+
+        <h2 className="text-xl text-gray-600 mb-2 p-3">
+          Deploy enviroment
+        </h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <CardHome title="Frontend" description="Vercel" />
+          <CardHome title="Backend" description="Render" />
+          <CardHome title="Database" description="Neon" />
         </div>
       </div>
     </div>

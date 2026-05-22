@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/_components/layout/header";
-import { AppProgressBar as ProgressBar } from 'next-nprogress-bar';
 import { Suspense } from 'react'; // 追加
 import ProgressBarProvider from "../_components/layout/progress-bar"
 

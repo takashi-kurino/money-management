@@ -26,7 +26,7 @@ export function TransactionForm(props: Props) {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
 
         <div>
-          <label htmlFor="date" className="block text-sm font-medium text-gray-700 mb-2">日付</label>
+          <label htmlFor="date" className="block text-sm font-medium text-gray-700 mb-2">日付*</label>
           <input
             type="date"
             id="date"
@@ -38,7 +38,7 @@ export function TransactionForm(props: Props) {
         </div>
 
         <div>
-          <label htmlFor="type" className="block text-sm font-medium text-gray-700 mb-2">収支</label>
+          <label htmlFor="type" className="block text-sm font-medium text-gray-700 mb-2">収支*</label>
           <select
             id="type"
             name="type"
@@ -52,7 +52,7 @@ export function TransactionForm(props: Props) {
           </select>
         </div>
         <div>
-          <label htmlFor="total_price" className="block text-sm font-medium text-gray-700 mb-2">金額</label>
+          <label htmlFor="total_price" className="block text-sm font-medium text-gray-700 mb-2">金額*</label>
           <input
             type="number"
             id="total_price"
