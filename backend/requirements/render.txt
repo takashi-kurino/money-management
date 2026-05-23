@@ -23,6 +23,8 @@ requests                        # 外部APIへの HTTP リクエスト
 drf-nested-routers              # ネストされたルーティングを簡単に定義するためのライブラリ
 django-cors-headers
 
+# mail関係 Resend
+django-anymail[resend]
 
 # =========================
 # ④ 本番デプロイ関連
