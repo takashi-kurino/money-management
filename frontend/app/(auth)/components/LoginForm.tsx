@@ -11,30 +11,42 @@ import {
 import { Input } from "@/_components/ui/input"
 import { Label } from "@/_components/ui/label"
 
-import {useActionState,useEffect} from "react"
-import {Login} from "@/app/(auth)/clientactions"
+import { Login } from "@/app/(auth)/clientactions"
 
-type LoginError={
-  password?: string[]
-  non_field_errors?:string[]
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+
+interface LoginError {
+  password?: string[],
+  non_field_errors?: string[],  // ← sがつく
+  username?: string[],
 }
 
-const initialState={
-  data:null,
-  redirectTo:"",
-}
+export default function LoginForm() {
+  const router = useRouter()
+  const [error, setError] = useState<LoginError | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
 
-export function LoginForm() {   
-  const [state, formAction, pending] = useActionState(Login, initialState)
-  
-  const error = state?.data as LoginError | null
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setIsLoading(true)
 
-  useEffect(() => {
-    if (state?.redirectTo) {
-      window.location.href = state.redirectTo; // 直接リダイレクトする
-      // ログイン後のユーザー名がHeaderに反映されない問題を解決するため、直接リダイレクトする。
+    const formData = new FormData(e.currentTarget)
+    const username = formData.get("username") as string
+    const password = formData.get("password") as string
+
+    const result = await Login(username, password)
+
+    if (!result.ok) {
+      setError(result.data)
+      setIsLoading(false)  // ← エラー時だけローディング解除
+      return
     }
-  }, [state])
+
+    // 成功時：ローディングのまま遷移（フォームが一瞬クリアされるのを防ぐ）
+    router.push('/transaction')
+    router.refresh()
+  }
   
   return (
     <div >
@@ -45,7 +57,7 @@ export function LoginForm() {
         </CardHeader>
 
         <CardContent>
-          <form action={formAction} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6">
             <div className="flex flex-col gap-6">
               
               {/* USERNAME */}
@@ -59,6 +71,13 @@ export function LoginForm() {
 
                 />
               </div>
+              {error && (
+                <p className="text-red-500" aria-live="polite">
+                  {error.username?.map((msg, index) => (
+                    <span key={index}>{msg}</span>
+                  ))}
+                </p>
+              )}
 
               {/* PASSWORD */}
               <div className="grid gap-3">
@@ -78,7 +97,7 @@ export function LoginForm() {
                   suppressHydrationWarning
 
                 />
-                {error?.password && (
+                {error && (
                   <p className="text-red-500" aria-live="polite">
                     {error.password?.map((msg, index) => (
                       <span key={index}>{msg}</span>
@@ -86,7 +105,7 @@ export function LoginForm() {
                   </p>
                 )}
               </div>
-                {error?.non_field_errors && (
+                {error && (
                   <p className="text-red-500" aria-live="polite">
                     {error.non_field_errors?.map((msg, index) => (
                       <span key={index}>{msg}</span>
@@ -95,8 +114,8 @@ export function LoginForm() {
                 )}
 
               <div className="flex flex-col gap-3">
-                <Button disabled={pending} type="submit" className="w-full">
-                  {pending?"ログイン中...":"ログイン"}
+                <Button type="submit" className="w-full">
+                  {isLoading?"ログイン中...":"ログイン"}
                 </Button>
               </div>
             </div>

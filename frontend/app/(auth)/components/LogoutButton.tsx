@@ -1,13 +1,26 @@
 'use client';
 
+import { useRouter } from "next/navigation"
+import { useState } from "react";
+
 import { cn } from "@/_lib/utils"
 import { Logout } from "@/app/(auth)/clientactions"
 import { Button } from '@/_components/ui/button';
 
-export default function LoggoutButton() {
+export default function LogoutButton() {
+    const [error, setError] = useState<string | null>(null)
+    const router = useRouter()
 
-    function handleClick() {
-        Logout()
+    const handleClick = async () => {
+        const res = await Logout()
+
+        if (!res) {
+            setError("ログアウトに失敗しました。")
+            return
+        }
+
+        router.push("/login")
+        router.refresh()
     }
     
     return (
@@ -15,6 +28,7 @@ export default function LoggoutButton() {
             <Button onClick={handleClick} type="button">
                 ログアウト
             </Button>
+            <p className="color:red">{error}</p>
         </div>
     );
 }

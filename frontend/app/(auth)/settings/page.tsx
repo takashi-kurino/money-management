@@ -3,7 +3,7 @@
 'use client';
 
 import { Separator } from "@/_components/ui/separator"
-import LoggoutButton from "@/app/(auth)/components/LogoutButton";
+import LogoutButton from "@/app/(auth)/components/LogoutButton";
 import { AccountDeleteForm } from "@/app/(auth)/components/AccountDeleteForm";
 import { PasswordChangeForm } from "@/app/(auth)/components/PasswordChangeForm";
 
@@ -13,7 +13,7 @@ export default function Page() {
       <div className="w-full max-w-sm">
         
         {/* <UserInfo /> */}
-        <LoggoutButton />
+        <LogoutButton />
 
         <Separator className="my-6" />
 
