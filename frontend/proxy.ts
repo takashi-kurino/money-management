@@ -64,8 +64,8 @@ export async function proxy(req: NextRequest) {
       return NextResponse.redirect(new URL("/login", req.url));
     }
     
-    // 新しい Set-Cookie をそのまま次のレスポンスに引き渡す
-    const res = NextResponse.next();
+     // ✅ next() ではなく、同じ URL にリダイレクトする
+    const res = NextResponse.redirect(req.url);
     refreshRes.headers.getSetCookie().forEach((cookie) => {
       res.headers.append("Set-Cookie", cookie);
     });
