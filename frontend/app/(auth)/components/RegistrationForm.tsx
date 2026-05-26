@@ -35,12 +35,13 @@ const initialState: {
 }
 
 const useRegistrationResendEmail = (email: string) => {
+
   const [cooldown, setCooldown] = useState<number>(0);
 
   const resend = async (): Promise<void> => {
     try {
-      await ResendEmail(email);
       setCooldown(60); // クールダウン開始
+      await ResendEmail(email);
     } catch (err) {
       console.error('再送できませんでした', err);
     }
@@ -65,6 +66,14 @@ export function RegistrationForm() {
   const error = state?.data as RegistrationError | null
   const success = state?.data as RegistrationSuccess | null
   const { resend, cooldown } = useRegistrationResendEmail(typeof state?.email === 'string' ? state.email : "");
+
+  const [fields, setFields] = useState({
+    username: "",
+    email: "",
+    password1: "",
+    password2: "",
+  });
+
 
   return (
     <div >
@@ -109,9 +118,9 @@ export function RegistrationForm() {
                 <Input
                   id="username"
                   name="username"
-                  type="username"
-                  suppressHydrationWarning
-
+                  type="text"
+                  value={fields.username}
+                  onChange={(e) => setFields(prev => ({ ...prev, username: e.target.value }))}
                 />
               </div>
 
@@ -129,7 +138,8 @@ export function RegistrationForm() {
                   id="email"
                   name="email"
                   type="email"
-                  suppressHydrationWarning
+                  value={fields.email}
+                  onChange={(e) => setFields(prev => ({ ...prev, email: e.target.value }))}
 
                 />
               </div>
@@ -150,8 +160,9 @@ export function RegistrationForm() {
                 <Input
                   id="password1"
                   name="password1"
-                  type="password1"
-                  suppressHydrationWarning
+                  type="password"
+                  value={fields.password1}
+                  onChange={(e) => setFields(prev => ({ ...prev, password1: e.target.value }))}
 
                 />
               </div>
@@ -172,8 +183,9 @@ export function RegistrationForm() {
                 <Input
                   id="password2"
                   name="password2"
-                  type="password2"
-                  suppressHydrationWarning
+                  type="password"
+                  value={fields.password2}
+                  onChange={(e) => setFields(prev => ({ ...prev, password2: e.target.value }))}
 
                 />
               </div>
