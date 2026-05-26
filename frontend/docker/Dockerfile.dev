@@ -1,4 +1,4 @@
-# frontend/Dockerfile
+# frontend/Dockerfile.dev
 FROM node:24.0.1-slim
 
 # pnpm をインストール
@@ -10,7 +10,5 @@ COPY package.json pnpm-lock.yaml ./
 RUN pnpm install --frozen-lockfile
 
 COPY . .
-
-RUN pnpm build
 
 CMD ["pnpm", "dev"]

@@ -26,6 +26,9 @@ requests                        # 外部APIへの HTTP リクエスト
 django-timezone-field           # TimeZoneField をモデルで使う場合に必要
 drf-nested-routers              # ネストされたルーティングを簡単に定義するためのライブラリ
 
+# mail関係 Resend
+django-anymail[resend]
+
 # =========================
 # ④ 本番デプロイ関連
 # =========================

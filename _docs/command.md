@@ -1,11 +1,13 @@
 # Docker ボリュームをクリア
 docker-compose -f compose.yml -f compose.dev.yml down -v
+docker-compose -f compose.yml -f compose.dev.yml down nextjs-web
 
 # キャッシュをクリア
 docker system prune -a
 
 # 再ビルド
 docker-compose -f compose.yml -f compose.dev.yml up --build
+docker-compose -f compose.yml -f compose.dev.yml up --build nextjs-web
 
 #　環境指定ビルド
 
