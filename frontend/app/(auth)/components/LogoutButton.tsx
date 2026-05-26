@@ -9,9 +9,11 @@ import { Button } from '@/_components/ui/button';
 
 export default function LogoutButton() {
     const [error, setError] = useState<string | null>(null)
+    const [isLoading,setIsLoading] = useState(false)
     const router = useRouter()
 
     const handleClick = async () => {
+        setIsLoading(true)
         const res = await Logout()
 
         if (!res) {
@@ -26,7 +28,7 @@ export default function LogoutButton() {
     return (
         <div className={cn("flex flex-col gap-6")}>
             <Button onClick={handleClick} type="button">
-                ログアウト
+                {isLoading?"ログアウト中...":"ログアウト"}
             </Button>
             <p className="color:red">{error}</p>
         </div>
