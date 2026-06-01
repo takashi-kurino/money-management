@@ -36,7 +36,6 @@ class TransactionDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Transaction
         fields = ['uuid', 'date', 'type', 'store', 'category', 'total_price', 'created_at', 'updated_at', 'items']
-
     
     def to_representation(self, instance):
         data = super().to_representation(instance)
@@ -105,3 +104,8 @@ class WeeklyTransactionSerializer(serializers.Serializer):
     total_income = serializers.DecimalField(max_digits=10, decimal_places=2)
     total_expense = serializers.DecimalField(max_digits=10, decimal_places=2)
     transactions = TransactionListSerializer(many=True)
+
+class CategorySummarySerializer(serializers.Serializer):
+    category_uuid = serializers.UUIDField()
+    category_name = serializers.CharField()
+    price = serializers.IntegerField()

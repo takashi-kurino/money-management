@@ -1,15 +1,14 @@
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
-from .models import Transaction, Category, Item
-from .serializer import TransactionDetailSerializer, CategoryCreateSerializer, ItemSerializer, TransactionListSerializer, WeeklyTransactionSerializer
-from django.db.models import Q
-from django.db.models import Sum
-from datetime import date
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
-from .serializer import TransactionListSerializer
 from rest_framework.filters import OrderingFilter
+
+from .models import Transaction, Category, Item
+from .serializer import TransactionDetailSerializer, CategoryCreateSerializer, ItemSerializer, TransactionListSerializer, WeeklyTransactionSerializer,CategorySummarySerializer
+from django.db.models import Q,F,Sum
+from datetime import date
 
 class TransactionViewSet(viewsets.ModelViewSet):
     
@@ -91,6 +90,7 @@ class WeeklyTransactionView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
+        
         try:
             year = int(request.query_params.get('year'))
             week = int(request.query_params.get('week'))
@@ -119,4 +119,37 @@ class WeeklyTransactionView(APIView):
         }
 
         serializer = WeeklyTransactionSerializer(data)
+        return Response(serializer.data)
+
+class CategorySummaryView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        try:
+            year = int(request.query_params.get('year'))
+            month_param = request.query_params.get('month')
+            month = int(month_param) if month_param is not None else None
+        except (TypeError, ValueError):
+            return Response(
+                {"error": "year is required", "url": "?year=%d or ?year=%d&month=%d"},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        date_filter = Q(transaction__date__year=year)
+        if month is not None:
+            date_filter &= Q(transaction__date__month=month)
+
+        categories = Category.objects.filter(
+            user=request.user
+        ).annotate(
+            category_uuid=F("uuid"),
+            category_name=F("name"),
+            price=Sum(
+                "transaction__total_price",
+                filter=date_filter,
+                default=0
+            )
+        )
+
+        serializer = CategorySummarySerializer(categories, many=True) 
         return Response(serializer.data)

@@ -5,7 +5,7 @@
 from django.urls import path, include
 from rest_framework_nested import routers
 
-from .views import CategoryViewSet, TransactionViewSet, ItemViewSet, WeeklyTransactionView
+from .views import CategoryViewSet, TransactionViewSet, ItemViewSet, WeeklyTransactionView,CategorySummaryView
 
 router = routers.SimpleRouter()
 router.register(r'transactions', TransactionViewSet)
@@ -18,5 +18,6 @@ router.register(r'categories', CategoryViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     path('', include(transation_router.urls)),
-    path('weekly/', WeeklyTransactionView.as_view(), name='weekly-transactions'),
+    path('weekly/', WeeklyTransactionView.as_view(), name='weekly-categorysums'),
+    path('summary/',CategorySummaryView.as_view(),name="monthly-categorysums"),
 ]
