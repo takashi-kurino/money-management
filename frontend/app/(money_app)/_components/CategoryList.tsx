@@ -5,8 +5,7 @@ import {Category} from '../types'
 
 export default function CategoryList({ categories }: { categories: Category[] }) {
     return (
-        <div className="bg-gray-50 p-6">
-            <div className="mx-auto max-w-4xl">
+        <div className="mx-auto max-w-4xl">
             <div className="bg-white rounded-lg shadow-sm overflow-hidden">
 
             <ul>
@@ -18,7 +17,6 @@ export default function CategoryList({ categories }: { categories: Category[] })
                 </Link>
                 ))}
             </ul>
-            </div>
             </div>
         </div>
     );

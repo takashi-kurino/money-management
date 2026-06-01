@@ -29,7 +29,7 @@ class Transaction(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.date} - {self.type} - {self.store} - {self.total_price}"
+        return f"{self.date} - {self.type} - {self.store} - {self.category} - {self.total_price}"
 
 class Item(models.Model):
     uuid = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
