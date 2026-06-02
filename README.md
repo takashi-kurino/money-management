@@ -1,85 +1,84 @@
-# 認証付きTodoApp
+# プロジェクト概要
 
-CookieベースJWT認証付き家計簿アプリ
-    
-## 1. 技術スタック　選定理由
-- Frontend : React / Next.js / Tailwind 
-    - React：コンポーネント分割と状態管理により、TodoのCRUDやモーダル管理を整理しやすいため。 
-    - Next：ルーティング・環境変数・ビルドを含めた実運用前提の構成を学ぶため。今回はApp Routerを利用 
-    - Tailwind:UI設計よりもロジックと認証実装に集中するため。(shadcn利用)
+JWT認証付きの家計簿アプリ。収支の記録・カテゴリ管理・月別統計を機能として持つ。
 
-- Backed : Django  
-    - 認証・管理画面やORMが揃っており、webアプリの基礎構造を学ぶのに適している。 
-    - 将来的な拡張（非同期通信、API分離）も想定。
+Django + Next.js のフルスタック構成で、認証フローの設計（BFFパターン / HttpOnly Cookie）や
+フロント・バックエンド分離のアーキテクチャを実装することを主な目的として開発。
 
-- Auth : dj_rest_auth + JWT + HttpOnly Cookie
-    - JWTを含めた認証の仕組みを歴史的背景（セッション / トークン）から理解したかった
-    - フロントにトークンを持たせない設計を採用し、セキュリティ面も考慮
+設計思想・開発記録：[Notion](https://app.notion.com/p/Takashi-Kurino-Portfolio-356bb43e5cae8015900cc17d23b639bb?source=copy_link)
 
-- Infra : Docker / Nginx
-    - 環境差異をなくし、ローカル〜本番で同一構成を保つため
-    - リバースプロキシの役割を理解する目的も含む
+## デプロイURL
 
-- deploy : render / vercel / Neon / Remail
+https://money-management-three-nu.vercel.app/
+⚠️起動に1~2分かかります
 
+## 技術スタック
 
-## 2. 機能一覧
+| カテゴリ | 技術 |
+|----------|------|
+| Frontend | Next.js (Route Handler App Router) / React / TypeScript / Tailwind CSS |
+| Backend  | Django / Django REST Framework |
+| Auth     | dj-rest-auth / SimpleJWT / HttpOnly Cookie |
+| Database | PostgreSQL (Neon) |
+| Infra    | Docker / Docker Compose |
+| Deploy   | Vercel / Render |
 
-- ユーザー認証
-    - Cookieベースの認証を利用したログイン状態管理
-    - ユーザー登録 / ログイン / ログアウト
-    - アカウント削除
-    - パスワード再設定 / 更新
-    - メール認証
-- 家計簿アプリ
-    - 一覧取得
-    - 取引・取引のアイテム・カテゴリのCRUD
+## アーキテクチャ図
 
-## 3. 設計・構成の考え方
+[draw.io](https://drive.google.com/file/d/1XID0lPSdVMnqqwqC2N5q2apjLaragoew/view?usp=sharing)
 
-- フロント/バックを分けた理由
-    - Webだけでなく、将来的なモバイル・ネイティブクライアントからの利用も想定し、
-      APIを中心とした構成とした
-    - 責務を明確に分離し、フロントエンドは表示・入力・API呼び出しに専念し、
-      ビジネスロジックやデータ管理はバックエンドで一元管理するため
-    - フレームワークや言語を変更する場合でも、
-      影響範囲を限定できる構成にするため
+## ローカル起動手順
 
-- 認証方式
-    - JWTをHttpOnly Cookieに保存する方式を採用
-    - アクセストークン失効時はリフレッシュトークンによって再発行されるため、フロント側での状態管理は「ログインしている前提」ではなく「都度確認」とした
+```bash
+git clone https://github.com/takashi-kurino/money-management.git
+```
 
-- url設計
+フロント側のインポート
 
-- ER図
-    - [draw.io](https://drive.google.com/file/d/1K8ai2hQIQY6h0XGUoRP8pnBbTVocj2wq/view?usp=sharing)
+```bash
+cd frontend
+npm install
+```
 
-## 4. 苦労した点
+バックエンド側のインポート
 
-### 前回の認証をクライアント通信からサーバー通信へ変更。
+```bash
+cd backend
+python -m ensurepip --upgrade
+python -m pip install --upgrade pip setuptools wheel
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements/debug.txt
+```
 
-- Nextを利用しているメリットを活用。
-    - 前回のTodoアプリではクライアント通信を設計していたが、今回家計簿アプリをサーバー通信で作成。
-    - それによる出てきた問題点。
-        - リフレッシュトークンの扱いにまたぶつかった。
+docker起動
 
-- 学び
-    - Next.js を利用する場合、SSR / CSR の責務を最初に整理し、それを前提に設計を固めることが重要だと実感した
-    - 途中で設計を変更すると、実装コストだけでなく思考の再整理も必要になり、開発効率やモチベーションに影響することを学んだ
+```bash
+docoker compose up
+```
 
-### SSRとCSRの扱いの違い
+docker 停止
 
-### dj_rest_authのパスワードリセットメールの解決。
+```bash
+docoker compose down
+```
 
-### リフレッシュトークンの扱い。
+## envファイルの作成
 
-## 次回（学習・発展予定）
+```bash
+cp .env.example .env
+```
 
-- Next.js の fetch を中心とした認証フローの実装
-    - サーバーコンポーネントと認証の関係を理解するため
-- Auth0 を利用した外部認証の検証
-    - 自前実装との違いや責務分離を比較する目的
-- BFF（Backend For Frontend）構成の検討
-    - フロント専用APIを設けた場合の設計と実装を試す
-- 家計簿アプリの作成
-    - 認証・CRUD・集計処理を含む別ドメインでの再実装
+---
+
+**Notionに残すもの（GitHubには不要）**
+
+- AI活用の考察
+- 苦労した点の詳細
+- ワイヤーフレームの経緯
+- デプロイサービス選定の比較表
+- 進捗管理
+
+---
+
+採用担当やエンジニアがGitHubを見るとき、まず「動かせるか」「スタックが分かるか」を確認するので、READMEはそこに集中させてNotionへの詳細リンクを添えるのがベストだと思います。
