@@ -6,4 +6,4 @@ from `local_docker.py` by default. This keeps compatibility with
 `DJANGO_SETTINGS_MODULE=config.settings` used in compose.yml.
 """
 
-from .local_docker import *
+from .dev import *

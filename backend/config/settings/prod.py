@@ -5,11 +5,11 @@ DEBUG = False
 SECURE_SSL_REDIRECT = True
 
 CSRF_COOKIE_SECURE = True
-CSRF_COOKIE_SAMESITE = "strict"
+CSRF_COOKIE_SAMESITE = "lax"
 CSRF_COOKIE_HTTPONLY = True
 
 SESSION_COOKIE_SECURE = True
-SESSION_COOKIE_SAMESITE = "strict"
+SESSION_COOKIE_SAMESITE = "lax"
 
 REST_AUTH = {
     'PASSWORD_RESET_SERIALIZER': 'custom_auth.password_reset.serializer.CustomPasswordResetSerializer',
@@ -19,7 +19,7 @@ REST_AUTH = {
     'JWT_AUTH_HEADER_PREFIX': 'Bearer',
     'JWT_AUTH_HTTPONLY': True,
     'JWT_AUTH_SECURE': True,
-    'JWT_AUTH_SAMESITE': 'strict',
+    'JWT_AUTH_SAMESITE': 'lax',
     'OLD_PASSWORD_FIELD_ENABLED': True,
 }
 

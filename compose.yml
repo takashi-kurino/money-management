@@ -21,7 +21,7 @@ services:
     container_name: django_money
     build: 
       context: ./backend
-      dockerfile: docker/Dockerfile
+      dockerfile: docker/Dockerfile.dev
     volumes:
       - ./backend:/app
       - static_volume:/app/staticfiles
@@ -34,7 +34,7 @@ services:
       DEBUG: ${DEBUG}
       DJANGO_LOGLEVEL: ${DJANGO_LOGLEVEL}
       DJANGO_ALLOWED_HOSTS: ${DJANGO_ALLOWED_HOSTS}
-      DJANGO_SETTINGS_MODULE: config.settings.local_docker
+      DJANGO_SETTINGS_MODULE: config.settings.dev
       DATABASE_ENGINE: ${DATABASE_ENGINE}
       DATABASE_NAME: ${DATABASE_NAME}
       DATABASE_USERNAME: ${DATABASE_USERNAME}

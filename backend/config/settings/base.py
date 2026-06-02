@@ -3,7 +3,6 @@
 import os
 from pathlib import Path
 from dotenv import load_dotenv
-from datetime import timedelta
 DEBUG = True
 
 # base.py から 3 階層上の .env を読み込む
@@ -93,7 +92,6 @@ DATABASE_URL = os.getenv("DATABASE_URL")
 DATABASES = {
     # 各ファイルに追加
 }
-
 
 CORS_ALLOWED_ORIGINS = [
     # 各ファイルに追加
