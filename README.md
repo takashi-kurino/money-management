@@ -33,7 +33,7 @@ https://money-management-three-nu.vercel.app/
 mkdir playground
 cd playground
 git clone https://github.com/takashi-kurino/money-management.git
-cd money_management
+cd money-management
 ```
 
 ### 1 .envファイルの作成
