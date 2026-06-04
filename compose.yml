@@ -2,7 +2,7 @@
 # django-webやnextjs-webはDNSになる。
 services:
   db:
-    container_name: postgres_money
+    container_name: postgres
     image: postgres:17
     environment:
       POSTGRES_DB: ${DATABASE_NAME}
@@ -18,7 +18,7 @@ services:
       - app-network
 
   django-web:
-    container_name: django_money
+    container_name: django
     build: 
       context: ./backend
       dockerfile: docker/Dockerfile.dev
@@ -47,7 +47,7 @@ services:
       - app-network
 
   nextjs-web:
-    container_name: nextjs_money
+    container_name: nextjs
     build: 
       context: ./frontend
       dockerfile: docker/Dockerfile
