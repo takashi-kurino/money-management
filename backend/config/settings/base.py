@@ -130,19 +130,14 @@ REST_FRAMEWORK = {
 
 ACCOUNT_ADAPTER = "custom_auth.registration_verify.adapter.CustomAccountAdapter"
 
-# Cookie設定を全体に反映 renderとvercel通信用--------
-
-# -----------------------------------------------
-
 # ========================
 # allauth 設定
 # ========================
 
 ACCOUNT_LOGIN_METHODS = {"username"}
 ACCOUNT_SIGNUP_FIELDS = ["username*", "email*", "password1*", "password2*"]
-ACCOUNT_EMAIL_VERIFICATION = "none"  # 'mandatory', 'optional', or 'none'
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"  # 開発環境でもメール確認を必須にする
 ACCOUNT_UNIQUE_EMAIL = True
-
 
 # ========================
 # Email Backend（ローカル開発用: コンソール出力）
