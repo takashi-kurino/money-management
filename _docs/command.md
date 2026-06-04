@@ -1,32 +1,59 @@
-# Docker ボリュームをクリア
-docker-compose -f compose.yml -f compose.dev.yml down -v
-docker-compose -f compose.yml -f compose.dev.yml down nextjs-web
+# コマンド
 
-# キャッシュをクリア
+## Docker操作
+
+### ビルド
+
+```bash
+docker compose up --build
+```
+
+### 起動
+
+```bash
+docker compose up 
+```
+
+### 停止
+
+```bash
+docker compose down
+```
+
+### キャッシュをクリア
+
+```bash
 docker system prune -a
+```
 
-# 再ビルド
-docker-compose -f compose.yml -f compose.dev.yml up --build
-docker-compose -f compose.yml -f compose.dev.yml up --build nextjs-web
+## ホットリロード付きビルド
 
-#　環境指定ビルド
-
-docker compose -f compose.yml -f compose.dev.yml build nextjs-web
-
-## ファイルを指定して起動
-
-```ローカル開発
+```bash
 docker compose -f compose.yml -f compose.dev.yml up --build
 ```
 
-```本番
-docker compose -f compose.yml up --build
+### 停止
+
+```bash
+docker-compose -f compose.yml -f compose.dev.yml down
 ```
 
-# 開発環境設定
+### 再ビルド
 
-```コマンド
-brew install npm
+```bash
+docker-compose -f compose.yml -f compose.dev.yml up --build
+```
+
+### 環境指定ビルド
+
+```bash
+docker compose -f compose.yml -f compose.dev.yml build nextjs-web
+```
+
+## 開発環境設定
+
+```bash
+brew install pnpm
 brew install python
 
 cd frontend
@@ -39,17 +66,11 @@ python -m pip install --upgrade pip setuptools wheel
 python -m venv .venv
 source .venv/bin/activate
 
-pip install -r requirements_locla.txt
+pip install -r requirements/debug.txt
 ```
 
 ## envファイルの作成
 
-```envファイル
+```bash
 cp .env.example .env
 ```
-
-# 実運用ではさらにやること
-
-静的ファイル収集 (python manage.py collectstatic)
-gunicorn や uvicorn などの本番用 WSGI/ASGI サーバーに切り替え
-nginxのlocatiln _nextを削除
