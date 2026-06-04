@@ -1,5 +1,3 @@
-# compose.yml
-# django-webやnextjs-webはDNSになる。
 services:
   db:
     container_name: postgres
@@ -16,6 +14,11 @@ services:
       - .env
     networks:
       - app-network
+    healthcheck:                                              # ← 追加
+      test: ["CMD-SHELL", "pg_isready -U ${DATABASE_USERNAME} -d ${DATABASE_NAME}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   django-web:
     container_name: django
@@ -28,7 +31,8 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      - db
+      db:                          # ← objectスタイルに変更
+        condition: service_healthy #   healthy になるまで待つ
     environment:
       DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY}
       DEBUG: ${DEBUG}
@@ -55,7 +59,7 @@ services:
       - "3000:3000"
     environment:
       NEXT_PUBLIC_URL: ${NEXT_PUBLIC_URL}
-      DJANGO_INTERNAL_URL: ${DJANGO_INTERNAL_URL} # SSR用
+      DJANGO_INTERNAL_URL: ${DJANGO_INTERNAL_URL}
     env_file:
       - .env
     depends_on:
