@@ -30,7 +30,10 @@ https://money-management-three-nu.vercel.app/
 ## ローカル起動手順
 
 ```bash
+mkdir playground
+cd playground
 git clone https://github.com/takashi-kurino/money-management.git
+cd money_management
 ```
 
 ### 1 .envファイルの作成
@@ -45,18 +48,18 @@ cp .env.example .env
 python -c "import secrets; print(secrets.token_urlsafe(50))"
 ```
 
-出力されたものを.envのSECRET_KEYへ貼り付け。
+出力されたものを.envのDJANGO_SECRET_KEYへ貼り付け。
 
 ### 3 docker起動
 
 docker ビルド
 
 ```bash
-docoker compose up --build
+docker compose up --build
 ```
 
 docker 停止
 
 ```bash
-docoker compose down
+docker compose down
 ```
