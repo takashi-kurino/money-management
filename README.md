@@ -33,28 +33,26 @@ https://money-management-three-nu.vercel.app/
 git clone https://github.com/takashi-kurino/money-management.git
 ```
 
-フロント側のインポート
+### 1 .envファイルの作成
 
 ```bash
-cd frontend
-npm install
+cp .env.example .env
 ```
 
-バックエンド側のインポート
+### 2 django secret keyの作成
 
 ```bash
-cd backend
-python -m ensurepip --upgrade
-python -m pip install --upgrade pip setuptools wheel
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements/debug.txt
+python -c "import secrets; print(secrets.token_urlsafe(50))"
 ```
 
-docker起動
+出力されたものを.envのSECRET_KEYへ貼り付け。
+
+### 3 docker起動
+
+docker ビルド
 
 ```bash
-docoker compose up
+docoker compose up --build
 ```
 
 docker 停止
@@ -62,23 +60,3 @@ docker 停止
 ```bash
 docoker compose down
 ```
-
-## envファイルの作成
-
-```bash
-cp .env.example .env
-```
-
----
-
-**Notionに残すもの（GitHubには不要）**
-
-- AI活用の考察
-- 苦労した点の詳細
-- ワイヤーフレームの経緯
-- デプロイサービス選定の比較表
-- 進捗管理
-
----
-
-採用担当やエンジニアがGitHubを見るとき、まず「動かせるか」「スタックが分かるか」を確認するので、READMEはそこに集中させてNotionへの詳細リンクを添えるのがベストだと思います。
