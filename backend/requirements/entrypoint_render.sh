@@ -12,14 +12,19 @@ echo "👑 Creating superuser if not exists..."
 python manage.py shell <<EOF
 from django.contrib.auth import get_user_model
 User = get_user_model()
-username = "takashiadminmaster"
+username = "adminmaster"
 email = "admin@example.com"
-password = "mQMGpzB2ajwZmF2T"
+
+from django.utils.crypto import get_random_string
+password = get_random_string(length=16)
+
 if not User.objects.filter(username=username).exists():
     User.objects.create_superuser(username=username, email=email, password=password)
     print("✅ Superuser created:", username)
 else:
     print("ℹ️ Superuser already exists:", username)
+
+print("password", password)
 EOF
 
 echo "🚀 Starting Gunicorn..."
