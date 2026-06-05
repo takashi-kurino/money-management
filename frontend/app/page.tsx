@@ -19,7 +19,7 @@ export default function Home() {
         </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <CardHome title="GitHub" description="github" link="http://apple.com"/>
+          <CardHome title="GitHub" description="github" link="https://github.com/takashi-kurino/money-management"/>
           <CardHome title="Notion" description="write detail this portfolio" link="https://www.notion.so/Takashi-Kurino-Portfolio-356bb43e5cae8015900cc17d23b639bb?source=copy_link" />
         </div>
         
