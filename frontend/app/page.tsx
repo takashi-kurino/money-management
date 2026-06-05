@@ -49,7 +49,6 @@ export default function Home() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2  gap-6">
           <CardHome title="Database" description="PostgreSQL" />
-          <CardHome title="Webserver" description="Nginx" />
         </div>
 
       </div>
