@@ -12,6 +12,9 @@ Django + Next.js のフルスタック構成で、認証フローの設計（BFF
 https://money-management-three-nu.vercel.app/
 ⚠️起動に1~2分かかります
 
+テストユーザ名:testuser
+password:Aa1234567%
+
 ## 技術スタック
 
 | カテゴリ | 技術 |
