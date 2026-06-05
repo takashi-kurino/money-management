@@ -55,13 +55,13 @@ python -c "import secrets; print(secrets.token_urlsafe(50))"
 
 ### 3 docker起動
 
-docker ビルド
+ビルド
 
 ```bash
 docker compose up --build
 ```
 
-docker 停止
+停止
 
 ```bash
 docker compose down
