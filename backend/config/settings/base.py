@@ -159,7 +159,8 @@ elif RESEND_API_KEY:
     ANYMAIL = {
         "RESEND_API_KEY": RESEND_API_KEY,
     }
-    DEFAULT_FROM_EMAIL = "onboarding@resend.dev"
+
+    DEFAULT_FROM_EMAIL = 'noreply@takashikurino.com'
 
 else:
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
