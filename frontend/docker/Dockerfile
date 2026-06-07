@@ -1,13 +1,10 @@
-
-# frontend/Dockerfile
 FROM node:24.0.1-slim
 
-# pnpm をインストール
 RUN npm install -g pnpm
 
 WORKDIR /app
 
-COPY package.json pnpm-lock.yaml ./
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 RUN pnpm install --frozen-lockfile
 
 COPY . .
