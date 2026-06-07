@@ -1,6 +1,26 @@
 # コマンド
 
-## Docker操作
+## Docker colima操作
+
+インストール
+
+```bash
+brew install colima docker docker-compose
+```
+
+```bash
+colima start   # 起動
+colima stop    # 停止
+colima status  # 確認
+```
+
+自動起動
+
+```bash
+brew services start colima
+```
+
+## Docker Desktop操作
 
 ### ビルド
 
