@@ -11,6 +11,7 @@ load_dotenv(env_path)
 
 # 通常の BASE_DIR
 DEFAULT_BASE_DIR = Path(__file__).resolve().parents[3]
+TEMPLATE_DIR = Path(__file__).resolve().parents[2]
 
 # env に BASE_DIR があればそちらを使う
 BASE_DIR = Path(os.getenv("BASE_DIR", DEFAULT_BASE_DIR))
@@ -40,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "django.contrib.sites",  # allauth に必要
     
     'allauth',
     'allauth.account',
@@ -51,6 +53,8 @@ INSTALLED_APPS = [
     'dj_rest_auth.registration',
     
 ]
+
+SITE_ID = 1  # sites テーブルのID（デフォルトは1）
 
 MIDDLEWARE = [
  
@@ -69,7 +73,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [TEMPLATE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -138,6 +142,7 @@ ACCOUNT_LOGIN_METHODS = {"username"}
 ACCOUNT_SIGNUP_FIELDS = ["username*", "email*", "password1*", "password2*"]
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"  # 開発環境でもメール確認を必須にする
 ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_EMAIL_SUBJECT_PREFIX = "takashikurino.com"
 
 # ========================
 # Email Backend（ローカル開発用: コンソール出力）
