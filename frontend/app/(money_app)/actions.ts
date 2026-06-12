@@ -160,3 +160,18 @@ export async function DeleteCategory(uuid: string) {
         redirect("/category");       // 一覧へ移動
     }
 }
+
+
+export async function GetWeekSummary(year: number, month: number,) {
+    const token = await getToken();
+
+    const res = await fetch(`${process.env.DJANGO_INTERNAL_URL}/api/summary/?year=${year}&month=${month}`,{
+        headers: {  "Authorization": `Bearer ${token}` },
+        method: "GET",
+        cache: "no-store", // キャッシュを無効化して常に最新のユーザー情報を取得
+    });
+    if(!res.ok){
+        return []
+    }
+    return res.json();
+}
