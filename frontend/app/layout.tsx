@@ -29,7 +29,7 @@ export default function RootLayout({
     <html lang="ja" className="scroll-smooth">
       <body className="m-0">
         <Header />
-        <main className="pt-16">
+        <main>
           {children}
         </main>
         <Suspense>
