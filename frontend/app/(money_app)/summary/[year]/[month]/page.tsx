@@ -21,11 +21,11 @@ export default async function Page({ params }: { params: { year: string; month: 
          ) : (
            <>
            <div className="flex justify-end mb-8">
-            <div className="basis-1/3 text-3xl  text-center">
+            <div className="basis-1/3 sm:text-2xl  text-center">
               <PrevButton year={numberYear} month={numberMonth} />
             </div>
-            <h1 className="basis-1/3 text-3xl text-center font-bold text-gray-900">{numberYear}年{numberMonth}月</h1>
-            <div className="basis-1/3 text-3xl text-center">
+            <h1 className="basis-1/3 sm:text-2xl text-center font-bold text-gray-900">{numberYear}年{numberMonth}月</h1>
+            <div className="basis-1/3 sm:text-2xl text-center">
               <NextButton year={numberYear} month={numberMonth} />
             </div>
           </div>
