@@ -29,7 +29,6 @@ export default async function Page({ params }: { params: { year: string; month: 
               <NextButton year={numberYear} month={numberMonth} />
             </div>
           </div>
-            <SummaryPieChart params={params} />
             <SummaryList params={params} />
           </>
         ) }
