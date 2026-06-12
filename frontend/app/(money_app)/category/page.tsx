@@ -1,5 +1,4 @@
 
-import  Link  from "next/link";
 import { GetCategoryList } from "@/app/(money_app)/actions";
 import { CategoryForm } from "@/app/(money_app)/_components/CategoryForm";
 import { Category } from '../types'
@@ -10,7 +9,6 @@ export default async function CategoryPage() {
   const data = await GetCategoryList();
   const categories: Category[] = await data;
   return (
-
 
     <div className="min-h-screen bg-gray-50 p-6">
       <div className="mx-auto max-w-2xl">
