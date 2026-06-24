@@ -12,7 +12,12 @@ INSTALLED_APPS += [
 ]
 
 DATABASES = {
-    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
+    'default': dj_database_url.config(
+        default=os.environ.get('DATABASE_URL'),
+        ssl_require=True,
+        conn_max_age=600,          # 接続を10分使い回す（リクエスト毎の TCP+TLS+認証ハンドシェイクを省く）
+        conn_health_checks=True,   # Neon がスリープで切った接続を次リクエスト頭で検知し再接続
+    )
 }
 
 MIDDLEWARE =[
