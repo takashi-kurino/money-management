@@ -11,8 +11,6 @@ Django + Next.js のフルスタック構成で、認証フローの設計（BFF
 
 [https://takashikurino.com](https://takashikurino.com)
 
-⚠️起動に1~2分かかります
-
 ## 技術スタック
 
 | カテゴリ | 技術 |
